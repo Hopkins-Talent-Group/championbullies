@@ -16,7 +16,7 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<AgreementFormValues>;
+  } = useForm<AgreementFormValues>();
 
   const onSubmitHandler = (data: AgreementFormValues) => {
     onSubmit(data);

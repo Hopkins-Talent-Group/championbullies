@@ -167,7 +167,17 @@ export const ReservationProvider = ({ children }: ReservationProviderProps) => {
     initialState
   );
 
-  const value = { state, actions: {} as ReservationActions };
+  const value = { 
+    state, 
+    actions: {
+      open: (puppy) => dispatch({ type: "open", puppy }),
+      close: () => dispatch({ type: "close" }),
+      next: () => dispatch({ type: "next" }),
+      back: () => dispatch({ type: "back" }),
+      setField: (field, value) => dispatch({ type: "setField", field, value }),
+      reset: () => dispatch({ type: "reset" }),
+    }
+  };
 
   return (
     <ReservationContext.Provider value={value}>

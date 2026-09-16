@@ -16,7 +16,7 @@ export function Step3({ onNext, onBack }: Step3Props) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<LivingFormValues>;
+  } = useForm<LivingFormValues>();
 
   const onSubmit = (data: LivingFormValues) => {
     onNext(data);
