@@ -24,6 +24,12 @@
 .DS_Store
 *.pem
 
+# ox
+/.ox
+
+# code graph analysis
+/graphify-out
+
 # debug
 npm-debug.log*
 yarn-debug.log*
