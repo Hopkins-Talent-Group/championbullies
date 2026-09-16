@@ -1,0 +1,263 @@
+{
+  "communities": {
+    "0": [
+      "eslint",
+      "eslint_config_next",
+      "package_devdependencies",
+      "package_devdependencies_eslint",
+      "package_devdependencies_eslint_config_next",
+      "package_devdependencies_tailwindcss",
+      "package_devdependencies_tailwindcss_postcss",
+      "package_devdependencies_types_node",
+      "package_devdependencies_types_react",
+      "package_devdependencies_types_react_dom",
+      "package_devdependencies_typescript",
+      "tailwindcss",
+      "tailwindcss_postcss",
+      "types_node",
+      "types_react",
+      "types_react_dom",
+      "typescript"
+    ],
+    "1": [
+      "framer_motion",
+      "gsap",
+      "lenis",
+      "next",
+      "package_dependencies",
+      "package_dependencies_framer_motion",
+      "package_dependencies_gsap",
+      "package_dependencies_lenis",
+      "package_dependencies_next",
+      "package_dependencies_react",
+      "package_dependencies_react_dom",
+      "package_dependencies_three",
+      "package_dependencies_types_three",
+      "react",
+      "react_dom",
+      "three",
+      "types_three"
+    ],
+    "2": [
+      "tsconfig_compileroptions",
+      "tsconfig_compileroptions_allowjs",
+      "tsconfig_compileroptions_esmoduleinterop",
+      "tsconfig_compileroptions_incremental",
+      "tsconfig_compileroptions_isolatedmodules",
+      "tsconfig_compileroptions_jsx",
+      "tsconfig_compileroptions_module",
+      "tsconfig_compileroptions_moduleresolution",
+      "tsconfig_compileroptions_noemit",
+      "tsconfig_compileroptions_paths",
+      "tsconfig_compileroptions_plugins",
+      "tsconfig_compileroptions_resolvejsonmodule",
+      "tsconfig_compileroptions_skiplibcheck",
+      "tsconfig_compileroptions_strict",
+      "tsconfig_compileroptions_target"
+    ],
+    "3": [
+      "src_app_page",
+      "src_app_page_home",
+      "src_components_contact",
+      "src_components_contact_contact",
+      "src_components_contact_interests",
+      "src_components_footer",
+      "src_components_footer_footer",
+      "src_components_gallery",
+      "src_components_gallery_gallery",
+      "src_components_gallery_pups",
+      "src_components_hero",
+      "src_components_hero_hero"
+    ],
+    "4": [
+      "ref_mts",
+      "ref_next_dev_types_ts",
+      "ref_next_env_d_ts",
+      "ref_next_types_ts",
+      "ref_node_modules",
+      "ref_ts",
+      "ref_tsx",
+      "tsconfig",
+      "tsconfig_exclude",
+      "tsconfig_include"
+    ],
+    "5": [
+      "package",
+      "package_name",
+      "package_private",
+      "package_scripts",
+      "package_scripts_build",
+      "package_scripts_dev",
+      "package_scripts_lint",
+      "package_scripts_start",
+      "package_version"
+    ],
+    "6": [
+      "src_app_layout",
+      "src_app_layout_metadata",
+      "src_app_layout_roboto",
+      "src_app_layout_robotoslab",
+      "src_app_layout_rootlayout"
+    ],
+    "7": [
+      "readme",
+      "readme_deploy_on_vercel",
+      "readme_getting_started",
+      "readme_learn_more"
+    ],
+    "8": [
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_esnext",
+      "tsconfig_compileroptions_lib"
+    ],
+    "9": [
+      "src_components_canvas",
+      "src_components_canvas_canvas",
+      "src_components_canvas_canvas_animate"
+    ],
+    "10": [
+      "src_components_navigation",
+      "src_components_navigation_chapters",
+      "src_components_navigation_navigation"
+    ],
+    "11": [
+      "eslint_config",
+      "eslint_config_eslintconfig"
+    ],
+    "12": [
+      "next_config",
+      "next_config_nextconfig"
+    ],
+    "13": [
+      "postcss_config",
+      "postcss_config_config"
+    ],
+    "14": [
+      "src_components_customcursor",
+      "src_components_customcursor_customcursor"
+    ],
+    "15": [
+      "src_components_grain",
+      "src_components_grain_grain"
+    ],
+    "16": [
+      "src_components_progressrail",
+      "src_components_progressrail_progressrail"
+    ],
+    "17": [
+      "src_components_vignette",
+      "src_components_vignette_vignette"
+    ]
+  },
+  "cohesion": {
+    "0": 0.11764705882352941,
+    "1": 0.11764705882352941,
+    "2": 0.13333333333333333,
+    "3": 0.22727272727272727,
+    "4": 0.2,
+    "5": 0.2222222222222222,
+    "6": 0.4,
+    "7": 0.5,
+    "8": 0.5,
+    "9": 0.6666666666666666,
+    "10": 0.6666666666666666,
+    "11": 1.0,
+    "12": 1.0,
+    "13": 1.0,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0
+  },
+  "gods": [
+    {
+      "id": "tsconfig_compileroptions",
+      "label": "compilerOptions",
+      "degree": 16
+    },
+    {
+      "id": "tsconfig_include",
+      "label": "include",
+      "degree": 7
+    },
+    {
+      "id": "package_scripts",
+      "label": "scripts",
+      "degree": 5
+    },
+    {
+      "id": "tsconfig_compileroptions_lib",
+      "label": "lib",
+      "degree": 4
+    },
+    {
+      "id": "src_components_contact_contact",
+      "label": "Contact()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_footer_footer",
+      "label": "Footer()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_gallery_gallery",
+      "label": "Gallery()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_hero_hero",
+      "label": "Hero()",
+      "degree": 2
+    },
+    {
+      "id": "src_components_canvas_canvas",
+      "label": "Canvas()",
+      "degree": 2
+    },
+    {
+      "id": "package_devdependencies_eslint",
+      "label": "eslint",
+      "degree": 2
+    }
+  ],
+  "surprises": [],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `devDependencies` connect `devDependencies` to `package.json`?",
+      "why": "High betweenness centrality (0.085) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `dependencies` connect `dependencies` to `package.json`?",
+      "why": "High betweenness centrality (0.085) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `compilerOptions` connect `compilerOptions` to `lib`, `include`?",
+      "why": "High betweenness centrality (0.053) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `eslint`, `eslint-config-next`, `tailwindcss` to the rest of the system?",
+      "why": "59 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `devDependencies` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `dependencies` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `compilerOptions` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

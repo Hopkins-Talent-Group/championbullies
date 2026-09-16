@@ -1,0 +1,212 @@
+{
+  "eslint.config.mjs": {
+    "mtime": 1789552812.406281,
+    "seen": 1789558346.932619,
+    "ast_hash": "dfa1f5f6a7037bf39dc510f30b180002",
+    "semantic_hash": ""
+  },
+  "next.config.ts": {
+    "mtime": 1789552812.4240706,
+    "seen": 1789558346.932619,
+    "ast_hash": "9b77af189a21a7a64e4bd7a426f64176",
+    "semantic_hash": ""
+  },
+  "package.json": {
+    "mtime": 1789552812.4285047,
+    "seen": 1789558346.932619,
+    "ast_hash": "5ae9d58402bec14a91d084937640a649",
+    "semantic_hash": ""
+  },
+  "postcss.config.mjs": {
+    "mtime": 1789552812.430501,
+    "seen": 1789558346.932619,
+    "ast_hash": "239f3ebf717465dc636818a1a619398d",
+    "semantic_hash": ""
+  },
+  "src/app/layout.tsx": {
+    "mtime": 1789556792.3411543,
+    "seen": 1789558346.932619,
+    "ast_hash": "49437aff3d05191a69e5805e7d3a3290",
+    "semantic_hash": ""
+  },
+  "src/app/page.tsx": {
+    "mtime": 1789557742.593027,
+    "seen": 1789558346.932619,
+    "ast_hash": "dec2acf1f2618ca3c5be8dba43ba89c1",
+    "semantic_hash": ""
+  },
+  "src/components/Canvas.tsx": {
+    "mtime": 1789552812.4384866,
+    "seen": 1789558346.932619,
+    "ast_hash": "028855cb903ada9c3c2b7455c0b9d9ab",
+    "semantic_hash": ""
+  },
+  "src/components/Contact.tsx": {
+    "mtime": 1789557780.962011,
+    "seen": 1789558346.932619,
+    "ast_hash": "f561b4caeab23657c752053b57218b3a",
+    "semantic_hash": ""
+  },
+  "src/components/CustomCursor.tsx": {
+    "mtime": 1789552812.4394763,
+    "seen": 1789558346.932619,
+    "ast_hash": "6a873d3854fdb41a4d4796038c775a75",
+    "semantic_hash": ""
+  },
+  "src/components/Footer.tsx": {
+    "mtime": 1789557403.7729948,
+    "seen": 1789558346.932619,
+    "ast_hash": "dcaf24a25789dcc7f447998acc1422b5",
+    "semantic_hash": ""
+  },
+  "src/components/Gallery.tsx": {
+    "mtime": 1789557401.1217062,
+    "seen": 1789558346.932619,
+    "ast_hash": "0bceb4f9b55654a4b637693b42cd1aa7",
+    "semantic_hash": ""
+  },
+  "src/components/Grain.tsx": {
+    "mtime": 1789552812.4414775,
+    "seen": 1789558346.932619,
+    "ast_hash": "90c4ac7741d07252acc7c42df0fc2d11",
+    "semantic_hash": ""
+  },
+  "src/components/Hero.tsx": {
+    "mtime": 1789557398.873994,
+    "seen": 1789558346.932619,
+    "ast_hash": "6ba2b1ebdb75ab8b012e63e0a27c4c6d",
+    "semantic_hash": ""
+  },
+  "src/components/Navigation.tsx": {
+    "mtime": 1789553384.7971783,
+    "seen": 1789558346.932619,
+    "ast_hash": "955bd9758b7e56c724ebc27ba591b598",
+    "semantic_hash": ""
+  },
+  "src/components/ProgressRail.tsx": {
+    "mtime": 1789552812.4444635,
+    "seen": 1789558346.932619,
+    "ast_hash": "8f8c00878a0db2677af419b7760316ec",
+    "semantic_hash": ""
+  },
+  "src/components/Vignette.tsx": {
+    "mtime": 1789552812.4444635,
+    "seen": 1789558346.932619,
+    "ast_hash": "011d8b288e9f7b7a2a65d0b994ed2329",
+    "semantic_hash": ""
+  },
+  "tsconfig.json": {
+    "mtime": 1789552812.4454608,
+    "seen": 1789558346.932619,
+    "ast_hash": "ee17fd1c97c735e9f3564e3f5251f125",
+    "semantic_hash": ""
+  },
+  "README.md": {
+    "mtime": 1789552812.406281,
+    "seen": 1789558346.932619,
+    "ast_hash": "f15aaa42d5d299d091b1171097ea56ad",
+    "semantic_hash": ""
+  },
+  "pnpm-workspace.yaml": {
+    "mtime": 1789552812.430501,
+    "seen": 1789558346.932619,
+    "ast_hash": "0470501c3746ed3cb5f36ae78ed73034",
+    "semantic_hash": ""
+  },
+  "public/file.svg": {
+    "mtime": 1789552812.4314976,
+    "seen": 1789558346.932619,
+    "ast_hash": "d09f95206c3fa0bb9bd9fefabfd0ea71",
+    "semantic_hash": ""
+  },
+  "public/globe.svg": {
+    "mtime": 1789552812.432494,
+    "seen": 1789558346.932619,
+    "ast_hash": "2aaafa6a49b6563925fe440891e32717",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/blue-angel.jpg": {
+    "mtime": 1789556189.9806795,
+    "seen": 1789558346.932619,
+    "ast_hash": "2bcf9181aa2b2ed41f4b05a98a69e23a",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/daphne.jpg": {
+    "mtime": 1789553384.7757714,
+    "seen": 1789558346.932619,
+    "ast_hash": "01a242d2e80a90a23c09ac4e753148cf",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/fred.jpg": {
+    "mtime": 1789553384.7757714,
+    "seen": 1789558346.932619,
+    "ast_hash": "567f5b92ee7c68303c031997637d8c0c",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/hero.jpg": {
+    "mtime": 1789556189.5893395,
+    "seen": 1789558346.932619,
+    "ast_hash": "9fe462e11e957fd64560f8d6eb201797",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/margo.jpg": {
+    "mtime": 1789556189.7395785,
+    "seen": 1789558346.932619,
+    "ast_hash": "c1f465f4a6191526cc223a914e10ea8d",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/puppy-2018.jpg": {
+    "mtime": 1789556190.2590952,
+    "seen": 1789558346.932619,
+    "ast_hash": "201d026fbc8ff12828678bd6ba907b82",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/puppy-2019.jpg": {
+    "mtime": 1789558145.6323848,
+    "seen": 1789558346.932619,
+    "ast_hash": "2b04eb3ba43e1573f02e9ce6271b80f9",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/scooby.jpg": {
+    "mtime": 1789553384.7858899,
+    "seen": 1789558346.932619,
+    "ast_hash": "cd7c321c0a28480fc9aad5bd063d9582",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/scrappy.jpg": {
+    "mtime": 1789553384.7858899,
+    "seen": 1789558346.932619,
+    "ast_hash": "1f903196586e94bd993405a65dcd7c53",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/shaggy.jpg": {
+    "mtime": 1789553384.7858899,
+    "seen": 1789558346.932619,
+    "ast_hash": "6f2fa1febc96fcbc0a47110a951891e3",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/velma.jpg": {
+    "mtime": 1789553384.7858899,
+    "seen": 1789558346.932619,
+    "ast_hash": "a0f084b4295876c2507752af8205ec75",
+    "semantic_hash": ""
+  },
+  "public/next.svg": {
+    "mtime": 1789552812.432494,
+    "seen": 1789558346.932619,
+    "ast_hash": "8e061864f388b47f33a1c3780831193e",
+    "semantic_hash": ""
+  },
+  "public/vercel.svg": {
+    "mtime": 1789552812.4334934,
+    "seen": 1789558346.932619,
+    "ast_hash": "c0af2f507b369b085b35ef4bbe3bcf1e",
+    "semantic_hash": ""
+  },
+  "public/window.svg": {
+    "mtime": 1789552812.4344895,
+    "seen": 1789558346.932619,
+    "ast_hash": "a2760511c65806022ad20adf74370ff3",
+    "semantic_hash": ""
+  }
+}
