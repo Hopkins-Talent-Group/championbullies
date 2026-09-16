@@ -3,14 +3,12 @@
 import { useEffect, useRef, useState } from "react";
 
 const puppies = [
-  { name: "Blue Angel", gender: "male", image: "/images/gallery/20181128_193532-scaled.jpg", year: 2018 },
-  { name: "Lolita", gender: "female", image: "/images/gallery/20181128_193902-scaled.jpg", year: 2018 },
-  { name: "Margo", gender: "female", image: "/images/gallery/20190110_192601.jpg", year: 2019 },
-  { name: "Agnes", gender: "female", image: "/images/gallery/20190110_191858.jpg", year: 2019 },
-  { name: "Scout", gender: "male", image: "/images/gallery/20240624_180950-scaled.jpg", year: 2024 },
-  { name: "Brutus", gender: "male", image: "/images/gallery/20180312_201748.jpg", year: 2018 },
-  { name: "Stella", gender: "female", image: "/images/gallery/image1.jpeg", year: 2026 },
-  { name: "Duke", gender: "male", image: "/images/gallery/bulldog-7476727_960_720.jpg", year: 2018 },
+  { name: "Daphne", gender: "female", image: "/images/dogs/daphne.jpg", year: 2024 },
+  { name: "Fred", gender: "male", image: "/images/dogs/fred.jpg", year: 2024 },
+  { name: "Scooby", gender: "male", image: "/images/dogs/scooby.jpg", year: 2024 },
+  { name: "Scrappy", gender: "male", image: "/images/dogs/scrappy.jpg", year: 2024 },
+  { name: "Shaggy", gender: "male", image: "/images/dogs/shaggy.jpg", year: 2024 },
+  { name: "Velma", gender: "female", image: "/images/dogs/velma.jpg", year: 2024 },
 ];
 
 export function Gallery() {
@@ -116,8 +114,8 @@ export function Gallery() {
                 <b style={{ fontSize: "clamp(13px,1.15vw,17px)", fontWeight: 400, letterSpacing: "0.02em", textTransform: "uppercase" }}>
                   {puppy.name}
                 </b>
-                <span className="jp" style={{ fontSize: "11px", letterSpacing: "0.3em", color: "rgba(223,231,224,.62)" }}>
-                  {puppy.gender === "male" ? "雄" : "雌"}
+                <span className="jp" style={{ fontSize: "11px", letterSpacing: "0.3em", color: "rgba(223,231,224,.62)", textTransform: "uppercase" }}>
+                  {puppy.gender === "male" ? "Male" : "Female"}
                 </span>
               </div>
 

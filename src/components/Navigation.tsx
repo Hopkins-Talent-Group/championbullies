@@ -4,8 +4,8 @@ import { useEffect, useRef, useState } from "react";
 
 const chapters = [
   { id: "home", label: "Home", number: "01" },
-  { id: "gallery", label: "Gallery", number: "02" },
-  { id: "contact", label: "Contact", number: "03" },
+  { id: "gallery", label: "Puppies", number: "02" },
+  { id: "contact", label: "Reserve", number: "03" },
 ];
 
 export function Navigation() {

@@ -115,10 +115,10 @@ export function Hero() {
 
         <div className="chapters grid grid-cols-4 gap-[clamp(14px,2.4vw,40px)] border-t border-[var(--color-line-soft)] pt-4.5" role="tablist" aria-label="Chapters">
           {[
-            { label: "Threshold", desc: "The torii gate & moonlit approach" },
-            { label: "Pathways", desc: "Lantern courts & moonlit gardens" },
-            { label: "Craft", desc: "Sacred lessons & ancient wisdom" },
-            { label: "Afterlight", desc: "The vermilion moon rises" },
+            { label: "Our Story", desc: "Champion bloodlines, home-raised with love" },
+            { label: "Gallery", desc: "Meet our available English & French Bulldogs" },
+            { label: "Breeding", desc: "Health-tested parents, champion pedigrees" },
+            { label: "Reserve", desc: "Join our family — puppies available now" },
           ].map((chapter, index) => (
             <button
               key={chapter.label}
