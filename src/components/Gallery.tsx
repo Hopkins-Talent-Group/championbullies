@@ -1,153 +1,105 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 
-const puppies = [
-  { name: "Daphne", gender: "female", image: "/images/dogs/daphne.jpg", year: 2024 },
-  { name: "Fred", gender: "male", image: "/images/dogs/fred.jpg", year: 2024 },
-  { name: "Scooby", gender: "male", image: "/images/dogs/scooby.jpg", year: 2024 },
-  { name: "Scrappy", gender: "male", image: "/images/dogs/scrappy.jpg", year: 2024 },
-  { name: "Shaggy", gender: "male", image: "/images/dogs/shaggy.jpg", year: 2024 },
-  { name: "Velma", gender: "female", image: "/images/dogs/velma.jpg", year: 2024 },
+const pups = [
+  { key: "margo", name: "Margo", image: "/images/dogs/margo.jpg", year: 2019 },
+  { key: "blue-angel", name: "Blue Angel", image: "/images/dogs/blue-angel.jpg", year: 2018 },
+  { key: "puppy-2019", name: null, image: "/images/dogs/puppy-2019.jpg", year: 2019 },
+  { key: "puppy-2018", name: null, image: "/images/dogs/puppy-2018.jpg", year: 2018 },
 ];
 
 export function Gallery() {
-  const [activeFilter, setActiveFilter] = useState<"all" | "male" | "female">("all");
   const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
+    const root = sectionRef.current;
+    if (!root) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            entry.target.classList.add("rv-in");
-          }
+          if (entry.isIntersecting) entry.target.classList.add("rv-in");
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
     );
 
-    observer.observe(section);
+    root.querySelectorAll("[data-rv]").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
-
-  const filteredPuppies = puppies.filter(
-    (p) => activeFilter === "all" || p.gender === activeFilter
-  );
 
   return (
     <section
       ref={sectionRef}
       id="gallery"
-      className="sec relative"
-      style={{
-        padding: "clamp(88px,15vh,190px) var(--pad)",
-      }}
       aria-labelledby="gallery-heading"
+      style={{
+        borderTop: "1px solid var(--line-soft)",
+        padding: "clamp(64px,11vh,140px) var(--pad)",
+      }}
     >
-      <div className="fg" style={{ position: "absolute", inset: 0, zIndex: 3, pointerEvents: "none", overflow: "visible" }} aria-hidden="true" />
+      <div className="mx-auto" style={{ maxWidth: 1440 }}>
+        <div className="flex flex-wrap items-end justify-between gap-6" data-rv="up">
+          <div>
+            <p className="eyebrow">Available Puppies</p>
+            <h2 id="gallery-heading" className="display h-sec" style={{ marginTop: 16 }}>
+              Meet the Litter
+            </h2>
+          </div>
+          <p className="body-lg" style={{ maxWidth: "44ch", fontSize: 14 }}>
+            Every photograph was taken in our home — cropped, never retouched, never stock.
+          </p>
+        </div>
 
-      <div className="sec-head flex items-baseline gap-4 mb-[clamp(30px,5vh,66px)]" data-rv="up">
-        <span className="k" style={{ fontSize: "10px", fontWeight: 500, letterSpacing: "0.24em", textTransform: "uppercase", color: "var(--color-muted)" }}>
-          <b style={{ color: "var(--color-vermilion)", fontWeight: 500 }}>Chapter II</b> — Still Gardens
-        </span>
-        <div className="rule flex-1 h-px" style={{ background: "var(--color-line-soft)" }} />
-      </div>
-
-      <div className="cards grid gap-[clamp(10px,1.4vw,22px)]" style={{ gridTemplateColumns: "repeat(3, 1fr)", alignItems: "start" }} role="list" aria-label="Puppy gallery">
-        {filteredPuppies.map((puppy, index) => (
-          <article
-            key={puppy.name}
-            className="card relative cursor-pointer"
-            role="listitem"
-            style={{
-              transform: index === 0 ? "translateY(0)" : index === 1 ? `translateY(clamp(26px,5vw,74px))` : `translateY(clamp(52px,10vw,148px))`,
-              transition: "transform .5s var(--ease-out)",
-              transitionDelay: `${index * 120}ms`,
-            }}
-            data-rv="up"
-          >
-            <div
-              className="card-fr relative isolation-isolate"
-              style={{
-                aspectRatio: "4/5",
-                outline: "1px solid var(--color-line-soft)",
-                outlineOffset: "-1px",
-                transition: "outline-color .5s var(--ease)",
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.outlineColor = "rgba(223,231,224,.30)"}
-              onMouseLeave={(e) => e.currentTarget.style.outlineColor = "var(--color-line-soft)"}
-            >
-              <div
-                className="absolute inset-0"
-                style={{
-                  background: `linear-gradient(180deg,rgba(3,6,9,.04) 36%,rgba(3,6,9,.72) 100%), url('${puppy.image}') center / cover no-repeat`,
-                }}
-                aria-hidden="true"
-              />
-              <div className="absolute inset-0 pointer-events-none" style={{ background: "linear-gradient(transparent 46%, rgba(4,6,9,.80))" }} />
-
-              <div className="glow absolute pointer-events-none" style={{
-                left: "var(--gx, 50%)",
-                top: "var(--gy, 50%)",
-                width: "calc(var(--gr, 100px) * 2)",
-                aspectRatio: "1",
-                transform: "translate(-50%, -50%)",
-                mixBlendMode: "screen",
-                animation: "glow-swell 4s var(--ease-io) infinite alternate",
-              }}>
+        <ul
+          className="mt-[clamp(30px,5vh,56px)] grid grid-cols-1 gap-[clamp(14px,1.6vw,24px)] sm:grid-cols-2 lg:grid-cols-4"
+          style={{ padding: 0, listStyle: "none" }}
+          role="list"
+        >
+          {pups.map((pup, index) => (
+            <li key={pup.key} data-rv="up" style={{ transitionDelay: `${index * 90}ms` }}>
+              <article className="group cursor-pointer">
                 <div
-                  className="absolute inset-0 rounded-full"
+                  className="relative overflow-hidden"
                   style={{
-                    background: "radial-gradient(closest-side, rgba(232,52,28,.6), rgba(158,20,16,.3) 40%, transparent 72%)",
-                    animation: "glow-pulse 3s var(--ease-io) infinite",
+                    aspectRatio: "4 / 5",
+                    outline: "1px solid var(--line)",
+                    outlineOffset: "-1px",
+                    transition: "outline-color .4s var(--ease)",
                   }}
-                />
-              </div>
-
-              <div className="card-lab absolute left-4 right-4 bottom-3.5 z-20 flex items-end justify-between gap-2.5">
-                <b style={{ fontSize: "clamp(13px,1.15vw,17px)", fontWeight: 400, letterSpacing: "0.02em", textTransform: "uppercase" }}>
-                  {puppy.name}
-                </b>
-                <span className="jp" style={{ fontSize: "11px", letterSpacing: "0.3em", color: "rgba(223,231,224,.62)", textTransform: "uppercase" }}>
-                  {puppy.gender === "male" ? "Male" : "Female"}
-                </span>
-              </div>
-
-              <div className="card-ar absolute top-3.5 right-3.5 z-20 w-[26px] h-[26px]" style={{ opacity: 0, transform: "translate3d(-4px,4px,0)", transition: ".5s var(--ease-out)" }}>
-                <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: "var(--color-bone)" }}>
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </div>
-
-              <div className="card-meta flex justify-between mt-3" style={{ fontSize: "10px", letterSpacing: "0.16em", textTransform: "uppercase", color: "var(--color-muted)" }}>
-                <span>{puppy.year}</span>
-                <span>AKC Registered</span>
-              </div>
-            </div>
-          </article>
-        ))}
+                >
+                  <Image
+                    src={pup.image}
+                    alt={
+                      pup.name
+                        ? `${pup.name}, an English bulldog puppy raised in our home`
+                        : "An English bulldog puppy raised in our home"
+                    }
+                    fill
+                    sizes="(min-width: 900px) 24vw, (min-width: 600px) 46vw, 92vw"
+                    className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
+                    style={{ transitionTimingFunction: "var(--ease-out)" }}
+                  />
+                </div>
+                <div className="flex items-baseline justify-between gap-3" style={{ marginTop: 14 }}>
+                  <h3
+                    style={{
+                      fontFamily: "var(--font-slab)",
+                      fontWeight: 600,
+                      fontSize: "clamp(16px,1.4vw,20px)",
+                    }}
+                  >
+                    {pup.name ?? "English Bulldog"}
+                  </h3>
+                  <span className="caption">{pup.year}</span>
+                </div>
+              </article>
+            </li>
+          ))}
+        </ul>
       </div>
-
-      <style jsx>{`
-        @keyframes glow-swell {
-          from { transform: translate(-50%, -50%) scale(0.93); }
-          to { transform: translate(-50%, -50%) scale(1.07); }
-        }
-        @keyframes glow-pulse {
-          from { opacity: 0.78; }
-          50% { opacity: 1; }
-          to { opacity: 0.78; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .glow, .glow > div { animation: none; }
-        }
-      `}</style>
     </section>
   );
 }

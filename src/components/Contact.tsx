@@ -2,258 +2,118 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const interests = [
+  { value: "english-available", label: "Available English Bulldog Litter" },
+  { value: "french-available", label: "Available French Bulldog Litter" },
+  { value: "english-upcoming", label: "Upcoming English Bulldog Litter" },
+  { value: "french-upcoming", label: "Upcoming French Bulldog Litter" },
+  { value: "general", label: "General Inquiry" },
+];
+
 export function Contact() {
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-    litterInterest: "",
-  });
+  const [formData, setFormData] = useState({ name: "", email: "", phone: "", message: "", litterInterest: "" });
   const [status, setStatus] = useState<"idle" | "submitting" | "success" | "error">("idle");
   const sectionRef = useRef<HTMLElement>(null);
-  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setIsVisible(true);
-            entry.target.classList.add("rv-in");
-          }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" }
-    );
-
-    observer.observe(section);
+    const root = sectionRef.current;
+    if (!root) return;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) entry.target.classList.add("rv-in");
+      });
+    }, { threshold: 0.12 });
+    root.querySelectorAll("[data-rv]").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("submitting");
-
-    await new Promise((resolve) => setTimeout(resolve, 1500));
+    await new Promise((resolve) => setTimeout(resolve, 1200));
     setStatus("success");
     setFormData({ name: "", email: "", phone: "", message: "", litterInterest: "" });
-    setTimeout(() => setStatus("idle"), 3000);
+    setTimeout(() => setStatus("idle"), 4000);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
 
+  const fieldStyle = { border: "1px solid var(--line)", background: "#ffffff" };
+
   return (
-    <section
-      ref={sectionRef}
-      id="contact"
-      className="sec relative"
-      style={{
-        padding: "clamp(88px,15vh,190px) var(--pad)",
-      }}
-      aria-labelledby="contact-heading"
-    >
-      <div className="e-con-inner">
-        <div className="e-con-full e-flex e-con e-child" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "clamp(40px, 6vw, 100px)", alignItems: "start" }}>
-          <div className="e-con-full e-flex elementor-invisible e-con e-child" data-rv="fade" style={{ animation: "fadeInLeft 1s var(--ease-out) forwards", opacity: 0 }}>
-            <h2 id="contact-heading" className="h-sec" style={{ marginBottom: "clamp(30px,5vh,66px)" }}>
-              Get in Touch
-            </h2>
-            <p className="body-lg" style={{ marginBottom: "clamp(30px,5vh,66px)" }}>
-              We&apos;re excited to help you find the perfect <strong>English or French Bulldog companion</strong>! Whether you&apos;re ready to reserve a puppy or just have questions about our breeding program, we&apos;d love to hear from you.
-            </p>
-
-            <ul className="elementor-icon-list-items space-y-4" role="list" aria-label="Contact information">
-              <li className="elementor-icon-list-item">
-                <a href="#contact" className="flex items-center gap-3">
-                  <span className="elementor-icon-list-icon flex-shrink-0" style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center" }} aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 384 512" fill="currentColor" style={{ color: "var(--color-bone)" }}>
-                      <path d="M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z" />
-                    </svg>
-                  </span>
-                  <span className="elementor-icon-list-text">Florida, USA</span>
-                </a>
-              </li>
-              <li className="elementor-icon-list-item">
-                <a href="mailto:championbullies@aol.com" className="flex items-center gap-3">
-                  <span className="elementor-icon-list-icon flex-shrink-0" style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center" }} aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 512 512" fill="currentColor" style={{ color: "var(--color-bone)" }}>
-                      <path d="M502.3 190.8c3.9-3.1 9.7-.2 9.7 4.7V400c0 26.5-21.5 48-48 48H48c-26.5 0-48-21.5-48-48V195.6c0-5 5.7-7.8 9.7-4.7 22.4 17.4 52.1 39.5 154.1 113.6 21.1 15.4 56.7 47.8 92.2 47.6 35.7.3 72-32.8 92.3-47.6 102-74.1 131.6-96.3 154-113.7zM256 320c23.2.4 56.6-29.2 73.4-41.4 132.7-96.3 142.8-104.7 173.4-128.7 5.8-4.5 9.2-11.5 9.2-18.9v-19c0-26.5-21.5-48-48-48H48C21.5 64 0 85.5 0 112v19c0 7.4 3.4 14.3 9.2 18.9 30.6 23.9 40.7 32.4 173.4 128.7 16.8 12.2 50.2 41.8 73.4 41.4z" />
-                    </svg>
-                  </span>
-                  <span className="elementor-icon-list-text">championbullies@aol.com</span>
-                </a>
-              </li>
-              <li className="elementor-icon-list-item">
-                <a href="tel:+13212761159" className="flex items-center gap-3">
-                  <span className="elementor-icon-list-icon flex-shrink-0" style={{ width: "20px", height: "20px", display: "flex", alignItems: "center", justifyContent: "center" }} aria-hidden="true">
-                    <svg width="20" height="20" viewBox="0 0 512 512" fill="currentColor" style={{ color: "var(--color-bone)" }}>
-                      <path d="M497.39 361.8l-112-48a24 24 0 0 0-28 6.9l-49.6 60.6A370.66 370.66 0 0 1 130.6 204.11l60.6-49.6a23.94 23.94 0 0 0 6.9-28l-48-112A24.16 24.16 0 0 0 122.6.61l-104 24A24 24 0 0 0 0 48c0 256.5 207.9 464 464 464a24 24 0 0 0 23.4-18.6l24-104a24.29 24.29 0 0 0-14.01-27.6z" />
-                    </svg>
-                  </span>
-                  <span className="elementor-icon-list-text">(321) 276-1159</span>
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div className="e-con-full e-flex elementor-invisible e-con e-child" data-rv="fade" style={{ animation: "fadeInRight 1s var(--ease-out) forwards", opacity: 0, animationDelay: "200ms" }}>
-            <p className="body-lg mb-6">
-              Fill out the form below and we&apos;ll get back to you as soon as possible — usually within 24 hours.
-            </p>
-            <p className="body-lg mb-8">
-              We respond promptly to serious inquiries. If you&apos;re interested in a specific litter or upcoming puppies, please mention that in your message!
-            </p>
-
-            <form onSubmit={handleSubmit} className="space-y-6" noValidate>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="name" className="block text-xs font-medium uppercase tracking-wider text-[var(--color-muted)] mb-2">
-                    Name *
-                  </label>
-                  <input
-                    type="text"
-                    id="name"
-                    name="name"
-                    required
-                    value={formData.name}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[var(--color-ink-2)] border border-[var(--color-line)] focus:border-[var(--color-vermilion)] focus:outline-none focus:ring-1 focus:ring-[var(--color-vermilion)] transition-colors"
-                    placeholder="Your Name"
-                    aria-required="true"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="email" className="block text-xs font-medium uppercase tracking-wider text-[var(--color-muted)] mb-2">
-                    Email *
-                  </label>
-                  <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[var(--color-ink-2)] border border-[var(--color-line)] focus:border-[var(--color-vermilion)] focus:outline-none focus:ring-1 focus:ring-[var(--color-vermilion)] transition-colors"
-                    placeholder="your@email.com"
-                    aria-required="true"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <label htmlFor="phone" className="block text-xs font-medium uppercase tracking-wider text-[var(--color-muted)] mb-2">
-                    Phone
-                  </label>
-                  <input
-                    type="tel"
-                    id="phone"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[var(--color-ink-2)] border border-[var(--color-line)] focus:border-[var(--color-vermilion)] focus:outline-none focus:ring-1 focus:ring-[var(--color-vermilion)] transition-colors"
-                    placeholder="(xxx) xxx-xxxx"
-                  />
-                </div>
-                <div>
-                  <label htmlFor="litterInterest" className="block text-xs font-medium uppercase tracking-wider text-[var(--color-muted)] mb-2">
-                    Litter Interest
-                  </label>
-                  <select
-                    id="litterInterest"
-                    name="litterInterest"
-                    value={formData.litterInterest}
-                    onChange={handleChange}
-                    className="w-full px-4 py-3 bg-[var(--color-ink-2)] border border-[var(--color-line)] focus:border-[var(--color-vermilion)] focus:outline-none focus:ring-1 focus:ring-[var(--color-vermilion)] transition-colors appearance-none"
-                  >
-                    <option value="">Select a litter</option>
-                    <option value="english-current">Current English Bulldog Litter</option>
-                    <option value="french-current">Current French Bulldog Litter</option>
-                    <option value="english-upcoming">Upcoming English Bulldog Litter</option>
-                    <option value="french-upcoming">Upcoming French Bulldog Litter</option>
-                    <option value="general">General Inquiry</option>
-                  </select>
-                </div>
-              </div>
-
-              <div>
-                <label htmlFor="message" className="block text-xs font-medium uppercase tracking-wider text-[var(--color-muted)] mb-2">
-                  Message *
-                </label>
-                <textarea
-                  id="message"
-                  name="message"
-                  required
-                  rows={5}
-                  value={formData.message}
-                  onChange={handleChange}
-                  className="w-full px-4 py-3 bg-[var(--color-ink-2)] border border-[var(--color-line)] focus:border-[var(--color-vermilion)] focus:outline-none focus:ring-1 focus:ring-[var(--color-vermilion)] transition-colors resize-none"
-                  placeholder="Tell us about what you're looking for..."
-                  aria-required="true"
-                />
-              </div>
-
-              <button
-                type="submit"
-                disabled={status === "submitting"}
-                className="cta inline-flex items-center gap-3.5 w-full md:w-auto px-7.5 py-4 border border-[var(--color-line)] rounded-full overflow-hidden transition-all duration-450"
-                style={{
-                  fontSize: "11px",
-                  fontWeight: 500,
-                  letterSpacing: "0.22em",
-                  textTransform: "uppercase",
-                }}
-              >
-                <span className="relative z-10" style={{ transition: "color .45s var(--ease)" }}>
-                  {status === "submitting" ? "Sending..." : status === "success" ? "Message Sent!" : "Send Message"}
-                </span>
-                <span className="relative z-10">
-                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ transition: "transform .62s var(--ease-out)" }}>
-                    <path d="M5 12h14M12 5l7 7-7 7" />
-                  </svg>
-                </span>
-                <i className="absolute inset-0 transition-transform duration-600" style={{
-                  background: "var(--color-bone)",
-                  transform: "translate3d(0,101%,0)",
-                  zIndex: -1,
-                }} aria-hidden="true" />
-              </button>
-
-              {status === "success" && (
-                <p className="text-sm text-[var(--color-vermilion)]" role="alert">
-                  Thank you! We&apos;ll be in touch within 24 hours.
-                </p>
-              )}
-            </form>
-          </div>
+    <section ref={sectionRef} id="contact" aria-labelledby="contact-heading" style={{ borderTop: "1px solid var(--line-soft)", padding: "clamp(64px,11vh,140px) var(--pad)" }}>
+      <div className="mx-auto grid grid-cols-1 gap-x-[clamp(40px,6vw,100px)] gap-y-12 lg:grid-cols-[1fr_1.1fr]" style={{ maxWidth: 1440 }}>
+        <div data-rv="up">
+          <p className="eyebrow">Reserve a Puppy</p>
+          <h2 id="contact-heading" className="display h-sec" style={{ marginTop: 16 }}>Get in Touch</h2>
+          <p className="body-lg" style={{ marginTop: 20, maxWidth: "46ch" }}>
+            Whether you&apos;re ready to reserve a puppy or just have questions about our program, we&apos;d love to hear from you.
+          </p>
+          <ul className="space-y-4" style={{ margin: 0, padding: 0, listStyle: "none", marginTop: 32 }} role="list">
+            <li>
+              <a href="tel:+13212761159" className="flex items-center gap-3 transition-opacity hover:opacity-70" style={{ color: "var(--ink)", fontSize: 15, fontWeight: 500 }}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+                (321) 276-1159
+              </a>
+            </li>
+            <li>
+              <a href="mailto:championbullies@aol.com" className="flex items-center gap-3 transition-opacity hover:opacity-70" style={{ color: "var(--ink)", fontSize: 15, fontWeight: 500 }}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" /><polyline points="22,6 12,13 2,6" /></svg>
+                championbullies@aol.com
+              </a>
+            </li>
+            <li>
+              <span className="flex items-center gap-3" style={{ color: "var(--body)", fontSize: 15 }}>
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+                Florida, USA
+              </span>
+            </li>
+          </ul>
         </div>
-      </div>
 
-      <style jsx>{`
-        @keyframes fadeInLeft {
-          from { opacity: 0; transform: translate3d(-30px, 0, 0); }
-          to { opacity: 1; transform: none; }
-        }
-        @keyframes fadeInRight {
-          from { opacity: 0; transform: translate3d(30px, 0, 0); }
-          to { opacity: 1; transform: none; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .elementor-invisible { animation: none !important; opacity: 1 !important; }
-        }
-        .cta:hover i { transform: none; }
-        .cta:hover { color: #05070a; border-color: var(--color-bone); }
-        .cta:hover svg path { stroke: #05070a; }
-        @media (max-width: 768px) {
-          .e-con-inner > div { grid-template-columns: 1fr !important; }
-        }
-      `}</style>
+        <form onSubmit={handleSubmit} data-rv="up" style={{ transitionDelay: "120ms" }}>
+          <div className="grid gap-5 sm:grid-cols-2">
+            <div>
+              <label htmlFor="name" className="caption block" style={{ marginBottom: 8 }}>Name *</label>
+              <input id="name" name="name" type="text" required autoComplete="name" value={formData.name} onChange={handleChange} className="w-full px-4 py-3 text-[15px]" style={fieldStyle} placeholder="Your name" aria-required="true" />
+            </div>
+            <div>
+              <label htmlFor="email" className="caption block" style={{ marginBottom: 8 }}>Email *</label>
+              <input id="email" name="email" type="email" required autoComplete="email" value={formData.email} onChange={handleChange} className="w-full px-4 py-3 text-[15px]" style={fieldStyle} placeholder="you@example.com" aria-required="true" />
+            </div>
+            <div>
+              <label htmlFor="phone" className="caption block" style={{ marginBottom: 8 }}>Phone</label>
+              <input id="phone" name="phone" type="tel" autoComplete="tel" value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 text-[15px]" style={fieldStyle} placeholder="(555) 555-5555" />
+            </div>
+            <div>
+              <label htmlFor="litterInterest" className="caption block" style={{ marginBottom: 8 }}>I&apos;m interested in</label>
+              <select id="litterInterest" name="litterInterest" value={formData.litterInterest} onChange={handleChange} className="w-full px-4 py-3 text-[15px]" style={fieldStyle}>
+                <option value="">What are you interested in?</option>
+                {interests.map((option) => (
+                  <option key={option.value} value={option.value}>{option.label}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          <div style={{ marginTop: 20 }}>
+            <label htmlFor="message" className="caption block" style={{ marginBottom: 8 }}>Message *</label>
+            <textarea id="message" name="message" required rows={5} value={formData.message} onChange={handleChange} className="w-full resize-none px-4 py-3 text-[15px]" style={fieldStyle} placeholder="Tell us about what you're looking for…" aria-required="true" />
+          </div>
+
+          <div className="flex flex-wrap items-center gap-5" style={{ marginTop: 26 }}>
+            <button type="submit" disabled={status === "submitting"} className="inline-flex items-center gap-3 transition-opacity hover:opacity-85 disabled:opacity-50" style={{ background: "var(--ink)", color: "#ffffff", padding: "15px 28px", borderRadius: 999, fontSize: 11, fontWeight: 600, letterSpacing: ".22em", textTransform: "uppercase", cursor: "pointer" }}>
+              {status === "submitting" ? "Sending…" : status === "success" ? "Message Sent" : "Send Message"}
+            </button>
+            {status === "success" && (
+              <p className="text-sm" role="alert" style={{ color: "var(--accent)" }}>Thank you! We&apos;ll be in touch within 24 hours.</p>
+            )}
+          </div>
+
+        </form>
+      </div>
     </section>
   );
 }

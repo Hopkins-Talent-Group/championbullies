@@ -1,216 +1,148 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import Image from "next/image";
 
 export function Hero() {
-  const [isLoaded, setIsLoaded] = useState(false);
-  const heroRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const hero = heroRef.current;
-    if (!hero) return;
+    const root = sectionRef.current;
+    if (!root) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("rv-in");
-          }
+          if (entry.isIntersecting) entry.target.classList.add("rv-in");
         });
       },
-      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" }
+      { threshold: 0.12 }
     );
 
-    hero.querySelectorAll("[data-rv]").forEach((el) => observer.observe(el));
-
-    setTimeout(() => setIsLoaded(true), 100);
-
+    root.querySelectorAll("[data-rv]").forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 
   return (
     <section
-      ref={heroRef}
+      ref={sectionRef}
       id="home"
-      className="hero relative min-h-[100svh] flex flex-col"
-      style={{ padding: "0 var(--pad)" }}
+      className="relative overflow-hidden"
       aria-labelledby="hero-heading"
     >
       <div
-        className="absolute inset-x-0 top-0 pointer-events-none"
+        className="mx-auto grid grid-cols-1 items-center gap-x-[clamp(32px,5vw,88px)] gap-y-10 lg:grid-cols-[1.05fr_0.95fr]"
         style={{
-          height: "46%",
-          background: "linear-gradient(rgba(3,6,9,.72), rgba(3,6,9,.34) 46%, transparent)",
-        }}
-        aria-hidden="true"
-      />
-
-      <div
-        className="hero-top relative z-20"
-        style={{
-          paddingTop: "calc(var(--nav-h) + clamp(12px,2.6vh,34px))",
-          maxWidth: "min(560px,46vw)",
+          maxWidth: 1440,
+          padding: "clamp(44px,8vh,104px) var(--pad) clamp(56px,10vh,120px)",
         }}
       >
-        <p className="eyebrow flex items-center gap-2.5 mb-5" data-rv="up">
-          <span
-            className="dot"
-            style={{
-              width: "5px",
-              height: "5px",
-              borderRadius: "50%",
-              background: "var(--color-vermilion)",
-              boxShadow: "0 0 10px var(--color-vermilion)",
-            }}
-            aria-hidden="true"
-          />
-          Champion Breeder
-        </p>
-        <h1
-          id="hero-heading"
-          className="display h-hero mb-4"
-          data-rv="up"
-          style={{ transitionDelay: "80ms" }}
-        >
-          From Our Home<span className="block" style={{ transitionDelay: "160ms" }}> to Yours</span>
-        </h1>
-        <p className="hero-sub body-lg max-w-[322px]" data-rv="up" style={{ transitionDelay: "240ms" }}>
-          AKC Registered English & French Bulldogs — Champion Bloodlines, Home-Raised in Florida
-        </p>
-      </div>
-
-      <div className="hero-spacer flex-1" style={{ minHeight: "clamp(140px,26vh,300px)" }} aria-hidden="true" />
-
-      <div
-        className="hero-foot relative z-20"
-        style={{ paddingBottom: "clamp(22px,4.2vh,42px)" }}
-      >
-        <div
-          className="hero-cue flex items-center justify-end gap-3 mb-3.5"
-          style={{
-            fontSize: "9px",
-            letterSpacing: "0.3em",
-            textTransform: "uppercase",
-            color: "var(--color-muted)",
-          }}
-          data-rv="fade"
-        >
-          <span>Scroll to Begin</span>
-          <div
-            className="track relative overflow-hidden"
-            style={{ width: "54px", height: "1px", background: "var(--color-line)" }}
-          >
-            <i
-              className="animate-cue"
-              style={{
-                position: "absolute",
-                inset: 0,
-                background: "var(--color-bone)",
-                transformOrigin: "left",
-              }}
+        <div>
+          <p className="eyebrow flex items-center gap-3" data-rv="up">
+            <span
               aria-hidden="true"
+              className="inline-block"
+              style={{ width: 26, height: 1, background: "var(--accent)" }}
+            />
+            Champion Breeder — Florida
+          </p>
+          <h1
+            id="hero-heading"
+            className="display h-hero"
+            data-rv="up"
+            style={{ marginTop: 22, transitionDelay: "90ms" }}
+          >
+            From Our Home
+            <span style={{ color: "var(--accent)" }}> to Yours</span>
+          </h1>
+          <p
+            className="body-lg"
+            data-rv="up"
+            style={{ marginTop: 22, maxWidth: "48ch", transitionDelay: "180ms" }}
+          >
+            AKC registered English &amp; French Bulldogs from champion bloodlines —
+            home-raised, health-tested, and handled daily by our family.
+          </p>
+          <div
+            className="flex flex-wrap items-center gap-x-8 gap-y-4"
+            data-rv="up"
+            style={{ marginTop: 36, transitionDelay: "270ms" }}
+          >
+            <a
+              href="#gallery"
+              className="inline-flex items-center gap-3 transition-opacity hover:opacity-80"
+              style={{
+                background: "var(--ink)",
+                color: "#ffffff",
+                padding: "15px 26px",
+                borderRadius: 999,
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: ".22em",
+                textTransform: "uppercase",
+              }}
+            >
+              Meet the Puppies
+              <svg
+                width="13"
+                height="13"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                aria-hidden="true"
+              >
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="tel:+13212761159" className="caption transition-opacity hover:opacity-70">
+              (321) 276-1159
+            </a>
+          </div>
+          <ul
+            className="flex flex-wrap gap-x-10 gap-y-3"
+            data-rv="up"
+            style={{ margin: 0, padding: 0, listStyle: "none", marginTop: 46, transitionDelay: "360ms" }}
+          >
+            {["AKC Registered", "Champion Bloodlines", "Home-Raised"].map((item) => (
+              <li key={item} className="caption flex items-center gap-2.5">
+                <span
+                  aria-hidden="true"
+                  style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--accent)" }}
+                />
+                {item}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <figure
+          className="relative"
+          data-rv="up"
+          style={{ margin: 0, transitionDelay: "150ms" }}
+        >
+          <div
+            className="relative overflow-hidden"
+            style={{ aspectRatio: "4 / 5", outline: "1px solid var(--line)", outlineOffset: "-1px" }}
+          >
+            <Image
+              src="/images/dogs/hero.jpg"
+              alt="An English bulldog puppy held by a family member in our kitchen, 2024"
+              fill
+              priority
+              sizes="(min-width: 900px) 44vw, 92vw"
+              className="object-cover"
             />
           </div>
-        </div>
-
-        <div className="chapters grid grid-cols-4 gap-[clamp(14px,2.4vw,40px)] border-t border-[var(--color-line-soft)] pt-4.5" role="tablist" aria-label="Chapters">
-          {[
-            { label: "Our Story", desc: "Champion bloodlines, home-raised with love" },
-            { label: "Gallery", desc: "Meet our available English & French Bulldogs" },
-            { label: "Breeding", desc: "Health-tested parents, champion pedigrees" },
-            { label: "Reserve", desc: "Join our family — puppies available now" },
-          ].map((chapter, index) => (
-            <button
-              key={chapter.label}
-              className="chip flex gap-3.5 items-start cursor-pointer"
-              role="tab"
-              aria-selected={false}
-              data-rv="up"
-              style={{ transitionDelay: `${320 + index * 80}ms` }}
-            >
-              <span className="num flex-none" style={{ transition: "color .4s, transform .5s var(--ease-out)" }}>
-                {String(index + 1).padStart(2, "0")}
-              </span>
-              <div className="tx min-w-0 pt-1">
-                <b
-                  className="block"
-                  style={{
-                    fontSize: "10px",
-                    fontWeight: 500,
-                    letterSpacing: "0.2em",
-                    textTransform: "uppercase",
-                    color: "var(--color-bone-dim)",
-                    marginBottom: "6px",
-                    transition: "color .4s",
-                    textShadow: "0 1px 16px rgba(3,6,8,.9)",
-                  }}
-                >
-                  {chapter.label}
-                </b>
-                <p
-                  className="m-0"
-                  style={{
-                    fontSize: "11px",
-                    lineHeight: "1.5",
-                    color: "#7d8781",
-                    maxWidth: "22ch",
-                    transition: "color .4s",
-                  }}
-                >
-                  {chapter.desc}
-                </p>
-              </div>
-            </button>
-          ))}
-        </div>
-
-        <a
-          href="#contact"
-          className="arrowlink inline-flex items-center gap-3 mt-8"
-          style={{
-            fontSize: "11px",
-            fontWeight: 500,
-            letterSpacing: "0.2em",
-            textTransform: "uppercase",
-            color: "var(--color-bone)",
-            transitionDelay: "640ms",
-          }}
-          data-rv="up"
-        >
-          Reserve a Puppy
-          <span
-            className="ar grid place-items-center transition-all duration-450"
-            style={{
-              width: "34px",
-              height: "34px",
-              border: "1px solid var(--color-line)",
-              borderRadius: "50%",
-            }}
-            aria-hidden="true"
+          <figcaption
+            className="caption flex items-center justify-between"
+            style={{ marginTop: 12 }}
           >
-            <svg
-              width="13"
-              height="13"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              style={{ transition: "transform .5s var(--ease-out)" }}
-            >
-              <path d="M5 12h14M12 5l7 7-7 7" />
-            </svg>
-          </span>
-        </a>
+            <span>Raised in our kitchen — 2024</span>
+            <span style={{ color: "var(--accent)" }}>ChampionBullies</span>
+          </figcaption>
+        </figure>
       </div>
-
-      <aside
-        className="hero-side absolute right-[var(--pad)] top-1/2 -translate-y-1/2 flex flex-col items-center gap-3.5 pointer-events-none hidden md:flex"
-        aria-hidden="true"
-      >
-        <span className="v" style={{ writingMode: "vertical-rl", fontSize: "13px", letterSpacing: "0.62em", color: "rgba(223,231,224,.5)" }}>
-          ChampionBullies
-        </span>
-      </aside>
     </section>
   );
 }

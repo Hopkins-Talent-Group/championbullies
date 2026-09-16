@@ -4,120 +4,106 @@
 - cluster-only mode — file stats not available
 
 ## Summary
-- 529 nodes · 1267 edges · 20 communities (10 shown, 10 thin omitted)
-- Extraction: 83% EXTRACTED · 17% INFERRED · 0% AMBIGUOUS · INFERRED: 220 edges (avg confidence: 0.85)
+- 113 nodes · 103 edges · 18 communities (9 shown, 5 thin omitted)
+- Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `85b00fc8`
+- Built from commit: `ca65f9c8`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
 ## Community Hubs (Navigation)
-- swiper.min.js
-- jquery.min.js
-- frontend-modules.min.js
-- CarouselHandlerBase
-- frontend.min.js
-- Frontend
-- _default
-- ScreenViewTracking
-- WpDashboardTracking
-- eael-8.js
-- ArgsObject
-- ActionControlTracking
-- smush-lazy-load.min.js
-- elementorHelloThemeHandler
-- NavigationTracking
-- _default
-- general.min.js
+- devDependencies
+- dependencies
+- compilerOptions
+- page.tsx
+- include
+- package.json
+- layout.tsx
+- README.md
+- lib
+- Canvas
+- Navigation.tsx
+- eslint.config.mjs
+- next.config.ts
+- postcss.config.mjs
 
 ## God Nodes (most connected - your core abstractions)
-1. `l()` - 39 edges
-2. `o()` - 35 edges
-3. `_default` - 32 edges
-4. `Frontend` - 30 edges
-5. `v()` - 28 edges
-6. `WpDashboardTracking` - 26 edges
-7. `CarouselHandlerBase` - 25 edges
-8. `d()` - 25 edges
-9. `r()` - 22 edges
-10. `dispatchEvent()` - 21 edges
+1. `compilerOptions` - 16 edges
+2. `include` - 7 edges
+3. `scripts` - 5 edges
+4. `lib` - 4 edges
+5. `Contact()` - 2 edges
+6. `Footer()` - 2 edges
+7. `Gallery()` - 2 edges
+8. `Hero()` - 2 edges
+9. `Canvas()` - 2 edges
+10. `eslint` - 2 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `kt()` --indirect_call--> `D()`  [INFERRED]
-  wp-includes/js/jquery/jquery.min.js → wp-content/uploads/essential-addons-elementor/eael-8.js
-- `Tt()` --indirect_call--> `D()`  [INFERRED]
-  wp-includes/js/jquery/jquery.min.js → wp-content/uploads/essential-addons-elementor/eael-8.js
-- `Ut()` --indirect_call--> `D()`  [INFERRED]
-  wp-includes/js/jquery/jquery.min.js → wp-content/uploads/essential-addons-elementor/eael-8.js
-- `I()` --indirect_call--> `L()`  [INFERRED]
-  wp-content/plugins/elementor/assets/lib/swiper/v8/swiper.min.js → wp-includes/js/jquery/jquery.min.js
-- `I()` --indirect_call--> `z()`  [INFERRED]
-  wp-content/plugins/elementor/assets/lib/swiper/v8/swiper.min.js → wp-includes/js/jquery/jquery.min.js
+- None detected - all connections are within the same source files.
 
 ## Import Cycles
 - None detected.
 
-## Communities (20 total, 10 thin omitted)
+## Communities (18 total, 5 thin omitted)
 
-### Community 0 - "swiper.min.js"
-Cohesion: 0.09
-Nodes (47): a(), addEventListener(), B(), blur(), C(), p(), u(), cancelAnimationFrame() (+39 more)
-
-### Community 1 - "jquery.min.js"
-Cohesion: 0.07
-Nodes (52): a(), c(), e(), i(), r(), u(), A(), Ae() (+44 more)
-
-### Community 2 - "frontend-modules.min.js"
-Cohesion: 0.06
-Nodes (31): addEditorListeners(), applyCssVariables(), __construct(), dispatchEvent(), formatSection(), get(), getEditorListeners(), getEditSettings() (+23 more)
-
-### Community 3 - "CarouselHandlerBase"
-Cohesion: 0.08
-Nodes (8): CarouselHandlerBase, getCurrentDeviceSetting(), getElementSettings(), getID(), initElements(), onInit(), StretchedElement, SwiperHandlerBase
-
-### Community 4 - "frontend.min.js"
-Cohesion: 0.06
-Nodes (12): adjustConfig(), AssetsLoader, BaseLoader, Breakpoints, constructor(), createSwiperInstance(), Events, getControlValue() (+4 more)
-
-### Community 7 - "ScreenViewTracking"
+### Community 0 - "devDependencies"
 Cohesion: 0.12
-Nodes (7): addEventListenerTracked(), addObserver(), destroy(), ensureOwnArrays(), PluginActions, ScreenViewTracking, TopBarTracking
+Nodes (17): eslint, eslint-config-next, devDependencies, eslint, eslint-config-next, tailwindcss, @tailwindcss/postcss, @types/node (+9 more)
 
-### Community 9 - "eael-8.js"
+### Community 1 - "dependencies"
+Cohesion: 0.12
+Nodes (17): framer-motion, gsap, lenis, next, dependencies, framer-motion, gsap, lenis (+9 more)
+
+### Community 2 - "compilerOptions"
+Cohesion: 0.13
+Nodes (15): compilerOptions, allowJs, esModuleInterop, incremental, isolatedModules, jsx, module, moduleResolution (+7 more)
+
+### Community 3 - "page.tsx"
+Cohesion: 0.23
+Nodes (6): Contact(), interests, Footer(), Gallery(), pups, Hero()
+
+### Community 4 - "include"
+Cohesion: 0.20
+Nodes (9): **/*.mts, .next/dev/types/**/*.ts, next-env.d.ts, .next/types/**/*.ts, node_modules, **/*.ts, **/*.tsx, exclude (+1 more)
+
+### Community 5 - "package.json"
 Cohesion: 0.22
-Nodes (16): a(), D(), e(), i(), h(), n(), O(), R() (+8 more)
+Nodes (8): name, private, scripts, build, dev, lint, start, version
 
-### Community 10 - "ArgsObject"
-Cohesion: 0.19
-Nodes (3): ArgsObject, ForceMethodImplementation, InstanceType
+### Community 6 - "layout.tsx"
+Cohesion: 0.40
+Nodes (3): metadata, roboto, robotoSlab
 
-### Community 12 - "smush-lazy-load.min.js"
-Cohesion: 0.31
-Nodes (8): a(), d(), f(), o(), r(), s(), u(), v()
+### Community 7 - "README.md"
+Cohesion: 0.50
+Nodes (3): Deploy on Vercel, Getting Started, Learn More
 
-### Community 16 - "general.min.js"
-Cohesion: 0.53
-Nodes (4): g(), m(), v(), y()
+### Community 8 - "lib"
+Cohesion: 0.50
+Nodes (4): dom, dom.iterable, esnext, lib
 
 ## Knowledge Gaps
-- **10 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
+- **59 isolated node(s):** `eslint`, `eslint-config-next`, `tailwindcss`, `@tailwindcss/postcss`, `@types/node` (+54 more)
+  These have ≤1 connection - possible missing edges or undocumented components. (Counts symbols only; 75 node(s) total have ≤1 connection when file, concept and rationale nodes are included.)
+- **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `o()` connect `swiper.min.js` to `jquery.min.js`, `frontend-modules.min.js`, `frontend.min.js`, `ScreenViewTracking`, `eael-8.js`, `NavigationTracking`?**
-  _High betweenness centrality (0.131) - this node is a cross-community bridge._
-- **Why does `_default` connect `_default` to `frontend.min.js`?**
-  _High betweenness centrality (0.106) - this node is a cross-community bridge._
-- **Why does `L()` connect `jquery.min.js` to `swiper.min.js`, `frontend.min.js`?**
-  _High betweenness centrality (0.102) - this node is a cross-community bridge._
-- **Are the 19 inferred relationships involving `l()` (e.g. with `frontend.min.js` and `frontend-modules.min.js`) actually correct?**
-  _`l()` has 19 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 22 inferred relationships involving `o()` (e.g. with `frontend.min.js` and `frontend-modules.min.js`) actually correct?**
-  _`o()` has 22 INFERRED edges - model-reasoned connections that need verification._
-- **Are the 2 inferred relationships involving `v()` (e.g. with `l()` and `t()`) actually correct?**
-  _`v()` has 2 INFERRED edges - model-reasoned connections that need verification._
-- **Should `swiper.min.js` be split into smaller, more focused modules?**
-  _Cohesion score 0.09093646492020475 - nodes in this community are weakly interconnected._
+- **Why does `devDependencies` connect `devDependencies` to `package.json`?**
+  _High betweenness centrality (0.085) - this node is a cross-community bridge._
+- **Why does `dependencies` connect `dependencies` to `package.json`?**
+  _High betweenness centrality (0.085) - this node is a cross-community bridge._
+- **Why does `compilerOptions` connect `compilerOptions` to `lib`, `include`?**
+  _High betweenness centrality (0.053) - this node is a cross-community bridge._
+- **What connects `eslint`, `eslint-config-next`, `tailwindcss` to the rest of the system?**
+  _59 weakly-connected nodes found - possible documentation gaps or missing edges._
+- **Should `devDependencies` be split into smaller, more focused modules?**
+  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
+- **Should `dependencies` be split into smaller, more focused modules?**
+  _Cohesion score 0.11764705882352941 - nodes in this community are weakly interconnected._
+- **Should `compilerOptions` be split into smaller, more focused modules?**
+  _Cohesion score 0.13333333333333333 - nodes in this community are weakly interconnected._
