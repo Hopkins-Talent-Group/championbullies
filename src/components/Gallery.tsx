@@ -5,7 +5,17 @@ import Image from "next/image";
 import { ReservationProvider, useReservation } from "@/context/ReservationContext";
 import { ReservationModal } from "@/components/ReservationModal";
 
-const pups = [
+type Pup = {
+  key: string;
+  name: string;
+  image: string;
+  gender: string;
+  breed: string;
+  year: number | string;
+  price: string;
+};
+
+const pups: Pup[] = [
   { key: "daphne", name: "Daphne", image: "/images/dogs/daphne.jpg", gender: "Female", breed: "English Bulldog", year: 2024, price: "$4,500" },
   { key: "fred", name: "Fred", image: "/images/dogs/fred.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,800" },
   { key: "scooby", name: "Scooby", image: "/images/dogs/scooby.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,200" },
@@ -66,7 +76,7 @@ export function Gallery() {
             style={{ padding: 0, listStyle: "none" }}
             role="list"
           >
-            {pups.map((pup, index) => (
+            {pups.map((pup: Pup, index) => (
               <li key={pup.key} data-rv="up" style={{ transitionDelay: `${index * 90}ms` }}>
                 <article className="group cursor-pointer">
                   <div
@@ -150,7 +160,7 @@ export function Gallery() {
                       e.currentTarget.style.color = "var(--bone)";
                     }}
                     onClick={() => {
-                      actions.open(pup);
+                      actions.open(pup as any);
                     }}
                   >
                     Reserve Now

@@ -3,6 +3,7 @@
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { contactSchema } from "@/lib/validation";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 type ContactFormValues = z.infer<typeof contactSchema>;
 
@@ -15,8 +16,10 @@ export function Step2({ onNext, onBack }: Step2Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<ContactFormValues>;
+    formState: { errors, isValid },
+  } = useForm<ContactFormValues>({
+    resolver: zodResolver(contactSchema),
+  });
 
   const onSubmit = (data: ContactFormValues) => {
     onNext(data);

@@ -3,6 +3,7 @@
 import { useRef, useState } from "react";
 import Image from "next/image";
 import { puppySchema } from "@/lib/validation";
+import { z } from "zod";
 
 type Puppy = z.infer<typeof puppySchema>;
 
@@ -81,7 +82,7 @@ export function Step1({ puppy, onNext, onBack }: Step1Props) {
           Cancel
         </button>
         <button
-          className="reserve-btn"
+          className="reserve-btn hover:bg-vermilion hover:border-vermilion hover:text-#05070a"
           onClick={proceed}
           style={{
             background: "var(--vermilion)",
@@ -95,10 +96,6 @@ export function Step1({ puppy, onNext, onBack }: Step1Props) {
             padding: "12px 20px",
             cursor: "pointer",
             transition: "all .35s var(--ease)",
-            "&:hover": {
-              background: "#b22c23",
-              borderColor: "#b22c23",
-            },
           }}
         >
           Next: Contact Info
