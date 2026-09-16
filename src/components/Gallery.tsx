@@ -4,10 +4,14 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 
 const pups = [
-  { key: "margo", name: "Margo", image: "/images/dogs/margo.jpg", year: 2019 },
-  { key: "blue-angel", name: "Blue Angel", image: "/images/dogs/blue-angel.jpg", year: 2018 },
-  { key: "puppy-2019", name: null, image: "/images/dogs/puppy-2019.jpg", year: 2019 },
-  { key: "puppy-2018", name: null, image: "/images/dogs/puppy-2018.jpg", year: 2018 },
+  { key: "daphne", name: "Daphne", image: "/images/dogs/daphne.jpg", gender: "Female", breed: "English Bulldog", year: 2024, price: "$4,500" },
+  { key: "fred", name: "Fred", image: "/images/dogs/fred.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,800" },
+  { key: "scooby", name: "Scooby", image: "/images/dogs/scooby.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,200" },
+  { key: "scrappy", name: "Scrappy", image: "/images/dogs/scrappy.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,500" },
+  { key: "shaggy", name: "Shaggy", image: "/images/dogs/shaggy.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,000" },
+  { key: "velma", name: "Velma", image: "/images/dogs/velma.jpg", gender: "Female", breed: "English Bulldog", year: 2024, price: "$4,800" },
+  { key: "blue-angel", name: "Blue Angel", image: "/images/dogs/blue-angel.jpg", gender: "Male", breed: "French Bulldog", year: 2023, price: "$5,500" },
+  { key: "margo", name: "Margo", image: "/images/dogs/margo.jpg", gender: "Female", breed: "French Bulldog", year: 2019, price: "$5,200" },
 ];
 
 export function Gallery() {
@@ -72,29 +76,84 @@ export function Gallery() {
                 >
                   <Image
                     src={pup.image}
-                    alt={
-                      pup.name
-                        ? `${pup.name}, an English bulldog puppy raised in our home`
-                        : "An English bulldog puppy raised in our home"
-                    }
+                    alt={`${pup.name}, a ${pup.breed} puppy raised in our home`}
                     fill
                     sizes="(min-width: 900px) 24vw, (min-width: 600px) 46vw, 92vw"
                     className="object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                     style={{ transitionTimingFunction: "var(--ease-out)" }}
                   />
+                  <div className="absolute top-3 right-3">
+                    <span className="badge" style={{
+                      background: "rgba(5,7,10,0.85)",
+                      color: "var(--bone)",
+                      fontSize: "10px",
+                      fontWeight: 500,
+                      letterSpacing: "0.1em",
+                      textTransform: "uppercase",
+                      padding: "4px 10px",
+                      borderRadius: "9999px",
+                      border: "1px solid var(--line-soft)",
+                    }}>
+                      {pup.breed}
+                    </span>
+                  </div>
                 </div>
                 <div className="flex items-baseline justify-between gap-3" style={{ marginTop: 14 }}>
-                  <h3
-                    style={{
+                  <div>
+                    <h3 style={{
                       fontFamily: "var(--font-slab)",
                       fontWeight: 600,
                       fontSize: "clamp(16px,1.4vw,20px)",
-                    }}
-                  >
-                    {pup.name ?? "English Bulldog"}
-                  </h3>
-                  <span className="caption">{pup.year}</span>
+                    }}>
+                      {pup.name}
+                    </h3>
+                    <p className="caption" style={{ marginTop: 2, color: "var(--muted)" }}>
+                      {pup.gender} · {pup.year}
+                    </p>
+                  </div>
+                  <span style={{
+                    fontFamily: "var(--font-slab)",
+                    fontWeight: 600,
+                    fontSize: "clamp(16px,1.4vw,20px)",
+                    color: "var(--vermilion)",
+                  }}>
+                    {pup.price}
+                  </span>
                 </div>
+                <button
+                  className="reserve-btn w-full mt-4"
+                  style={{
+                    padding: "12px 20px",
+                    background: "transparent",
+                    color: "var(--bone)",
+                    border: "1px solid var(--line)",
+                    borderRadius: "9999px",
+                    fontSize: "11px",
+                    fontWeight: 500,
+                    letterSpacing: "0.18em",
+                    textTransform: "uppercase",
+                    cursor: "pointer",
+                    transition: "all .35s var(--ease)",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = "var(--vermilion)";
+                    e.currentTarget.style.borderColor = "var(--vermilion)";
+                    e.currentTarget.style.color = "#05070a";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = "transparent";
+                    e.currentTarget.style.borderColor = "var(--line)";
+                    e.currentTarget.style.color = "var(--bone)";
+                  }}
+                  onClick={() => {
+                    const contact = document.getElementById("contact");
+                    if (contact) contact.scrollIntoView({ behavior: "smooth" });
+                    const litterSelect = document.getElementById("litterInterest");
+                    if (litterSelect) litterSelect.value = pup.key;
+                  }}
+                >
+                  Reserve Now
+                </button>
               </article>
             </li>
           ))}

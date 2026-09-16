@@ -3,10 +3,14 @@
 import { useEffect, useRef, useState } from "react";
 
 const interests = [
-  { value: "english-available", label: "Available English Bulldog Litter" },
-  { value: "french-available", label: "Available French Bulldog Litter" },
-  { value: "english-upcoming", label: "Upcoming English Bulldog Litter" },
-  { value: "french-upcoming", label: "Upcoming French Bulldog Litter" },
+  { value: "daphne", label: "Daphne — English Bulldog Female ($4,500)" },
+  { value: "fred", label: "Fred — English Bulldog Male ($4,800)" },
+  { value: "scooby", label: "Scooby — English Bulldog Male ($4,200)" },
+  { value: "scrappy", label: "Scrappy — English Bulldog Male ($4,500)" },
+  { value: "shaggy", label: "Shaggy — English Bulldog Male ($4,000)" },
+  { value: "velma", label: "Velma — English Bulldog Female ($4,800)" },
+  { value: "blue-angel", label: "Blue Angel — French Bulldog Male ($5,500)" },
+  { value: "margo", label: "Margo — French Bulldog Female ($5,200)" },
   { value: "general", label: "General Inquiry" },
 ];
 
