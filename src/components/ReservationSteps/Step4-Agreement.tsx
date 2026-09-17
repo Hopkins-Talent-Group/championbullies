@@ -2,172 +2,105 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { agreementSchema } from "@/lib/validation";
+import { useReservation } from "@/context/ReservationContext";
+import { RESERVE_FORM_ID } from "@/lib/reservationFlow";
+import { DEPOSIT_AMOUNT } from "@/lib/site";
+import { agreementSchema, type AgreementDetails, type HomeType } from "@/lib/validation";
+import { CheckRow } from "./Field";
 
-type AgreementFormValues = z.infer<typeof agreementSchema>;
+const HOME_LABELS: Record<HomeType | "", string> = {
+  house: "House",
+  apartment: "Apartment",
+  other: "Something else",
+  "": "not answered",
+};
 
-interface Step4Props {
-  onSubmit: (data: AgreementFormValues) => void;
-  onBack: () => void;
-}
+export function Step4() {
+  const { state, actions } = useReservation();
+  const { data } = state;
+  const puppyName = data.puppy?.name ?? "the puppy";
 
-export function Step4({ onSubmit, onBack }: Step4Props) {
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<AgreementFormValues>({
+    formState: { errors },
+  } = useForm<AgreementDetails>({
     resolver: zodResolver(agreementSchema),
+    defaultValues: {
+      healthGuaranteeAck: data.healthGuaranteeAck,
+      spayNeuterAck: data.spayNeuterAck,
+      depositAck: data.depositAck,
+    },
   });
 
-  const onSubmitHandler = (data: AgreementFormValues) => {
-    onSubmit(data);
-  };
+  const rows: Array<[string, string]> = [
+    ["Puppy", data.puppy ? `${data.puppy.name}, ${data.puppy.breed}` : "not chosen"],
+    ["Price", data.puppy?.price ?? "not chosen"],
+    ["Name", data.name || "not given"],
+    ["Email", data.email || "not given"],
+    ["Phone", data.phone || "not given"],
+    ["Home", HOME_LABELS[data.homeType]],
+    ["Yard", data.hasYard === null ? "not answered" : data.hasYard ? "yes" : "no"],
+    ["Hours alone per day", data.hoursAlone || "not given"],
+  ];
 
   return (
-    <section className="p-8 sm:p-6">
-      <h2 className="text-xl font-semibold mb-6">Agreement & Deposit</h2>
+    <form
+      id={RESERVE_FORM_ID}
+      noValidate
+      onSubmit={handleSubmit((values) => {
+        void actions.submit(values);
+      })}
+    >
+      <dl className="rs-review">
+        {rows.map(([label, value]) => (
+          <div key={label}>
+            <dt>{label}</dt>
+            <dd>{value}</dd>
+          </div>
+        ))}
+      </dl>
 
-      <p className="text-sm text-muted mb-6">
-        By proceeding, you acknowledge and agree to the following terms for reserving
-        one of our English or French Bulldog puppies.
-      </p>
-
-      <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6">
-        <div>
-          <label className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              {...register("healthGuaranteeAck", { required: "Required" })}
-              className="w-4 h-4 rounded border-primary focus:ring-primary mt-1"
-            />
-            <div>
-              <p className="text-sm font-medium">
-                I acknowledge the <strong>Health Guarantee</strong>. All puppies undergo
-                comprehensive health screening, including genetic testing, veterinary
-                examination, and vaccination records. A 1-year genetic health guarantee
-                is provided.
-              </p>
-              <p className="text-xs text-muted ml-4">
-                Covers congenital conditions only. Normal wear and tear not covered.
-              </p>
-            </div>
-          </label>
-          {errors.healthGuaranteeAck && (
-            <p className="mt-2 text-sm text-[var(--accent)]">Please acknowledge the health guarantee</p>
-          )}
-        </div>
-
-        <div>
-          <label className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              {...register("spayNeuterAck", { required: "Required" })}
-              className="w-4 h-4 rounded border-primary focus:ring-primary mt-1"
-            />
-            <div>
-              <p className="text-sm font-medium">
-                I acknowledge the <strong>Spay/Neuter Agreement</strong>. All our puppies
-                are sold on a limited registration with a spay/neuter contract by age
-                6-9 months. This ensures the health of our bloodlines and breed
-                improvement.
-              </p>
-              <p className="text-xs text-muted ml-4">
-                Contract must be signed prior to puppy going to new home.
-              </p>
-            </div>
-          </label>
-          {errors.spayNeuterAck && (
-            <p className="mt-2 text-sm text-[var(--accent)]">Please acknowledge the spay/neuter agreement</p>
-          )}
-        </div>
-
-        <div>
-          <label className="flex items-start gap-3">
-            <input
-              type="checkbox"
-              {...register("depositPaid", { required: "Required" })}
-              className="w-4 h-4 rounded border-primary focus:ring-primary mt-1"
-            />
-            <div>
-              <p className="text-sm font-medium">
-                I confirm the <strong>$500 deposit</strong>. This secures the puppy and
-                is applied toward the total purchase price. Deposit is non-refundable
-                if you decide not to proceed, but is refundable if we are unable to
-                match you with a suitable puppy.
-              </p>
-              <p className="text-xs text-muted ml-4">
-                Payment processed via Stripe. No card details stored on this site.
-              </p>
-            </div>
-          </label>
-          {errors.depositPaid && (
-            <p className="mt-2 text-sm text-[var(--accent)]">Please confirm deposit payment</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2">Payment Method</label>
-          <p className="text-sm text-muted">
-            We accept all major credit cards via Stripe. Your payment information is
-            processed securely and not stored on this site.
+      <div className="rs-agreements">
+        <CheckRow
+          id="rs-health"
+          title="Health guarantee"
+          input={register("healthGuaranteeAck")}
+        >
+          A one year guarantee against genetic conditions diagnosed by a licensed vet. Accidents,
+          illness, and normal breed wear are not covered.
+        </CheckRow>
+        {errors.healthGuaranteeAck ? (
+          <p className="rs-error" role="alert">
+            {errors.healthGuaranteeAck.message}
           </p>
-        </div>
+        ) : null}
 
-        <div className="flex justify-between mt-8">
-          {isSubmitting ? (
-            <p className="text-sm text-muted">Submitting...</p>
-          ) : (
-            <button
-              type="submit"
-              className="reserve-btn"
-              style={{
-                background: "var(--accent)",
-                color: "#ffffff",
-                border: "1px solid var(--accent)",
-                borderRadius: "9999px",
-                fontSize: "11px",
-                fontWeight: 500,
-                letterSpacing: "0.18em",
-                textTransform: "uppercase",
-                padding: "12px 20px",
-                cursor: "pointer",
-                transition: "all .35s var(--ease)",
-              }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.background = "#b22c23";
-                e.currentTarget.style.borderColor = "#b22c23";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.background = "var(--accent)";
-                e.currentTarget.style.borderColor = "var(--accent)";
-              }}
-            >
-              Reserve Puppy — $500 Deposit
-            </button>
-          )}
-          <button
-            className="reserve-btn"
-            onClick={onBack}
-            style={{
-              background: "transparent",
-              color: "var(--ink)",
-              border: "1px solid var(--line)",
-              borderRadius: "9999px",
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              padding: "12px 20px",
-              cursor: "pointer",
-              transition: "all .35s var(--ease)",
-            }}
-          >
-            Prev: Living Situation
-          </button>
-        </div>
-      </form>
-    </section>
+        <CheckRow id="rs-spay" title="Spay and neuter" input={register("spayNeuterAck")}>
+          {puppyName} is sold on limited AKC registration with a spay or neuter contract by 6 to 9
+          months of age.
+        </CheckRow>
+        {errors.spayNeuterAck ? (
+          <p className="rs-error" role="alert">
+            {errors.spayNeuterAck.message}
+          </p>
+        ) : null}
+
+        <CheckRow id="rs-deposit" title={`${DEPOSIT_AMOUNT} deposit`} input={register("depositAck")}>
+          {DEPOSIT_AMOUNT} holds {puppyName} and comes off the price. We send payment instructions
+          once we confirm {puppyName} is still available. This site never takes card details.
+        </CheckRow>
+        {errors.depositAck ? (
+          <p className="rs-error" role="alert">
+            {errors.depositAck.message}
+          </p>
+        ) : null}
+      </div>
+
+      <p className="rs-help">
+        Sending this reserves nothing yet: it starts the conversation and holds your place for a
+        reply.
+      </p>
+    </form>
   );
 }

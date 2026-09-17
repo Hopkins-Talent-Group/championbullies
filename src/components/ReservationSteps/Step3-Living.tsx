@@ -1,208 +1,141 @@
 "use client";
 
-import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { z } from "zod";
-import { livingSchema } from "@/lib/validation";
+import { useForm } from "react-hook-form";
+import { useReservation } from "@/context/ReservationContext";
+import { RESERVE_FORM_ID } from "@/lib/reservationFlow";
+import { livingFormSchema, type LivingFormValues } from "@/lib/validation";
+import { describedBy, Field, FieldGroup, RadioOption, TextInput } from "./Field";
 
-type LivingFormValues = z.infer<typeof livingSchema>;
+const HOME_OPTIONS = [
+  { value: "house", label: "House", description: "Owned or rented, with or without a yard" },
+  { value: "apartment", label: "Apartment", description: "Includes condos and townhouses" },
+  { value: "other", label: "Something else", description: "Mobile home, shared home, farm" },
+] as const;
 
-interface Step3Props {
-  onNext: (data: LivingFormValues) => void;
-  onBack: () => void;
-}
-
-export function Step3({ onNext, onBack }: Step3Props) {
+export function Step3() {
+  const { state, actions } = useReservation();
   const {
     register,
-    control,
     handleSubmit,
     formState: { errors },
   } = useForm<LivingFormValues>({
-    resolver: zodResolver(livingSchema),
+    resolver: zodResolver(livingFormSchema),
+    defaultValues: {
+      homeType: state.data.homeType || undefined,
+      yardAnswer:
+        state.data.hasYard === null ? undefined : state.data.hasYard ? "yes" : "no",
+      otherPets: state.data.otherPets,
+      childrenAges: state.data.childrenAges,
+      hoursAlone: state.data.hoursAlone,
+    },
   });
 
-  const onSubmit = (data: LivingFormValues) => {
-    onNext(data);
-  };
-
   return (
-    <section className="p-8 sm:p-6">
-      <h2 className="text-xl font-semibold mb-6">Living Situation</h2>
+    <form
+      id={RESERVE_FORM_ID}
+      noValidate
+      onSubmit={handleSubmit((values) => {
+        actions.setFields({
+          homeType: values.homeType,
+          hasYard: values.yardAnswer === "yes",
+          otherPets: values.otherPets ?? "",
+          childrenAges: values.childrenAges ?? "",
+          hoursAlone: values.hoursAlone,
+        });
+        actions.next();
+      })}
+    >
+      <p className="rs-lead">
+        Bulldog puppies spend a lot of their first year indoors with you, so these answers decide
+        which puppy fits your home.
+      </p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium mb-2">Home Type</label>
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  value="house"
-                  {...register("homeType", { required: "Home type required" })}
-                  className="w-4 h-4 rounded border-primary focus:ring-primary"
-                />
-                House
-              </label>
-            </div>
-            <div>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  value="apartment"
-                  {...register("homeType", { required: "Home type required" })}
-                  className="w-4 h-4 rounded border-primary focus:ring-primary"
-                />
-                Apartment
-              </label>
-            </div>
-            <div>
-              <label className="flex items-center gap-2 cursor-pointer">
-                <input
-                  type="radio"
-                  value="other"
-                  {...register("homeType", { required: "Home type required" })}
-                  className="w-4 h-4 rounded border-primary focus:ring-primary"
-                />
-                Other
-              </label>
-            </div>
-          </div>
-          {errors.homeType && (
-            <p className="mt-2 text-sm text-[var(--accent)]">{errors.homeType.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2">Does the home have a yard?</label>
-          <Controller
-            name="hasYard"
-            control={control}
-            render={({ field }) => (
-              <div className="grid grid-cols-2 gap-4">
-                {[true, false].map((option) => (
-                  <label key={String(option)} className="flex items-center gap-2 cursor-pointer">
-                    <input
-                      type="radio"
-                      name={field.name}
-                      ref={field.ref}
-                      value={option ? "true" : "false"}
-                      checked={option}
-                      onBlur={field.onBlur}
-                      onChange={() => field.onChange(option)}
-                      className="w-4 h-4 rounded border-primary focus:ring-primary"
-                    />
-                    {option ? "Yes" : "No"}
-                  </label>
-                ))}
-              </div>
-            )}
-          />
-          {errors.hasYard && (
-            <p className="mt-2 text-sm text-[var(--accent)]">{errors.hasYard.message}</p>
-          )}
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2">Other Pets</label>
-          <input
-            {...register("otherPets", { maxLength: 100 })}
-            type="text"
-            className="w-full px-4 py-3 bg-white border border-[var(--line)] rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition-colors"
-            placeholder="e.g., cat, older dog"
-            aria-describedby="other-pets-help"
-          />
-          <p className="mt-2 text-sm text-muted" id="other-pets-help">
-            Optional: List other pets in the home
-          </p>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2">Children Ages</label>
-          <input
-            {...register("childrenAges", { maxLength: 50 })}
-            type="text"
-            className="w-full px-4 py-3 bg-white border border-[var(--line)] rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition-colors"
-            placeholder="e.g., 3, 7, 10"
-            aria-describedby="children-ages-help"
-          />
-          <p className="mt-2 text-sm text-muted" id="children-ages-help">
-            Optional: Ages of children in the home
-          </p>
-        </div>
-
-        <div>
-          <label className="block text-sm font-medium mb-2">Hours Puppy Alone Per Day</label>
-          <input
-            {...register("hoursAlone", {
-              required: "Required",
-              pattern: { value: /^\d+$/, message: "Enter a number of hours" },
+      <FieldGroup legend="Where will the puppy live?" error={errors.homeType?.message}>
+        {HOME_OPTIONS.map((option) => (
+          <RadioOption
+            key={option.value}
+            value={option.value}
+            label={option.label}
+            description={option.description}
+            input={register("homeType", {
+              required: "Choose where the puppy will live",
             })}
-            type="number"
-            className="w-full px-4 py-3 bg-white border border-[var(--line)] rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition-colors"
-            min="0"
-            max="24"
-            placeholder="e.g., 8"
-            aria-describedby="hours-alone-help"
           />
-          <p className="mt-2 text-sm text-muted" id="hours-alone-help">
-            How many hours per day will the puppy be alone?
-          </p>
-          {errors.hoursAlone && (
-            <p className="mt-2 text-sm text-[var(--accent)]">{errors.hoursAlone.message}</p>
-          )}
-        </div>
+        ))}
+      </FieldGroup>
 
-        <div className="flex justify-between mt-8">
-          <button
-            type="button"
-            className="reserve-btn"
-            onClick={onBack}
-            style={{
-              background: "transparent",
-              color: "var(--ink)",
-              border: "1px solid var(--line)",
-              borderRadius: "9999px",
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              padding: "12px 20px",
-              cursor: "pointer",
-              transition: "all .35s var(--ease)",
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="reserve-btn"
-            style={{
-              background: "var(--accent)",
-              color: "#ffffff",
-              border: "1px solid var(--accent)",
-              borderRadius: "9999px",
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              padding: "12px 20px",
-              cursor: "pointer",
-              transition: "all .35s var(--ease)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#b22c23";
-              e.currentTarget.style.borderColor = "#b22c23";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--accent)";
-              e.currentTarget.style.borderColor = "var(--accent)";
-            }}
-          >
-            Next: Agreement & Deposit
-          </button>
-        </div>
-      </form>
-    </section>
+      <FieldGroup
+        legend="Does the home have a yard?"
+        columns
+        error={errors.yardAnswer?.message}
+      >
+        <RadioOption
+          value="yes"
+          label="Yes"
+          input={register("yardAnswer", { required: "Answer yes or no about the yard" })}
+        />
+        <RadioOption
+          value="no"
+          label="No"
+          input={register("yardAnswer", { required: "Answer yes or no about the yard" })}
+        />
+      </FieldGroup>
+
+      <Field
+        id="rs-pets"
+        label="Other pets in the home"
+        help="Leave empty if this will be the only pet."
+        error={errors.otherPets?.message}
+      >
+        <TextInput
+          id="rs-pets"
+          placeholder="Cat, older dog"
+          invalid={Boolean(errors.otherPets)}
+          aria-describedby={describedBy("rs-pets", {
+            help: "Leave empty if this will be the only pet.",
+            error: errors.otherPets?.message,
+          })}
+          {...register("otherPets")}
+        />
+      </Field>
+
+      <Field
+        id="rs-children"
+        label="Children in the home"
+        help="Ages are enough. Leave empty if there are none."
+        error={errors.childrenAges?.message}
+      >
+        <TextInput
+          id="rs-children"
+          placeholder="7, 10"
+          invalid={Boolean(errors.childrenAges)}
+          aria-describedby={describedBy("rs-children", {
+            help: "Ages are enough. Leave empty if there are none.",
+            error: errors.childrenAges?.message,
+          })}
+          {...register("childrenAges")}
+        />
+      </Field>
+
+      <Field
+        id="rs-hours"
+        label="Hours the puppy would be alone on a normal day"
+        help="A puppy needs someone home for most of the first months."
+        error={errors.hoursAlone?.message}
+      >
+        <TextInput
+          id="rs-hours"
+          inputMode="numeric"
+          placeholder="6"
+          invalid={Boolean(errors.hoursAlone)}
+          aria-describedby={describedBy("rs-hours", {
+            help: "A puppy needs someone home for most of the first months.",
+            error: errors.hoursAlone?.message,
+          })}
+          {...register("hoursAlone", { required: "Enter how many hours the puppy is alone" })}
+        />
+      </Field>
+    </form>
   );
 }

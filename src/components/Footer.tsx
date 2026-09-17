@@ -7,22 +7,22 @@ export function Footer() {
       role="contentinfo"
       style={{
         borderTop: "1px solid var(--line-soft)",
-        padding: "clamp(44px,7vh,88px) var(--pad) 28px",
+        padding: "clamp(34px,7vh,89px) var(--pad) 21px",
       }}
     >
-      <div className="mx-auto" style={{ maxWidth: 1440 }}>
-        <div className="grid grid-cols-1 gap-x-[clamp(24px,4vw,64px)] gap-y-9 md:grid-cols-[1.4fr_0.8fr_0.8fr]">
+      <div className="mx-auto" style={{ maxWidth: "var(--max-w)" }}>
+        <div className="grid grid-cols-1 gap-x-[34px] gap-y-[21px] md:grid-cols-[1.618fr_1fr_1fr]">
           <div>
-            <p style={{ fontFamily: "var(--font-slab)", fontWeight: 600, fontSize: 17, margin: 0 }}>
+            <p style={{ fontFamily: "var(--font-slab)", fontWeight: 600, fontSize: 16, margin: 0 }}>
               ChampionBullies<span style={{ color: "var(--accent)" }}>.</span>
             </p>
             <p
               style={{
-                marginTop: 12,
+                marginTop: 13,
                 fontSize: 13,
-                lineHeight: 1.65,
+                lineHeight: 1.618,
                 color: "var(--muted)",
-                maxWidth: "32ch",
+                maxWidth: "34ch",
               }}
             >
               AKC registered English &amp; French bulldogs from champion bloodlines —
@@ -31,7 +31,7 @@ export function Footer() {
           </div>
 
           <nav aria-label="Footer — puppies">
-            <h4 className="caption" style={{ margin: "0 0 14px" }}>
+            <h4 className="caption" style={{ margin: "0 0 13px" }}>
               Puppies
             </h4>
             <ul
@@ -41,7 +41,7 @@ export function Footer() {
                 margin: 0,
                 display: "flex",
                 flexDirection: "column",
-                gap: 9,
+                gap: 8,
               }}
             >
               <li>
@@ -68,7 +68,7 @@ export function Footer() {
           </nav>
 
           <nav aria-label="Footer — contact">
-            <h4 className="caption" style={{ margin: "0 0 14px" }}>
+            <h4 className="caption" style={{ margin: "0 0 13px" }}>
               Contact
             </h4>
             <ul
@@ -78,7 +78,7 @@ export function Footer() {
                 margin: 0,
                 display: "flex",
                 flexDirection: "column",
-                gap: 9,
+                gap: 8,
               }}
             >
               <li>
@@ -103,8 +103,8 @@ export function Footer() {
         </div>
 
         <div
-          className="caption flex flex-wrap items-center justify-between gap-4"
-          style={{ marginTop: 44, paddingTop: 18, borderTop: "1px solid var(--line-soft)" }}
+          className="caption flex flex-wrap items-center justify-between gap-[13px]"
+          style={{ marginTop: 34, paddingTop: 13, borderTop: "1px solid var(--line-soft)" }}
         >
           <span>© {new Date().getFullYear()} ChampionBullies — All rights reserved.</span>
           <span>Raised with care in Florida</span>

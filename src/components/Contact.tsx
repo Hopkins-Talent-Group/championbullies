@@ -47,18 +47,18 @@ export function Contact() {
   const fieldStyle = { border: "1px solid var(--line)", background: "#ffffff" };
 
   return (
-    <section ref={sectionRef} id="contact" aria-labelledby="contact-heading" style={{ borderTop: "1px solid var(--line-soft)", padding: "clamp(64px,11vh,140px) var(--pad)" }}>
-      <div className="mx-auto grid grid-cols-1 gap-x-[clamp(40px,6vw,100px)] gap-y-12 lg:grid-cols-[1fr_1.1fr]" style={{ maxWidth: 1440 }}>
+    <section ref={sectionRef} id="contact" aria-labelledby="contact-heading" style={{ borderTop: "1px solid var(--line-soft)", padding: "clamp(55px,11vh,144px) var(--pad)" }}>
+      <div className="mx-auto grid grid-cols-1 gap-x-[89px] gap-y-[34px] lg:grid-cols-[1fr_1.618fr]" style={{ maxWidth: "var(--max-w)" }}>
         <div data-rv="up">
           <p className="eyebrow">Reserve a Puppy</p>
-          <h2 id="contact-heading" className="display h-sec" style={{ marginTop: 16 }}>Get in Touch</h2>
-          <p className="body-lg" style={{ marginTop: 20, maxWidth: "46ch" }}>
+          <h2 id="contact-heading" className="display h-sec" style={{ marginTop: 13 }}>Get in Touch</h2>
+          <p className="body-lg" style={{ marginTop: 21, maxWidth: "55ch" }}>
             Whether you&apos;re ready to reserve a puppy or just have questions about our program, we&apos;d love to hear from you.
           </p>
-          <ul className="space-y-4" style={{ margin: 0, padding: 0, listStyle: "none", marginTop: 32 }} role="list">
+          <ul className="space-y-[13px]" style={{ margin: 0, padding: 0, listStyle: "none", marginTop: 34 }} role="list">
             <li>
-              <a href="tel:+13212761159" className="flex items-center gap-3 transition-opacity hover:opacity-70" style={{ color: "var(--ink)", fontSize: 15, fontWeight: 500 }}>
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
+              <a href="tel:+13212761159" className="flex items-center gap-[13px] transition-opacity hover:opacity-70" style={{ color: "var(--ink)", fontSize: 16, fontWeight: 500 }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
                 (321) 276-1159
               </a>
             </li>
@@ -69,8 +69,8 @@ export function Contact() {
               </a>
             </li>
             <li>
-              <span className="flex items-center gap-3" style={{ color: "var(--body)", fontSize: 15 }}>
-                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
+              <span className="flex items-center gap-[13px]" style={{ color: "var(--body)", fontSize: 16 }}>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" /><circle cx="12" cy="10" r="3" /></svg>
                 Florida, USA
               </span>
             </li>
@@ -78,22 +78,22 @@ export function Contact() {
         </div>
 
         <form onSubmit={handleSubmit} data-rv="up" style={{ transitionDelay: "120ms" }}>
-          <div className="grid gap-5 sm:grid-cols-2">
+          <div className="grid gap-[21px] sm:grid-cols-2">
             <div>
               <label htmlFor="name" className="caption block" style={{ marginBottom: 8 }}>Name *</label>
-              <input id="name" name="name" type="text" required autoComplete="name" value={formData.name} onChange={handleChange} className="w-full px-4 py-3 text-[15px]" style={fieldStyle} placeholder="Your name" aria-required="true" />
+              <input id="name" name="name" type="text" required autoComplete="name" value={formData.name} onChange={handleChange} className="w-full px-[13px] py-[13px] text-[16px]" style={fieldStyle} placeholder="Your name" aria-required="true" />
             </div>
             <div>
               <label htmlFor="email" className="caption block" style={{ marginBottom: 8 }}>Email *</label>
-              <input id="email" name="email" type="email" required autoComplete="email" value={formData.email} onChange={handleChange} className="w-full px-4 py-3 text-[15px]" style={fieldStyle} placeholder="you@example.com" aria-required="true" />
+              <input id="email" name="email" type="email" required autoComplete="email" value={formData.email} onChange={handleChange} className="w-full px-[13px] py-[13px] text-[16px]" style={fieldStyle} placeholder="you@example.com" aria-required="true" />
             </div>
             <div>
               <label htmlFor="phone" className="caption block" style={{ marginBottom: 8 }}>Phone</label>
-              <input id="phone" name="phone" type="tel" autoComplete="tel" value={formData.phone} onChange={handleChange} className="w-full px-4 py-3 text-[15px]" style={fieldStyle} placeholder="(555) 555-5555" />
+              <input id="phone" name="phone" type="tel" autoComplete="tel" value={formData.phone} onChange={handleChange} className="w-full px-[13px] py-[13px] text-[16px]" style={fieldStyle} placeholder="(555) 555-5555" />
             </div>
             <div>
               <label htmlFor="litterInterest" className="caption block" style={{ marginBottom: 8 }}>I&apos;m interested in</label>
-              <select id="litterInterest" name="litterInterest" value={formData.litterInterest} onChange={handleChange} className="w-full px-4 py-3 text-[15px]" style={fieldStyle}>
+              <select id="litterInterest" name="litterInterest" value={formData.litterInterest} onChange={handleChange} className="w-full px-[13px] py-[13px] text-[16px]" style={fieldStyle}>
                 <option value="">What are you interested in?</option>
                 {interests.map((option) => (
                   <option key={option.value} value={option.value}>{option.label}</option>
@@ -102,13 +102,13 @@ export function Contact() {
             </div>
           </div>
 
-          <div style={{ marginTop: 20 }}>
+          <div style={{ marginTop: 21 }}>
             <label htmlFor="message" className="caption block" style={{ marginBottom: 8 }}>Message *</label>
-            <textarea id="message" name="message" required rows={5} value={formData.message} onChange={handleChange} className="w-full resize-none px-4 py-3 text-[15px]" style={fieldStyle} placeholder="Tell us about what you're looking for…" aria-required="true" />
+            <textarea id="message" name="message" required rows={5} value={formData.message} onChange={handleChange} className="w-full resize-none px-[13px] py-[13px] text-[16px]" style={fieldStyle} placeholder="Tell us about what you're looking for…" aria-required="true" />
           </div>
 
-          <div className="flex flex-wrap items-center gap-5" style={{ marginTop: 26 }}>
-            <button type="submit" disabled={status === "submitting"} className="inline-flex items-center gap-3 transition-opacity hover:opacity-85 disabled:opacity-50" style={{ background: "var(--ink)", color: "#ffffff", padding: "15px 28px", borderRadius: 999, fontSize: 11, fontWeight: 600, letterSpacing: ".22em", textTransform: "uppercase", cursor: "pointer" }}>
+          <div className="flex flex-wrap items-center gap-[21px]" style={{ marginTop: 21 }}>
+            <button type="submit" disabled={status === "submitting"} className="inline-flex items-center gap-[13px] transition-opacity hover:opacity-85 disabled:opacity-50" style={{ background: "var(--ink)", color: "#ffffff", padding: "13px 21px", borderRadius: 999, fontSize: 10, fontWeight: 600, letterSpacing: ".22em", textTransform: "uppercase", cursor: "pointer" }}>
               {status === "submitting" ? "Sending…" : status === "success" ? "Message Sent" : "Send Message"}
             </button>
             {status === "success" && (

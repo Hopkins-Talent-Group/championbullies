@@ -31,10 +31,10 @@ export function Hero() {
       aria-labelledby="hero-heading"
     >
       <div
-        className="mx-auto grid grid-cols-1 items-center gap-x-[clamp(32px,5vw,88px)] gap-y-10 lg:grid-cols-[1.05fr_0.95fr]"
+        className="mx-auto grid grid-cols-1 items-center gap-x-[55px] gap-y-[34px] lg:grid-cols-[1.618fr_1fr]"
         style={{
-          maxWidth: 1440,
-          padding: "clamp(44px,8vh,104px) var(--pad) clamp(56px,10vh,120px)",
+          maxWidth: "var(--max-w)",
+          padding: "clamp(55px,8vh,89px) var(--pad) clamp(55px,10vh,144px)",
         }}
       >
         <div>
@@ -42,7 +42,7 @@ export function Hero() {
             <span
               aria-hidden="true"
               className="inline-block"
-              style={{ width: 26, height: 1, background: "var(--accent)" }}
+              style={{ width: 21, height: 1, background: "var(--accent)" }}
             />
             Champion Breeder — Florida
           </p>
@@ -50,7 +50,7 @@ export function Hero() {
             id="hero-heading"
             className="display h-hero"
             data-rv="up"
-            style={{ marginTop: 22, transitionDelay: "90ms" }}
+            style={{ marginTop: 21, transitionDelay: "90ms" }}
           >
             From Our Home
             <span style={{ color: "var(--accent)" }}> to Yours</span>
@@ -58,15 +58,15 @@ export function Hero() {
           <p
             className="body-lg"
             data-rv="up"
-            style={{ marginTop: 22, maxWidth: "48ch", transitionDelay: "180ms" }}
+            style={{ marginTop: 21, maxWidth: "55ch", transitionDelay: "180ms" }}
           >
             AKC registered English &amp; French Bulldogs from champion bloodlines —
             home-raised, health-tested, and handled daily by our family.
           </p>
           <div
-            className="flex flex-wrap items-center gap-x-8 gap-y-4"
+            className="flex flex-wrap items-center gap-x-[34px] gap-y-[13px]"
             data-rv="up"
-            style={{ marginTop: 36, transitionDelay: "270ms" }}
+            style={{ marginTop: 34, transitionDelay: "270ms" }}
           >
             <a
               href="#gallery"
@@ -74,9 +74,9 @@ export function Hero() {
               style={{
                 background: "var(--ink)",
                 color: "#ffffff",
-                padding: "15px 26px",
+                padding: "13px 21px",
                 borderRadius: 999,
-                fontSize: 11,
+                fontSize: 10,
                 fontWeight: 600,
                 letterSpacing: ".22em",
                 textTransform: "uppercase",
@@ -100,9 +100,9 @@ export function Hero() {
             </a>
           </div>
           <ul
-            className="flex flex-wrap gap-x-10 gap-y-3"
+            className="flex flex-wrap gap-x-[34px] gap-y-[8px]"
             data-rv="up"
-            style={{ margin: 0, padding: 0, listStyle: "none", marginTop: 46, transitionDelay: "360ms" }}
+            style={{ margin: 0, padding: 0, listStyle: "none", marginTop: 55, transitionDelay: "360ms" }}
           >
             {["AKC Registered", "Champion Bloodlines", "Home-Raised"].map((item) => (
               <li key={item} className="caption flex items-center gap-2.5">
@@ -136,7 +136,7 @@ export function Hero() {
           </div>
           <figcaption
             className="caption flex items-center justify-between"
-            style={{ marginTop: 12 }}
+            style={{ marginTop: 13 }}
           >
             <span>Raised in our kitchen — 2024</span>
             <span style={{ color: "var(--accent)" }}>ChampionBullies</span>

@@ -1,138 +1,70 @@
 "use client";
 
-import { useState } from "react";
-import { puppySchema } from "@/lib/validation";
-import { z } from "zod";
+import Image from "next/image";
+import { useReservation } from "@/context/ReservationContext";
+import { RESERVE_FORM_ID } from "@/lib/reservationFlow";
 
-type Puppy = z.infer<typeof puppySchema>;
-
-interface Step1Props {
-  puppy: Puppy | null;
-  onNext: () => void;
-  onBack: () => void;
-}
-
-export function Step1({ puppy, onNext, onBack }: Step1Props) {
-  const [error, setError] = useState<string | null>(null);
-
-  const proceed = () => {
-    const result = puppySchema.safeParse(puppy);
-    if (result.success) {
-      setError(null);
-      onNext();
-    } else {
-      setError(result.error.issues[0]?.message ?? "Invalid puppy data");
-    }
-  };
+export function Step1() {
+  const { state, actions } = useReservation();
+  const puppy = state.data.puppy;
 
   if (!puppy) {
     return (
-      <section className="p-8 sm:p-6">
-        <h2 className="text-xl font-semibold mb-6">Puppy Details</h2>
-        <p className="text-sm text-muted">
-          No puppy was selected. Please close this dialog and choose a puppy
-          from the gallery.
-        </p>
-        <div className="flex justify-between mt-8">
-          <button
-            className="reserve-btn"
-            onClick={onBack}
-            style={{
-              background: "transparent",
-              color: "var(--ink)",
-              border: "1px solid var(--line)",
-              borderRadius: "9999px",
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              padding: "12px 20px",
-              cursor: "pointer",
-              transition: "all .35s var(--ease)",
-            }}
-          >
-            Cancel
-          </button>
-        </div>
-      </section>
+      <p className="rs-lead">
+        No puppy is selected. Close this dialog and choose one from the gallery.
+      </p>
     );
   }
 
   return (
-    <section className="p-8 sm:p-6">
-      <h2 className="text-xl font-semibold mb-6">Puppy Details</h2>
+    <form
+      id={RESERVE_FORM_ID}
+      onSubmit={(event) => {
+        event.preventDefault();
+        actions.next();
+      }}
+    >
+      <div className="rs-puppy">
+        {puppy.image ? (
+          <div className="rs-puppy-photo">
+            <Image
+              src={puppy.image}
+              alt={`${puppy.name}, ${puppy.breed}`}
+              fill
+              sizes="144px"
+              className="object-cover"
+            />
+          </div>
+        ) : null}
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
-          <label className="block text-sm font-medium mb-2">Name</label>
-          <p className="text-lg font-bold text-[var(--accent)]">{puppy.name}</p>
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Breed</label>
-          <p className="text-lg font-bold">{puppy.breed}</p>
+          <h4 className="rs-puppy-name">{puppy.name}</h4>
+          <dl className="rs-facts">
+            <div>
+              <dt>Breed</dt>
+              <dd>{puppy.breed}</dd>
+            </div>
+            <div>
+              <dt>Sex</dt>
+              <dd>{puppy.gender}</dd>
+            </div>
+            <div>
+              <dt>Born</dt>
+              <dd>{puppy.year}</dd>
+            </div>
+            <div>
+              <dt>Price</dt>
+              <dd className="rs-facts-price">{puppy.price}</dd>
+            </div>
+          </dl>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 mt-6">
-        <div>
-          <label className="block text-sm font-medium mb-2">Gender</label>
-          <p className="text-lg font-medium">{puppy.gender}</p>
-        </div>
-        <div>
-          <label className="block text-sm font-medium mb-2">Year</label>
-          <p className="text-lg font-medium">{puppy.year}</p>
-        </div>
-      </div>
-
-      <div className="mt-8 pt-8 border-t border-line-soft">
-        <p className="text-sm text-muted mb-4">Summary for reservation</p>
-        <p className="font-medium text-[var(--accent)]">{puppy.price}</p>
-      </div>
-
-      <div className="flex justify-between mt-8">
-        <button
-          className="reserve-btn"
-          onClick={onBack}
-          style={{
-            background: "transparent",
-            color: "var(--ink)",
-            border: "1px solid var(--line)",
-            borderRadius: "9999px",
-            fontSize: "11px",
-            fontWeight: 500,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            padding: "12px 20px",
-            cursor: "pointer",
-            transition: "all .35s var(--ease)",
-          }}
-        >
-          Cancel
-        </button>
-        <button
-          className="reserve-btn"
-          onClick={proceed}
-          style={{
-            background: "var(--accent)",
-            color: "#ffffff",
-            border: "1px solid var(--accent)",
-            borderRadius: "9999px",
-            fontSize: "11px",
-            fontWeight: 500,
-            letterSpacing: "0.18em",
-            textTransform: "uppercase",
-            padding: "12px 20px",
-            cursor: "pointer",
-            transition: "all .35s var(--ease)",
-          }}
-        >
-          Next: Contact Info
-        </button>
-      </div>
-
-      {error && (
-        <p className="mt-4 text-sm text-[var(--accent)]">{error}</p>
-      )}
-    </section>
+      <p className="rs-lead">
+        Three more steps: your contact details, then the home and routine questions, then the health
+        guarantee, spay and neuter, and deposit terms. Nothing is sent until you press send at the
+        end.
+      </p>
+    </form>
   );
 }

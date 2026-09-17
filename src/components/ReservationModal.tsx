@@ -1,159 +1,281 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { useReservation } from "@/context/ReservationContext";
-import type { PuppyData } from "@/context/ReservationContext";
+import {
+  RESERVE_FORM_ID,
+  STEP_ACTION_LABELS,
+  STEP_HEADINGS,
+  STEP_TITLES,
+} from "@/lib/reservationFlow";
+import { RESERVATION_STEPS } from "@/lib/validation";
+import { ResultPanel } from "./ReservationSteps/ResultPanel";
 import { Step1 } from "./ReservationSteps/Step1-Puppy";
 import { Step2 } from "./ReservationSteps/Step2-Contact";
 import { Step3 } from "./ReservationSteps/Step3-Living";
 import { Step4 } from "./ReservationSteps/Step4-Agreement";
 
-type Step = "puppy" | "contact" | "living" | "agreement";
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
 
-type ReservationModalProps = {
-  isOpen: boolean;
-  onClose: () => void;
-  puppy?: PuppyData;
-};
+// Matches the exit animation in globals.css: the panel stays mounted for one
+// final frame pass, then unmounts.
+const EXIT_MS = 140;
 
-export function ReservationModal({
-  isOpen,
-  onClose,
-  puppy,
-}: ReservationModalProps) {
+export function ReservationModal() {
   const { state, actions } = useReservation();
-  const open = state.isOpen || isOpen;
+  const [closing, setClosing] = useState(false);
+  const panelRef = useRef<HTMLDivElement>(null);
+  const restoreFocusRef = useRef<HTMLElement | null>(null);
+  const closeTimerRef = useRef<number | null>(null);
 
-  // Keep latest actions in a ref so effects don't re-run every render
-  // (the actions object identity changes on each render).
-  const actionsRef = useRef(actions);
-  actionsRef.current = actions;
-  const onCloseRef = useRef(onClose);
-  onCloseRef.current = onClose;
+  const open = state.isOpen;
+  const isResult = state.status === "success" || state.status === "error";
+  const stepIndex = RESERVATION_STEPS.indexOf(state.step);
+  const submitting = state.status === "submitting";
+  const title = state.data.puppy ? `Reserve ${state.data.puppy.name}` : "Reserve a puppy";
 
-  // Sync context state when open/close props change
-  useEffect(() => {
-    if (isOpen && !state.isOpen) {
-      if (puppy) {
-        actionsRef.current.open(puppy);
-      } else {
-        actionsRef.current.open();
-      }
-    }
-    if (!isOpen && state.isOpen) {
-      actionsRef.current.close();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isOpen, puppy, state.isOpen]);
+  // Closing plays the exit animation first, then lets the context unmount the
+  // panel: no effect has to mirror context state back into local state.
+  const requestClose = useCallback(() => {
+    if (closeTimerRef.current !== null) return;
 
-  // Close on escape key (only while open)
+    setClosing(true);
+    closeTimerRef.current = window.setTimeout(() => {
+      closeTimerRef.current = null;
+      setClosing(false);
+      actions.close();
+      restoreFocusRef.current?.focus();
+      restoreFocusRef.current = null;
+    }, EXIT_MS);
+  }, [actions]);
+
+  useEffect(
+    () => () => {
+      if (closeTimerRef.current !== null) window.clearTimeout(closeTimerRef.current);
+    },
+    []
+  );
+
+  // Remember what the visitor was on, then move focus into the dialog.
   useEffect(() => {
     if (!open) return;
-    function handler(e: KeyboardEvent) {
-      if (e.key === "Escape") {
-        actionsRef.current.close();
-        onCloseRef.current();
-      }
-    }
-    document.addEventListener("keydown", handler);
-    return () => document.removeEventListener("keydown", handler);
+    const active = document.activeElement;
+    restoreFocusRef.current = active instanceof HTMLElement ? active : null;
+    panelRef.current?.focus();
   }, [open]);
 
-  // Lock body scroll while the modal is open
+  // Each step change and each result moves focus to its heading, which is how a
+  // screen reader hears where the flow landed.
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    document.getElementById("rs-step-heading")?.focus();
+  }, [open, state.step, state.status]);
+
+  useEffect(() => {
+    if (!open) return;
+
+    const { body, documentElement } = document;
+    const previousOverflow = body.style.overflow;
+    const previousPadding = body.style.paddingRight;
+    const scrollbar = window.innerWidth - documentElement.clientWidth;
+
+    body.style.overflow = "hidden";
+    if (scrollbar > 0) body.style.paddingRight = `${scrollbar}px`;
+
     return () => {
-      document.body.style.overflow = prev;
+      body.style.overflow = previousOverflow;
+      body.style.paddingRight = previousPadding;
     };
-  }, [open ]);
+  }, [open]);
 
-  // Determine current step index (1-based for progress)
-  const currentStepIndex =
-    state.step === "puppy"
-      ? 0
-      : state.step === "contact"
-        ? 1
-        : state.step === "living"
-          ? 2
-          : 3;
+  useEffect(() => {
+    if (!open) return;
 
-  // Calculate progress percentage
-  const progressPercent = ((currentStepIndex + 1) / 4) * 100;
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        requestClose();
+        return;
+      }
 
-  // Render null when closed
-  if (!open) {
-    return null;
-  }
+      if (event.key !== "Tab") return;
 
-  const closeModal = () => {
-    actions.close();
-    onClose();
-  };
+      const panel = panelRef.current;
+      if (!panel) return;
 
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="modal-title"
-    >
-      {/* backdrop (behind the panel, click to close) */}
+      const focusable = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
+        (node) => node.getClientRects().length > 0
+      );
+
+      if (focusable.length === 0) {
+        event.preventDefault();
+        panel.focus();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      const active = document.activeElement;
+
+      if (event.shiftKey && (active === first || active === panel)) {
+        event.preventDefault();
+        last.focus();
+        return;
+      }
+
+      if (!event.shiftKey && active === last) {
+        event.preventDefault();
+        first.focus();
+        return;
+      }
+
+      if (active instanceof Node && !panel.contains(active)) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown, true);
+    return () => document.removeEventListener("keydown", handleKeyDown, true);
+  }, [open, requestClose]);
+
+  if (!open || typeof document === "undefined") return null;
+
+  const stateAttr = closing ? "closing" : undefined;
+
+  return createPortal(
+    <div className="rs-shell">
       <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm cursor-pointer"
-        onClick={closeModal}
-      />
-      <div
-        className="relative w-full max-w-2xl mx-auto bg-[var(--paper)] text-[var(--ink)] rounded-2xl overflow-hidden shadow-xl sm:max-w-3xl max-h-[90vh] overflow-y-auto"
+        className="rs-panel"
+        data-state={stateAttr}
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="rs-dialog-title"
+        aria-busy={submitting || undefined}
+        tabIndex={-1}
+        ref={panelRef}
       >
-        <div
-          className="flex flex-col min-h-[500px] bg-[var(--paper)]"
-        >
-            {/* Header */}
-            <div className="px-6 py-4 border-b border-[var(--line-soft)]">
-              <h2
-                id="modal-title"
-                className="text-xl font-semibold text-[var(--ink)]"
-              >
-                Reserve a Puppy
-              </h2>
-              <button
-                className="absolute right-2 text-[11px] hover:text-[var(--accent)] transition-colors"
-                onClick={closeModal}
-                aria-label="Close modal"
-              >
-                ×
-              </button>
-            </div>
+        <header className="rs-head">
+          <div>
+            <p className="rs-eyebrow">
+              {isResult
+                ? "Reservation"
+                : `Step ${stepIndex + 1} of ${RESERVATION_STEPS.length}`}
+            </p>
+            <h2 className="rs-title" id="rs-dialog-title">
+              {title}
+            </h2>
+          </div>
+          <button
+            type="button"
+            className="rs-close"
+            onClick={requestClose}
+            aria-label="Close the reservation dialog"
+          >
+            <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+              <path
+                d="M1 1l12 12M13 1L1 13"
+                stroke="currentColor"
+                strokeWidth="1.6"
+                strokeLinecap="round"
+              />
+            </svg>
+          </button>
+        </header>
 
-            {/* Stepper Progress */}
-            <div
-              className="px-6 py-3 bg-[var(--line-soft)] border-b border-[var(--line-soft)]"
-            >
-              <div className="flex justify-between text-xs font-medium text-[var(--muted)]">
-                <span>Puppy</span>
-                <span>Contact</span>
-                <span>Living</span>
-                <span>Agree</span>
-              </div>
-              <div className="flex flex-1 bg-[var(--line)] h-1 rounded-full overflow-hidden">
+        {isResult ? (
+          <div className="rs-body">
+            <ResultPanel onClose={requestClose} />
+          </div>
+        ) : (
+          <>
+            <nav className="rs-stepper" aria-label="Reservation progress">
+              <ol className="rs-steps">
+                {RESERVATION_STEPS.map((step, index) => {
+                  const isCurrent = step === state.step;
+                  const isDone = index < stepIndex;
+                  return (
+                    <li key={step}>
+                      <button
+                        type="button"
+                        className="rs-step"
+                        data-state={isCurrent ? "current" : isDone ? "done" : "todo"}
+                        aria-current={isCurrent ? "step" : undefined}
+                        aria-label={`Step ${index + 1} of ${RESERVATION_STEPS.length}, ${STEP_TITLES[step]}${isCurrent ? ", current step" : ""}`}
+                        disabled={index > stepIndex}
+                        onClick={() => actions.goto(step)}
+                      >
+                        <span className="rs-step-index" aria-hidden="true">
+                          {`0${index + 1}`}
+                        </span>
+                        <span className="rs-step-title" aria-hidden="true">
+                          {STEP_TITLES[step]}
+                        </span>
+                      </button>
+                    </li>
+                  );
+                })}
+              </ol>
+              <div className="rs-progress" aria-hidden="true">
                 <div
-                  className="h-full bg-[var(--accent)] transition-all duration-300 ease-out"
-                  style={{ width: `${progressPercent}%` }}
+                  className="rs-progress-fill"
+                  style={{ transform: `scaleX(${(stepIndex + 1) / RESERVATION_STEPS.length})` }}
                 />
               </div>
+            </nav>
+
+            <div
+              className="rs-body"
+              onFocus={(event) => {
+                const target = event.target;
+                if (
+                  target instanceof HTMLElement &&
+                  (target.tagName === "INPUT" || target.tagName === "TEXTAREA")
+                ) {
+                  // Keeps the field clear of the sticky action bar and the
+                  // on-screen keyboard on small screens.
+                  target.scrollIntoView({ block: "center", inline: "nearest" });
+                }
+              }}
+            >
+              <h3 className="rs-step-heading" id="rs-step-heading" tabIndex={-1}>
+                {STEP_HEADINGS[state.step]}
+              </h3>
+              {state.step === "puppy" && <Step1 />}
+              {state.step === "contact" && <Step2 />}
+              {state.step === "living" && <Step3 />}
+              {state.step === "agreement" && <Step4 />}
             </div>
 
-            {/* Step Content */}
-            <div className="p-6 flex-1">
-              {state.step === "puppy" && <Step1 puppy={state.data.puppy} onNext={() => actions.next()} onBack={closeModal} />}
-              {state.step === "contact" && <Step2 onNext={(data) => { actions.setField("name", data.name); actions.setField("email", data.email); actions.setField("phone", data.phone); actions.next(); }} onBack={() => actions.back()} />}
-              {state.step === "living" && <Step3 onNext={(data) => { actions.setField("homeType", data.homeType); actions.setField("hasYard", data.hasYard); actions.setField("otherPets", data.otherPets ?? ""); actions.setField("childrenAges", data.childrenAges ?? ""); actions.setField("hoursAlone", data.hoursAlone); actions.next(); }} onBack={() => actions.back()} />}
-              {state.step === "agreement" && <Step4 onSubmit={(data) => { actions.setField("healthGuaranteeAck", data.healthGuaranteeAck); actions.setField("spayNeuterAck", data.spayNeuterAck); actions.setField("depositPaid", data.depositPaid); closeModal(); }} onBack={() => actions.back()} />}
-            </div>
-          </div>
+            <footer className="rs-foot">
+              {stepIndex === 0 ? (
+                <button
+                  type="button"
+                  className="rs-btn rs-btn-secondary"
+                  onClick={requestClose}
+                >
+                  Cancel
+                </button>
+              ) : (
+                <button type="button" className="rs-btn rs-btn-secondary" onClick={actions.back}>
+                  Back
+                </button>
+              )}
+              <button
+                type="submit"
+                form={RESERVE_FORM_ID}
+                className="rs-btn rs-btn-primary"
+                disabled={submitting}
+              >
+                {submitting ? "Sending your request" : STEP_ACTION_LABELS[state.step]}
+              </button>
+            </footer>
+          </>
+        )}
       </div>
-    </div>
+    </div>,
+    document.body
   );
 }

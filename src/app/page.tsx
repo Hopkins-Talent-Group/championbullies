@@ -23,15 +23,15 @@ export default function Home() {
         }}
       >
         <div
-          className="mx-auto flex items-center justify-between gap-6"
-          style={{ height: "var(--nav-h)", padding: "0 var(--pad)", maxWidth: 1440 }}
+          className="mx-auto flex items-center justify-between gap-[21px]"
+          style={{ height: "var(--nav-h)", padding: "0 var(--pad)", maxWidth: "var(--max-w)" }}
         >
           <a
             href="#home"
             style={{
               fontFamily: "var(--font-slab)",
               fontWeight: 600,
-              fontSize: 17,
+              fontSize: 16,
               letterSpacing: ".02em",
             }}
           >
@@ -39,9 +39,9 @@ export default function Home() {
           </a>
           <nav
             aria-label="Primary"
-            className="flex items-center gap-8"
+            className="flex items-center gap-[34px]"
             style={{
-              fontSize: 10.5,
+              fontSize: 10,
               fontWeight: 600,
               letterSpacing: ".22em",
               textTransform: "uppercase",

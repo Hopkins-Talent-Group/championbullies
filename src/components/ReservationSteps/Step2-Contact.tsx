@@ -1,126 +1,82 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { contactSchema } from "@/lib/validation";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { useReservation } from "@/context/ReservationContext";
+import { RESERVE_FORM_ID } from "@/lib/reservationFlow";
+import { contactSchema, type ContactDetails } from "@/lib/validation";
+import { describedBy, Field, TextInput } from "./Field";
 
-type ContactFormValues = z.infer<typeof contactSchema>;
-
-interface Step2Props {
-  onNext: (data: ContactFormValues) => void;
-  onBack: () => void;
-}
-
-export function Step2({ onNext, onBack }: Step2Props) {
+export function Step2() {
+  const { state, actions } = useReservation();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ContactFormValues>({
+  } = useForm<ContactDetails>({
     resolver: zodResolver(contactSchema),
+    defaultValues: {
+      name: state.data.name,
+      email: state.data.email,
+      phone: state.data.phone,
+    },
   });
 
-  const onSubmit = (data: ContactFormValues) => {
-    onNext(data);
-  };
-
   return (
-    <section className="p-8 sm:p-6">
-      <h2 className="text-xl font-semibold mb-6">Contact Information</h2>
+    <form
+      id={RESERVE_FORM_ID}
+      noValidate
+      onSubmit={handleSubmit((values) => {
+        actions.setFields(values);
+        actions.next();
+      })}
+    >
+      <p className="rs-lead">We reply from this address, so use one you check.</p>
 
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div>
-          <label className="block text-sm font-medium mb-2">Full Name</label>
-          <input
-            {...register("name", { required: "Name is required" })}
-            className="w-full px-4 py-3 bg-white border border-[var(--line)] rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition-colors"
-            placeholder="Your full name"
-            aria-required="true"
-          />
-          {errors.name && (
-            <p className="mt-2 text-sm text-[var(--accent)]">{errors.name.message}</p>
-          )}
-        </div>
+      <Field id="rs-name" label="Full name" error={errors.name?.message}>
+        <TextInput
+          id="rs-name"
+          autoComplete="name"
+          placeholder="First and last name"
+          invalid={Boolean(errors.name)}
+          aria-describedby={describedBy("rs-name", { error: errors.name?.message })}
+          {...register("name")}
+        />
+      </Field>
 
-        <div>
-          <label className="block text-sm font-medium mb-2">Email Address</label>
-          <input
-            {...register("email", { required: "Email is required" })}
-            type="email"
-            className="w-full px-4 py-3 bg-white border border-[var(--line)] rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition-colors"
-            placeholder="your@email.com"
-            aria-required="true"
-          />
-          {errors.email && (
-            <p className="mt-2 text-sm text-[var(--accent)]">{errors.email.message}</p>
-          )}
-        </div>
+      <Field id="rs-email" label="Email" error={errors.email?.message}>
+        <TextInput
+          id="rs-email"
+          type="email"
+          inputMode="email"
+          autoComplete="email"
+          placeholder="you@example.com"
+          invalid={Boolean(errors.email)}
+          aria-describedby={describedBy("rs-email", { error: errors.email?.message })}
+          {...register("email")}
+        />
+      </Field>
 
-        <div>
-          <label className="block text-sm font-medium mb-2">Phone Number</label>
-          <input
-            {...register("phone", { required: "Phone is required" })}
-            type="tel"
-            className="w-full px-4 py-3 bg-white border border-[var(--line)] rounded-md text-sm focus:outline-none focus:ring-1 focus:ring-[var(--accent)] transition-colors"
-            placeholder="(555) 555-5555"
-            aria-required="true"
-          />
-          {errors.phone && (
-            <p className="mt-2 text-sm text-[var(--accent)]">{errors.phone.message}</p>
-          )}
-        </div>
-
-        <div className="flex justify-between mt-8">
-          <button
-            type="button"
-            className="reserve-btn"
-            onClick={onBack}
-            style={{
-              background: "transparent",
-              color: "var(--ink)",
-              border: "1px solid var(--line)",
-              borderRadius: "9999px",
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              padding: "12px 20px",
-              cursor: "pointer",
-              transition: "all .35s var(--ease)",
-            }}
-          >
-            Cancel
-          </button>
-          <button
-            type="submit"
-            className="reserve-btn"
-            style={{
-              background: "var(--accent)",
-              color: "#ffffff",
-              border: "1px solid var(--accent)",
-              borderRadius: "9999px",
-              fontSize: "11px",
-              fontWeight: 500,
-              letterSpacing: "0.18em",
-              textTransform: "uppercase",
-              padding: "12px 20px",
-              cursor: "pointer",
-              transition: "all .35s var(--ease)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.background = "#b22c23";
-              e.currentTarget.style.borderColor = "#b22c23";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.background = "var(--accent)";
-              e.currentTarget.style.borderColor = "var(--accent)";
-            }}
-          >
-            Next: Living Situation
-          </button>
-        </div>
-      </form>
-    </section>
+      <Field
+        id="rs-phone"
+        label="Phone"
+        help="Used to arrange the handover and the deposit, not for marketing."
+        error={errors.phone?.message}
+      >
+        <TextInput
+          id="rs-phone"
+          type="tel"
+          inputMode="tel"
+          autoComplete="tel"
+          placeholder="(321) 555-0123"
+          invalid={Boolean(errors.phone)}
+          aria-describedby={describedBy("rs-phone", {
+            help: "Used to arrange the handover and the deposit, not for marketing.",
+            error: errors.phone?.message,
+          })}
+          {...register("phone")}
+        />
+      </Field>
+    </form>
   );
 }
