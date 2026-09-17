@@ -315,7 +315,7 @@ body {
   /* Lets the body shrink inside the capped panel so the footer below it is
      never clipped out of view when a step is taller than the viewport. */
   min-height: 0;
-  padding: 34px;
+  padding: 21px;
   overflow-y: auto;
   overscroll-behavior: contain;
   scroll-padding-bottom: 89px;
@@ -731,8 +731,21 @@ body {
     padding: 21px;
   }
 
+  .rs-foot {
+    gap: 8px;
+    padding: 13px 13px calc(13px + env(safe-area-inset-bottom));
+  }
+
   .rs-foot .rs-btn {
-    width: 100%;
+    flex: 1 1 0;
+    width: auto;
+    min-width: 0;
+    /* Narrow sheets keep both labels on one line; truncation with a title is
+       the fallback if a label ever outgrows its half. */
+    padding: 0 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .rs-step-title {
