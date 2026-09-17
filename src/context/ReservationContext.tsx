@@ -1,17 +1,17 @@
 "use client";
 
-import { createContext, useContext, useState, useReducer, ReactNode } from "react";
-
-type Step = "puppy" | "contact" | "living" | "agreement";
-
-type PuppyData = {
+import { createContext, useContext, useReducer, ReactNode } from "react";
+export type PuppyData = {
   key: string;
   name: string;
   breed: string;
   price: string;
   gender: string;
-  year: string;
+  year: number;
+  image?: string;
 };
+
+type Step = "puppy" | "contact" | "living" | "agreement";
 
 type FormStepData = {
   puppy: PuppyData | null;
@@ -78,7 +78,7 @@ const ReservationContext = createContext<{
 
 export const ReservationProvider = ({ children }: ReservationProviderProps) => {
   const [state, dispatch] = useReducer(
-    (state: ReservationState, action: any) => {
+    (state: ReservationState, action: { type: string; puppy?: PuppyData; field?: keyof FormStepData; value?: string | boolean }): ReservationState => {
       switch (action.type) {
         case "open":
           return {
@@ -129,31 +129,30 @@ export const ReservationProvider = ({ children }: ReservationProviderProps) => {
               ? "living"
               : state.step === "living"
               ? "agreement"
-              : "puppy";
+              : "agreement";
           return {
             ...state,
             step: nextStep,
           };
         case "back":
           const prevStep =
-            state.step === "puppy"
-              ? "agreement"
-              : state.step === "agreement"
+            state.step === "agreement"
               ? "living"
               : state.step === "living"
               ? "contact"
+              : state.step === "contact"
+              ? "puppy"
               : "puppy";
           return {
             ...state,
             step: prevStep,
           };
         case "setField":
-          const { field, value } = action;
           return {
             ...state,
             data: {
               ...state.data,
-              [field]: value,
+              [action.field!]: action.value,
             },
           };
         case "reset":
@@ -167,16 +166,16 @@ export const ReservationProvider = ({ children }: ReservationProviderProps) => {
     initialState
   );
 
-  const value = { 
-    state, 
+  const value = {
+    state,
     actions: {
-      open: (puppy) => dispatch({ type: "open", puppy }),
+      open: (puppy?: PuppyData) => dispatch({ type: "open", puppy }),
       close: () => dispatch({ type: "close" }),
       next: () => dispatch({ type: "next" }),
       back: () => dispatch({ type: "back" }),
-      setField: (field, value) => dispatch({ type: "setField", field, value }),
+      setField: (field: keyof FormStepData, value: string | boolean) => dispatch({ type: "setField", field, value }),
       reset: () => dispatch({ type: "reset" }),
-    }
+    },
   };
 
   return (

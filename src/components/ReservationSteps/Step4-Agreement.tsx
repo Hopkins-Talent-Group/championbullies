@@ -1,5 +1,6 @@
 "use client";
 
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { agreementSchema } from "@/lib/validation";
@@ -16,7 +17,9 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<AgreementFormValues>();
+  } = useForm<AgreementFormValues>({
+    resolver: zodResolver(agreementSchema),
+  });
 
   const onSubmitHandler = (data: AgreementFormValues) => {
     onSubmit(data);
@@ -31,14 +34,13 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
         one of our English or French Bulldog puppies.
       </p>
 
-      <form {...register} onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmitHandler)} className="space-y-6">
         <div>
           <label className="flex items-start gap-3">
             <input
               type="checkbox"
               {...register("healthGuaranteeAck", { required: "Required" })}
               className="w-4 h-4 rounded border-primary focus:ring-primary mt-1"
-              name="healthGuaranteeAck"
             />
             <div>
               <p className="text-sm font-medium">
@@ -53,7 +55,7 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
             </div>
           </label>
           {errors.healthGuaranteeAck && (
-            <p className="mt-2 text-sm text-vermilion">Please acknowledge the health guarantee</p>
+            <p className="mt-2 text-sm text-[var(--accent)]">Please acknowledge the health guarantee</p>
           )}
         </div>
 
@@ -63,7 +65,6 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
               type="checkbox"
               {...register("spayNeuterAck", { required: "Required" })}
               className="w-4 h-4 rounded border-primary focus:ring-primary mt-1"
-              name="spayNeuterAck"
             />
             <div>
               <p className="text-sm font-medium">
@@ -78,7 +79,7 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
             </div>
           </label>
           {errors.spayNeuterAck && (
-            <p className="mt-2 text-sm text-vermilion">Please acknowledge the spay/neuter agreement</p>
+            <p className="mt-2 text-sm text-[var(--accent)]">Please acknowledge the spay/neuter agreement</p>
           )}
         </div>
 
@@ -88,7 +89,6 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
               type="checkbox"
               {...register("depositPaid", { required: "Required" })}
               className="w-4 h-4 rounded border-primary focus:ring-primary mt-1"
-              name="depositPaid"
             />
             <div>
               <p className="text-sm font-medium">
@@ -103,7 +103,7 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
             </div>
           </label>
           {errors.depositPaid && (
-            <p className="mt-2 text-sm text-vermilion">Please confirm deposit payment</p>
+            <p className="mt-2 text-sm text-[var(--accent)]">Please confirm deposit payment</p>
           )}
         </div>
 
@@ -123,9 +123,9 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
               type="submit"
               className="reserve-btn"
               style={{
-                background: "var(--vermilion)",
-                color: "#05070a",
-                border: "1px solid var(--vermilion)",
+                background: "var(--accent)",
+                color: "#ffffff",
+                border: "1px solid var(--accent)",
                 borderRadius: "9999px",
                 fontSize: "11px",
                 fontWeight: 500,
@@ -134,10 +134,14 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
                 padding: "12px 20px",
                 cursor: "pointer",
                 transition: "all .35s var(--ease)",
-                "&:hover": {
-                  background: "#b22c23",
-                  borderColor: "#b22c23",
-                },
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.background = "#b22c23";
+                e.currentTarget.style.borderColor = "#b22c23";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.background = "var(--accent)";
+                e.currentTarget.style.borderColor = "var(--accent)";
               }}
             >
               Reserve Puppy — $500 Deposit
@@ -148,7 +152,7 @@ export function Step4({ onSubmit, onBack }: Step4Props) {
             onClick={onBack}
             style={{
               background: "transparent",
-              color: "var(--bone)",
+              color: "var(--ink)",
               border: "1px solid var(--line)",
               borderRadius: "9999px",
               fontSize: "11px",

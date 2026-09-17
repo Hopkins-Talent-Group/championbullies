@@ -1,27 +1,19 @@
 "use client";
 
-import { useRef, useState, useEffect } from "react";
+import { useRef, useEffect } from "react";
 import { useReservation } from "@/context/ReservationContext";
+import type { PuppyData } from "@/context/ReservationContext";
 import { Step1 } from "./ReservationSteps/Step1-Puppy";
 import { Step2 } from "./ReservationSteps/Step2-Contact";
 import { Step3 } from "./ReservationSteps/Step3-Living";
 import { Step4 } from "./ReservationSteps/Step4-Agreement";
-import { reservationStepSchemas } from "@/lib/validation";
-import { z } from "zod";
 
 type Step = "puppy" | "contact" | "living" | "agreement";
 
 type ReservationModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  puppy?: {
-    key: string;
-    name: string;
-    breed: string;
-    price: string;
-    gender: string;
-    year: string;
-  };
+  puppy?: PuppyData;
 };
 
 export function ReservationModal({
@@ -30,86 +22,105 @@ export function ReservationModal({
   puppy,
 }: ReservationModalProps) {
   const { state, actions } = useReservation();
-  const modalRef = useRef<HTMLDivElement>(null);
-  const steps = ["puppy", "contact", "living", "agreement"] as Step[];
+  const open = state.isOpen || isOpen;
+
+  // Keep latest actions in a ref so effects don't re-run every render
+  // (the actions object identity changes on each render).
+  const actionsRef = useRef(actions);
+  actionsRef.current = actions;
+  const onCloseRef = useRef(onClose);
+  onCloseRef.current = onClose;
 
   // Sync context state when open/close props change
   useEffect(() => {
-    if (isOpen && state.isOpen === false) {
+    if (isOpen && !state.isOpen) {
       if (puppy) {
-        actions.open(puppy);
+        actionsRef.current.open(puppy);
       } else {
-        actions.open();
+        actionsRef.current.open();
       }
     }
-    if (!isOpen && state.isOpen === true) {
-      actions.close();
+    if (!isOpen && state.isOpen) {
+      actionsRef.current.close();
     }
-  }, [isOpen, puppy, actions, state.isOpen]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isOpen, puppy, state.isOpen]);
 
-  // Close on escape key
+  // Close on escape key (only while open)
   useEffect(() => {
+    if (!open) return;
     function handler(e: KeyboardEvent) {
       if (e.key === "Escape") {
-        actions.close();
+        actionsRef.current.close();
+        onCloseRef.current();
       }
     }
     document.addEventListener("keydown", handler);
     return () => document.removeEventListener("keydown", handler);
-  }, [actions]);
+  }, [open]);
 
-  // Determine current step index
-  const currentStepIndex = steps.indexOf(state.step);
+  // Lock body scroll while the modal is open
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open ]);
+
+  // Determine current step index (1-based for progress)
+  const currentStepIndex =
+    state.step === "puppy"
+      ? 0
+      : state.step === "contact"
+        ? 1
+        : state.step === "living"
+          ? 2
+          : 3;
 
   // Calculate progress percentage
-  const progressPercent = ((currentStepIndex + 1) / steps.length) * 100;
+  const progressPercent = ((currentStepIndex + 1) / 4) * 100;
 
   // Render null when closed
-  if (!isOpen && !state.isOpen) {
+  if (!open) {
     return null;
   }
 
+  const closeModal = () => {
+    actions.close();
+    onClose();
+  };
+
   return (
     <div
-      ref={modalRef}
       className="fixed inset-0 z-50 flex items-center justify-center p-4"
-      onClick={(e) => {
-        if (e.target === e.currentTarget) {
-          actions.close();
-        }
-      }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-title"
     >
+      {/* backdrop (behind the panel, click to close) */}
       <div
-        className="relative w-full max-w-2xl mx-auto bg-[var(--color-ink-2)] rounded-2xl overflow-hidden shadow-xl transform transition-transform ease-out duration-300 sm:max-w-3xl"
-        style={{
-          transform: "translateY(100%) scale(0.95)",
-          opacity: 0,
-          transition: "transform .3s ease, opacity .3s ease",
-        }}
+        className="absolute inset-0 bg-black/40 backdrop-blur-sm cursor-pointer"
+        onClick={closeModal}
+      />
+      <div
+        className="relative w-full max-w-2xl mx-auto bg-[var(--paper)] text-[var(--ink)] rounded-2xl overflow-hidden shadow-xl sm:max-w-3xl max-h-[90vh] overflow-y-auto"
       >
-        {state.isOpen && (
-          <div
-            className="flex flex-col min-h-[500px] bg-[var(--color-ink-2)]"
-            style={{
-              transform: "translateY(0%) scale(1)",
-              opacity: 1,
-              transition: "transform .3s ease, opacity .3s ease",
-            }}
-          >
+        <div
+          className="flex flex-col min-h-[500px] bg-[var(--paper)]"
+        >
             {/* Header */}
-            <div className="px-6 py-4 border-b border-[var(--color-line-soft)]">
+            <div className="px-6 py-4 border-b border-[var(--line-soft)]">
               <h2
                 id="modal-title"
-                className="text-xl font-semibold text-[var(--color-bone)]"
+                className="text-xl font-semibold text-[var(--ink)]"
               >
                 Reserve a Puppy
               </h2>
               <button
-                className="absolute right-2 text-[11px] hover:text-[var(--vermilion)] transition-colors"
-                onClick={() => actions.close()}
+                className="absolute right-2 text-[11px] hover:text-[var(--accent)] transition-colors"
+                onClick={closeModal}
                 aria-label="Close modal"
               >
                 ×
@@ -118,17 +129,17 @@ export function ReservationModal({
 
             {/* Stepper Progress */}
             <div
-              className="px-6 py-3 bg-[var(--color-ink-1)] border-b border-[var(--color-line-soft)]"
+              className="px-6 py-3 bg-[var(--line-soft)] border-b border-[var(--line-soft)]"
             >
-              <div className="flex justify-between text-xs font-medium text-[var(--color-muted)]">
+              <div className="flex justify-between text-xs font-medium text-[var(--muted)]">
                 <span>Puppy</span>
                 <span>Contact</span>
                 <span>Living</span>
                 <span>Agree</span>
               </div>
-              <div className="flex flex-1 bg-[var(--color-vermilion)] h-1 rounded-full overflow-hidden">
+              <div className="flex flex-1 bg-[var(--line)] h-1 rounded-full overflow-hidden">
                 <div
-                  className="h-full w-full bg-[var(--color-vermilion)] transition-all duration-300 ease-out"
+                  className="h-full bg-[var(--accent)] transition-all duration-300 ease-out"
                   style={{ width: `${progressPercent}%` }}
                 />
               </div>
@@ -136,52 +147,13 @@ export function ReservationModal({
 
             {/* Step Content */}
             <div className="p-6 flex-1">
-              {state.step === "puppy" && <Step1 puppy={state.data.puppy} onNext={() => actions.next()} onBack={() => actions.back()} />}
-              {state.step === "contact" && <Step2 onNext={() => actions.next()} onBack={() => actions.back()} />}
-              {state.step === "living" && <Step3 onNext={() => actions.next()} onBack={() => actions.back()} />}
-              {state.step === "agreement" && <Step4 onSubmit={() => {}} onBack={() => actions.back()} />}
-            </div>
-
-            {/* Navigation */}
-            <div className="px-6 py-4 border-t border-[var(--color-line-soft)]">
-              <div className="flex justify-between">
-                {currentStepIndex > 0 && (
-                  <button
-                    className="reserve-btn w-auto px-4 py-2 text-[11px] font-medium uppercase tracking-wider rounded-md"
-                    onClick={() => actions.back()}
-                  >
-                    Prev
-                  </button>
-                )}
-                {currentStepIndex < steps.length - 1 && (
-                  <button
-                    className="reserve-btn w-auto px-4 py-2 text-[11px] font-medium uppercase tracking-wider rounded-md"
-                    onClick={() => actions.next()}
-                  >
-                    Next
-                  </button>
-                )}
-                {currentStepIndex === steps.length - 1 && (
-                  <button
-                    className="reserve-btn w-auto px-4 py-2 text-[11px] font-medium uppercase tracking-wider rounded-md"
-                    onClick={() => actions.close()}
-                  >
-                    Reserve
-                  </button>
-                )}
-              </div>
+              {state.step === "puppy" && <Step1 puppy={state.data.puppy} onNext={() => actions.next()} onBack={closeModal} />}
+              {state.step === "contact" && <Step2 onNext={(data) => { actions.setField("name", data.name); actions.setField("email", data.email); actions.setField("phone", data.phone); actions.next(); }} onBack={() => actions.back()} />}
+              {state.step === "living" && <Step3 onNext={(data) => { actions.setField("homeType", data.homeType); actions.setField("hasYard", data.hasYard); actions.setField("otherPets", data.otherPets ?? ""); actions.setField("childrenAges", data.childrenAges ?? ""); actions.setField("hoursAlone", data.hoursAlone); actions.next(); }} onBack={() => actions.back()} />}
+              {state.step === "agreement" && <Step4 onSubmit={(data) => { actions.setField("healthGuaranteeAck", data.healthGuaranteeAck); actions.setField("spayNeuterAck", data.spayNeuterAck); actions.setField("depositPaid", data.depositPaid); closeModal(); }} onBack={() => actions.back()} />}
             </div>
           </div>
-        )}
       </div>
-
-      {/* backdrop */}
-      <div
-        className="absolute inset-0 bg-black/40 backdrop-blur-sm cursor-pointer"
-        onClick={(e) => {
-          e.stopPropagation();
-        }}
-      />
     </div>
   );
 }

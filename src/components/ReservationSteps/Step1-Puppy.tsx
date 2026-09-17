@@ -1,7 +1,6 @@
 "use client";
 
-import { useRef, useState } from "react";
-import Image from "next/image";
+import { useState } from "react";
 import { puppySchema } from "@/lib/validation";
 import { z } from "zod";
 
@@ -17,17 +16,46 @@ export function Step1({ puppy, onNext, onBack }: Step1Props) {
   const [error, setError] = useState<string | null>(null);
 
   const proceed = () => {
-    try {
-      puppySchema.parse(puppy);
+    const result = puppySchema.safeParse(puppy);
+    if (result.success) {
       setError(null);
       onNext();
-    } catch (e: any) {
-      setError(e.errors[0]?.message || "Invalid puppy data");
+    } else {
+      setError(result.error.issues[0]?.message ?? "Invalid puppy data");
     }
   };
 
   if (!puppy) {
-    return null;
+    return (
+      <section className="p-8 sm:p-6">
+        <h2 className="text-xl font-semibold mb-6">Puppy Details</h2>
+        <p className="text-sm text-muted">
+          No puppy was selected. Please close this dialog and choose a puppy
+          from the gallery.
+        </p>
+        <div className="flex justify-between mt-8">
+          <button
+            className="reserve-btn"
+            onClick={onBack}
+            style={{
+              background: "transparent",
+              color: "var(--ink)",
+              border: "1px solid var(--line)",
+              borderRadius: "9999px",
+              fontSize: "11px",
+              fontWeight: 500,
+              letterSpacing: "0.18em",
+              textTransform: "uppercase",
+              padding: "12px 20px",
+              cursor: "pointer",
+              transition: "all .35s var(--ease)",
+            }}
+          >
+            Cancel
+          </button>
+        </div>
+      </section>
+    );
   }
 
   return (
@@ -37,7 +65,7 @@ export function Step1({ puppy, onNext, onBack }: Step1Props) {
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
         <div>
           <label className="block text-sm font-medium mb-2">Name</label>
-          <p className="text-lg font-bold text-vermilion">{puppy.name}</p>
+          <p className="text-lg font-bold text-[var(--accent)]">{puppy.name}</p>
         </div>
         <div>
           <label className="block text-sm font-medium mb-2">Breed</label>
@@ -58,7 +86,7 @@ export function Step1({ puppy, onNext, onBack }: Step1Props) {
 
       <div className="mt-8 pt-8 border-t border-line-soft">
         <p className="text-sm text-muted mb-4">Summary for reservation</p>
-        <p className="font-medium text-vermilion">${puppy.price}</p>
+        <p className="font-medium text-[var(--accent)]">{puppy.price}</p>
       </div>
 
       <div className="flex justify-between mt-8">
@@ -67,7 +95,7 @@ export function Step1({ puppy, onNext, onBack }: Step1Props) {
           onClick={onBack}
           style={{
             background: "transparent",
-            color: "var(--bone)",
+            color: "var(--ink)",
             border: "1px solid var(--line)",
             borderRadius: "9999px",
             fontSize: "11px",
@@ -82,12 +110,12 @@ export function Step1({ puppy, onNext, onBack }: Step1Props) {
           Cancel
         </button>
         <button
-          className="reserve-btn hover:bg-vermilion hover:border-vermilion hover:text-#05070a"
+          className="reserve-btn"
           onClick={proceed}
           style={{
-            background: "var(--vermilion)",
-            color: "#05070a",
-            border: "1px solid var(--vermilion)",
+            background: "var(--accent)",
+            color: "#ffffff",
+            border: "1px solid var(--accent)",
             borderRadius: "9999px",
             fontSize: "11px",
             fontWeight: 500,
@@ -103,7 +131,7 @@ export function Step1({ puppy, onNext, onBack }: Step1Props) {
       </div>
 
       {error && (
-        <p className="mt-4 text-sm text-vermilion">{error}</p>
+        <p className="mt-4 text-sm text-[var(--accent)]">{error}</p>
       )}
     </section>
   );

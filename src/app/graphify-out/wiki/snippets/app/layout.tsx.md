@@ -15,18 +15,9 @@ const robotoSlab = Roboto_Slab({
 });
 
 export const metadata: Metadata = {
-  title: "ChampionBullies | AKC English & French Bulldogs, Florida",
+  title: "ChampionBullies — AKC English & French Bulldogs, Florida",
   description:
     "AKC registered English and French bulldogs from champion bloodlines — home-raised, health-tested, and handled daily by our family in Florida.",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
-  return (
-    <html
-      lang="en"
-      className={`${roboto.variable} ${robotoSlab.variable} h-full antialiased`}
-    >
-      <body className="min-h-full flex flex-col">{children}</body>
-    </html>
-  );
-}
+------ snippet (first lines) ------

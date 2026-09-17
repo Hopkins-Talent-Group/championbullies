@@ -2,15 +2,14 @@
 
 import { useEffect, useRef, useState } from "react";
 
+const sections = ["home", "gallery", "contact"];
+
 export function ProgressRail() {
   const [activeIndex, setActiveIndex] = useState(0);
   const railRef = useRef<HTMLDivElement>(null);
 
-  const sections = ["home", "gallery", "contact"];
-
   useEffect(() => {
     const handleScroll = () => {
-      const scrollY = window.scrollY;
       sections.forEach((id, index) => {
         const el = document.getElementById(id);
         if (el) {

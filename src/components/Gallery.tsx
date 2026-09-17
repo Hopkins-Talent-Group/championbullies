@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ReservationProvider, useReservation } from "@/context/ReservationContext";
 import { ReservationModal } from "@/components/ReservationModal";
+import type { PuppyData } from "@/context/ReservationContext";
 
 type Pup = {
   key: string;
@@ -11,7 +12,7 @@ type Pup = {
   image: string;
   gender: string;
   breed: string;
-  year: number | string;
+  year: number;
   price: string;
 };
 
@@ -27,8 +28,16 @@ const pups: Pup[] = [
 ];
 
 export function Gallery() {
-  const { state, actions } = useReservation();
+  return (
+    <ReservationProvider>
+      <GalleryContent />
+    </ReservationProvider>
+  );
+}
+
+function GalleryContent() {
   const sectionRef = useRef<HTMLElement>(null);
+  const { state, actions } = useReservation();
 
   useEffect(() => {
     const root = sectionRef.current;
@@ -48,7 +57,7 @@ export function Gallery() {
   }, []);
 
   return (
-    <ReservationProvider>
+    <>
       <section
         ref={sectionRef}
         id="gallery"
@@ -67,7 +76,7 @@ export function Gallery() {
               </h2>
             </div>
             <p className="body-lg" style={{ maxWidth: "44ch", fontSize: 14 }}>
-              Every photograph was taken in our home — cropped, never retouched, never stock.
+              Every photograph was taken in our home â€” cropped, never retouched, never stock.
             </p>
           </div>
 
@@ -99,7 +108,7 @@ export function Gallery() {
                     <div className="absolute top-3 right-3">
                       <span className="badge" style={{
                         background: "rgba(5,7,10,0.85)",
-                        color: "var(--bone)",
+                        color: "var(--ink)",
                         fontSize: "10px",
                         fontWeight: 500,
                         letterSpacing: "0.1em",
@@ -122,14 +131,14 @@ export function Gallery() {
                         {pup.name}
                       </h3>
                       <p className="caption" style={{ marginTop: 2, color: "var(--muted)" }}>
-                        {pup.gender} · {pup.year}
+                        {pup.gender} • {pup.year}
                       </p>
                     </div>
                     <span style={{
                       fontFamily: "var(--font-slab)",
                       fontWeight: 600,
                       fontSize: "clamp(16px,1.4vw,20px)",
-                      color: "var(--vermilion)",
+                      color: "var(--accent)",
                     }}>
                       {pup.price}
                     </span>
@@ -139,7 +148,7 @@ export function Gallery() {
                     style={{
                       padding: "12px 20px",
                       background: "transparent",
-                      color: "var(--bone)",
+                      color: "var(--ink)",
                       border: "1px solid var(--line)",
                       borderRadius: "9999px",
                       fontSize: "11px",
@@ -150,17 +159,17 @@ export function Gallery() {
                       transition: "all .35s var(--ease)",
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.background = "var(--vermilion)";
-                      e.currentTarget.style.borderColor = "var(--vermilion)";
-                      e.currentTarget.style.color = "#05070a";
+                      e.currentTarget.style.background = "var(--accent)";
+                      e.currentTarget.style.borderColor = "var(--accent)";
+                      e.currentTarget.style.color = "#ffffff";
                     }}
                     onMouseLeave={(e) => {
                       e.currentTarget.style.background = "transparent";
                       e.currentTarget.style.borderColor = "var(--line)";
-                      e.currentTarget.style.color = "var(--bone)";
+                      e.currentTarget.style.color = "var(--ink)";
                     }}
                     onClick={() => {
-                      actions.open(pup as any);
+                      actions.open(pup);
                     }}
                   >
                     Reserve Now
@@ -175,8 +184,8 @@ export function Gallery() {
       <ReservationModal
         isOpen={state.isOpen}
         onClose={() => actions.close()}
-        puppy={state.data.puppy}
+        puppy={state.data.puppy ?? undefined}
       />
-    </ReservationProvider>
+    </>
   );
 }

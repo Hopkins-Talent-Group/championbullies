@@ -1,7 +1,5 @@
 import { z } from "zod";
 
-type Step = "puppy" | "contact" | "living" | "agreement";
-
 // Step 1: Puppy - read-only, displayed but not editable
 export const puppySchema = z.object({
   key: z.string(),
@@ -9,7 +7,7 @@ export const puppySchema = z.object({
   breed: z.string(),
   price: z.string(),
   gender: z.string(),
-  year: z.string(),
+  year: z.number(), // Changed from string to number to match Gallery data
 });
 
 // Step 2: Contact Info

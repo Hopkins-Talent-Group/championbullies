@@ -5,8 +5,10 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "lint": "eslint .",
     "start": "next start",
-    "lint": "eslint"
+    "graphify:build": "node graphify/build.mjs",
+    "graphify:query": "node graphify/query.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.9.1",
