@@ -4,21 +4,12 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import { ReservationProvider, useReservation } from "@/context/ReservationContext";
 import { ReservationModal } from "@/components/ReservationModal";
-import type { PuppyData } from "@/context/ReservationContext";
+import { PUPPY_CATALOG, type PuppyCatalogEntry } from "@/lib/site";
 
 // The photograph is required here: every card renders one.
-type Pup = PuppyData & { image: string };
+type Pup = PuppyCatalogEntry;
 
-const pups: Pup[] = [
-  { key: "daphne", name: "Daphne", image: "/images/dogs/daphne.jpg", gender: "Female", breed: "English Bulldog", year: 2024, price: "$4,500" },
-  { key: "fred", name: "Fred", image: "/images/dogs/fred.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,800" },
-  { key: "scooby", name: "Scooby", image: "/images/dogs/scooby.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,200" },
-  { key: "scrappy", name: "Scrappy", image: "/images/dogs/scrappy.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,500" },
-  { key: "shaggy", name: "Shaggy", image: "/images/dogs/shaggy.jpg", gender: "Male", breed: "English Bulldog", year: 2024, price: "$4,000" },
-  { key: "velma", name: "Velma", image: "/images/dogs/velma.jpg", gender: "Female", breed: "English Bulldog", year: 2024, price: "$4,800" },
-  { key: "blue-angel", name: "Blue Angel", image: "/images/dogs/blue-angel.jpg", gender: "Male", breed: "French Bulldog", year: 2023, price: "$5,500" },
-  { key: "margo", name: "Margo", image: "/images/dogs/margo.jpg", gender: "Female", breed: "French Bulldog", year: 2019, price: "$5,200" },
-];
+const pups: Pup[] = PUPPY_CATALOG;
 
 export function Gallery() {
   return (

@@ -1,12 +1,15 @@
 import { z } from "zod";
 
+import { PUPPY_CATALOG } from "@/lib/site";
+
 export const RESERVATION_STEPS = ["puppy", "contact", "living", "agreement"] as const;
 export type StepName = (typeof RESERVATION_STEPS)[number];
 
 export const HOME_TYPES = ["house", "apartment", "other"] as const;
 export type HomeType = (typeof HOME_TYPES)[number];
 
-// Step 1: the puppy being reserved, taken from the gallery card.
+// Step 1: the puppy being reserved, taken from the shared gallery catalog.
+const puppyKeySchema = z.enum(PUPPY_CATALOG.map((p) => p.key) as [string, ...string[]]);
 export const puppySchema = z.object({
   key: z.string().min(1),
   name: z.string().min(1),
@@ -29,6 +32,28 @@ export const contactSchema = z.object({
     .trim()
     .regex(/^[\d\s+().-]{10,}$/, "Enter a phone number with at least 10 digits"),
 });
+
+// A general inquiry or a question about one catalog puppy — the same interest
+// list the contact section renders.
+export const contactInquirySchema = z.object({
+  name: contactSchema.shape.name,
+  email: contactSchema.shape.email,
+  phone: z.string().trim().max(40),
+  puppyKey: puppyKeySchema.or(z.literal("general")).default("general"),
+  message: z
+    .string()
+    .trim()
+    .min(10, "Tell us a little more (at least 10 characters)")
+    .max(2000, "Keep this under 2000 characters"),
+});
+
+export type ContactInquiry = z.infer<typeof contactInquirySchema>;
+
+export type ContactFailureReason = "invalid" | "invalid_json" | "rate_limit" | "network";
+
+export type ContactResponse =
+  | { success: true }
+  | { success: false; errors: Array<{ field: string; message: string }> };
 
 export const livingSchema = z.object({
   homeType: z.enum(HOME_TYPES),
