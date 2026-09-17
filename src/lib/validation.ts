@@ -59,3 +59,18 @@ export type ReservationStepSchema =
   | typeof agreementSchema;
 
 export type StepName = keyof typeof reservationStepSchemas;
+
+// GHL Integration
+export type GHLIntegration = {
+  enabled: boolean;
+  apiKey: string;
+  locationId: string;
+  pipelineId?: string;
+  dealPipeline?: "reservation" | "contact" | "lead";
+};
+
+export type ReservationWithGHL = ReservationData & {
+  ghlIntegration: GHLIntegration;
+  ghlContactId?: string;
+  ghlDealId?: string;
+};
