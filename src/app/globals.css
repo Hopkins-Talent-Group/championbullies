@@ -50,13 +50,6 @@
   --color-line-soft: var(--line-soft);
   --font-sans: var(--font-roboto), Roboto, "Segoe UI", Arial, sans-serif;
   --font-slab: var(--font-roboto-slab), "Roboto Slab", Rockwell, serif;
-  --font-size-0: var(--fs-0);
-  --font-size-1: var(--fs-1);
-  --font-size-2: var(--fs-2);
-  --font-size-3: var(--fs-3);
-  --font-size-4: var(--fs-4);
-  --font-size-5: var(--fs-5);
-  --font-size-6: var(--fs-6);
 }
 
 html {
@@ -319,6 +312,9 @@ body {
 
 .rs-body {
   flex: 1;
+  /* Lets the body shrink inside the capped panel so the footer below it is
+     never clipped out of view when a step is taller than the viewport. */
+  min-height: 0;
   padding: 34px;
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -340,29 +336,23 @@ body {
   color: var(--body);
 }
 
+/* Field groups sit on the panel without boxes; rhythm comes from the margins. */
 .rs-field {
-  margin-top: var(--step-3);
-  padding: var(--step-3) var(--step-4);
+  margin-top: 21px;
 }
 
 .rs-field + .rs-field {
-  margin-top: var(--step-4);
+  margin-top: 34px;
 }
 
 .rs-label {
   display: block;
-  margin-bottom: var(--step-2);
-  font-size: var(--fs-1);
+  margin-bottom: 8px;
+  font-size: var(--fs-micro);
   font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
   color: var(--body);
-}
-
-.rs-help {
-  font-size: var(--fs-0);
-  color: var(--muted);
-  margin-top: var(--step-1);
 }
 
 .rs-input {
@@ -605,10 +595,13 @@ body {
 
 .rs-foot {
   display: flex;
+  /* Never compresses: the action row stays fully visible above the scroll. */
+  flex-shrink: 0;
   gap: 13px;
-  padding: 21px 34px calc(21px + env(safe-area-inset-bottom));
-  border-top: 1px solid var(--line-soft);
+  padding: 13px 21px calc(13px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line);
   background: var(--paper);
+  box-shadow: 0 -8px 21px rgba(5, 7, 10, .04);
 }
 
 .rs-foot .rs-btn-primary {
@@ -736,10 +729,6 @@ body {
 
   .rs-body {
     padding: 21px;
-  }
-
-  .rs-foot {
-    padding: 13px 21px calc(13px + env(safe-area-inset-bottom));
   }
 
   .rs-foot .rs-btn {
