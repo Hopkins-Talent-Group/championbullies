@@ -86,8 +86,8 @@ export function Step3({ onNext, onBack }: Step3Props) {
                       type="radio"
                       name={field.name}
                       ref={field.ref}
-                      value={String(option)}
-                      checked={field.value === option}
+                      value={option ? "true" : "false"}
+                      checked={option}
                       onBlur={field.onBlur}
                       onChange={() => field.onChange(option)}
                       className="w-4 h-4 rounded border-primary focus:ring-primary"
