@@ -1,17 +1,17 @@
 "use client";
 
 import { createContext, useContext, useReducer, ReactNode } from "react";
-
-type Step = "puppy" | "contact" | "living" | "agreement";
-
-type PuppyData = {
+export type PuppyData = {
   key: string;
   name: string;
   breed: string;
   price: string;
   gender: string;
   year: number;
+  image?: string;
 };
+
+type Step = "puppy" | "contact" | "living" | "agreement";
 
 type FormStepData = {
   puppy: PuppyData | null;

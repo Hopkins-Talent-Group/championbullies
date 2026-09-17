@@ -82,3 +82,35 @@ export type ReservationFailureReason =
 export type ReservationResponse =
   | { ok: true; reference: string; channel: "webhook" | "email" }
   | { ok: false; reason: ReservationFailureReason };
+
+// GHL (GoHighLevel) integration types, merged in from origin/dev (dc7f236).
+// The GHL-enabled API route variant lives in that commit; ghl.ts ships the
+// client so the integration can be wired into the current submission flow
+// later. The flat shape below is what ghl.ts's mapReservationToGHL consumes.
+export type GHLIntegration = {
+  enabled: boolean;
+  apiKey: string;
+  locationId: string;
+  pipelineId?: string;
+  dealPipeline?: "reservation" | "contact" | "lead";
+};
+
+export type ReservationWithGHL = {
+  name: string;
+  email: string;
+  phone: string;
+  homeType: string;
+  hasYard?: boolean;
+  otherPets?: string;
+  childrenAges?: string;
+  hoursAlone?: string;
+  healthGuaranteeAck?: boolean;
+  spayNeuterAck?: boolean;
+  depositPaid?: boolean;
+  paymentMethodId?: string;
+  puppyName?: string;
+  breed?: string;
+  ghlIntegration: GHLIntegration;
+  ghlContactId?: string;
+  ghlDealId?: string;
+};

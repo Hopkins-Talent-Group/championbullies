@@ -15,7 +15,7 @@ const robotoSlab = Roboto_Slab({
 });
 
 export const metadata: Metadata = {
-  title: "ChampionBullies — AKC English & French Bulldogs, Florida",
+  title: "ChampionBullies | AKC English & French Bulldogs, Florida",
   description:
     "AKC registered English and French bulldogs from champion bloodlines — home-raised, health-tested, and handled daily by our family in Florida.",
 };
