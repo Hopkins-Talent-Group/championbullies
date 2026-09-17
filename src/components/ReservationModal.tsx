@@ -147,6 +147,13 @@ export function ReservationModal() {
 
   return createPortal(
     <div className="rs-shell">
+      {/* Dims and blurs the page behind the dialog; clicking it closes. */}
+      <div
+        className="rs-scrim"
+        data-state={stateAttr}
+        aria-hidden="true"
+        onClick={requestClose}
+      />
       <div
         className="rs-panel"
         data-state={stateAttr}

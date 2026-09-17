@@ -103,7 +103,7 @@ body {
 }
 
 .body-lg {
-  font-size: clamp(13px, 1.2vw, var(--fs-body));
+  font-size: var(--fs-body);
   line-height: 1.618;
   color: var(--body);
 }
@@ -162,9 +162,9 @@ body {
 .rs-scrim {
   position: absolute;
   inset: 0;
-  background: rgba(5, 7, 10, .46);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  background: rgba(5, 7, 10, .55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   animation: rs-fade-in 180ms var(--ease-out) both;
 }
 
@@ -319,7 +319,7 @@ body {
 
 .rs-body {
   flex: 1;
-  padding: 21px;
+  padding: 34px;
   overflow-y: auto;
   overscroll-behavior: contain;
   scroll-padding-bottom: 89px;
@@ -408,7 +408,7 @@ body {
 
 .rs-choices {
   display: grid;
-  gap: 8px;
+  gap: 13px;
 }
 
 .rs-choices-row {
@@ -606,7 +606,7 @@ body {
 .rs-foot {
   display: flex;
   gap: 13px;
-  padding: 13px 21px calc(13px + env(safe-area-inset-bottom));
+  padding: 21px 34px calc(21px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--line-soft);
   background: var(--paper);
 }

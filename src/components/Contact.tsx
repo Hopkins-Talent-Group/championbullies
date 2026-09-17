@@ -47,15 +47,15 @@ export function Contact() {
   const fieldStyle = { border: "1px solid var(--line)", background: "#ffffff" };
 
   return (
-    <section ref={sectionRef} id="contact" aria-labelledby="contact-heading" style={{ borderTop: "1px solid var(--line-soft)", padding: "clamp(55px,11vh,144px) var(--pad)" }}>
-      <div className="mx-auto grid grid-cols-1 gap-x-[89px] gap-y-[34px] lg:grid-cols-[1fr_1.618fr]" style={{ maxWidth: "var(--max-w)" }}>
+    <section ref={sectionRef} id="contact" aria-labelledby="contact-heading" style={{ borderTop: "1px solid var(--line-soft)", padding: "clamp(89px,12vh,144px) var(--pad)" }}>
+      <div className="mx-auto grid grid-cols-1 gap-x-[89px] gap-y-[55px] lg:grid-cols-[1fr_1.618fr]" style={{ maxWidth: "var(--max-w)" }}>
         <div data-rv="up">
           <p className="eyebrow">Reserve a Puppy</p>
-          <h2 id="contact-heading" className="display h-sec" style={{ marginTop: 13 }}>Get in Touch</h2>
-          <p className="body-lg" style={{ marginTop: 21, maxWidth: "55ch" }}>
+          <h2 id="contact-heading" className="display h-sec" style={{ marginTop: 21 }}>Get in Touch</h2>
+          <p className="body-lg" style={{ marginTop: 34, maxWidth: "55ch" }}>
             Whether you&apos;re ready to reserve a puppy or just have questions about our program, we&apos;d love to hear from you.
           </p>
-          <ul className="space-y-[13px]" style={{ margin: 0, padding: 0, listStyle: "none", marginTop: 34 }} role="list">
+          <ul className="space-y-[21px]" style={{ margin: 0, padding: 0, listStyle: "none", marginTop: 55 }} role="list">
             <li>
               <a href="tel:+13212761159" className="flex items-center gap-[13px] transition-opacity hover:opacity-70" style={{ color: "var(--ink)", fontSize: 16, fontWeight: 500 }}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" strokeWidth="1.8" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z" /></svg>
@@ -78,7 +78,7 @@ export function Contact() {
         </div>
 
         <form onSubmit={handleSubmit} data-rv="up" style={{ transitionDelay: "120ms" }}>
-          <div className="grid gap-[21px] sm:grid-cols-2">
+          <div className="grid gap-[34px] sm:grid-cols-2">
             <div>
               <label htmlFor="name" className="caption block" style={{ marginBottom: 8 }}>Name *</label>
               <input id="name" name="name" type="text" required autoComplete="name" value={formData.name} onChange={handleChange} className="w-full px-[13px] py-[13px] text-[16px]" style={fieldStyle} placeholder="Your name" aria-required="true" />
@@ -102,13 +102,13 @@ export function Contact() {
             </div>
           </div>
 
-          <div style={{ marginTop: 21 }}>
+          <div style={{ marginTop: 34 }}>
             <label htmlFor="message" className="caption block" style={{ marginBottom: 8 }}>Message *</label>
             <textarea id="message" name="message" required rows={5} value={formData.message} onChange={handleChange} className="w-full resize-none px-[13px] py-[13px] text-[16px]" style={fieldStyle} placeholder="Tell us about what you're looking for…" aria-required="true" />
           </div>
 
-          <div className="flex flex-wrap items-center gap-[21px]" style={{ marginTop: 21 }}>
-            <button type="submit" disabled={status === "submitting"} className="inline-flex items-center gap-[13px] transition-opacity hover:opacity-85 disabled:opacity-50" style={{ background: "var(--ink)", color: "#ffffff", padding: "13px 21px", borderRadius: 999, fontSize: 10, fontWeight: 600, letterSpacing: ".22em", textTransform: "uppercase", cursor: "pointer" }}>
+          <div className="flex flex-wrap items-center gap-[21px]" style={{ marginTop: 34 }}>
+            <button type="submit" disabled={status === "submitting"} className="inline-flex items-center gap-[13px] transition-opacity hover:opacity-85 disabled:opacity-50" style={{ background: "var(--ink)", color: "#ffffff", padding: "13px 34px", borderRadius: 999, fontSize: 10, fontWeight: 600, letterSpacing: ".22em", textTransform: "uppercase", cursor: "pointer" }}>
               {status === "submitting" ? "Sending…" : status === "success" ? "Message Sent" : "Send Message"}
             </button>
             {status === "success" && (

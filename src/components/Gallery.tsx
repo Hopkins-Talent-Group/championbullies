@@ -57,24 +57,24 @@ function GalleryContent() {
         aria-labelledby="gallery-heading"
         style={{
           borderTop: "1px solid var(--line-soft)",
-          padding: "clamp(55px,11vh,144px) var(--pad)",
+          padding: "clamp(89px,12vh,144px) var(--pad)",
         }}
       >
         <div className="mx-auto" style={{ maxWidth: "var(--max-w)" }}>
-          <div className="flex flex-wrap items-end justify-between gap-[21px]" data-rv="up">
+          <div className="flex flex-wrap items-end justify-between gap-[34px]" data-rv="up">
             <div>
               <p className="eyebrow">Available Puppies</p>
-              <h2 id="gallery-heading" className="display h-sec" style={{ marginTop: 13 }}>
+              <h2 id="gallery-heading" className="display h-sec" style={{ marginTop: 21 }}>
                 Meet the Litter
               </h2>
             </div>
-            <p className="body-lg" style={{ maxWidth: "55ch", fontSize: 13 }}>
+            <p className="body-lg" style={{ maxWidth: "55ch" }}>
               Every photograph was taken in our home, cropped, never retouched, never stock.
             </p>
           </div>
 
           <ul
-            className="mt-[clamp(21px,5vh,34px)] grid grid-cols-1 gap-[13px] sm:grid-cols-2 lg:grid-cols-[repeat(4,1fr)]"
+            className="mt-[clamp(34px,6vh,55px)] grid grid-cols-1 gap-[21px] sm:grid-cols-2 lg:grid-cols-[repeat(4,1fr)]"
             style={{ padding: 0, listStyle: "none" }}
             role="list"
           >
@@ -113,7 +113,7 @@ function GalleryContent() {
                       </span>
                     </div>
                   </div>
-                  <div className="flex items-baseline justify-between gap-[13px]" style={{ marginTop: 13 }}>
+                  <div className="flex items-baseline justify-between gap-[13px]" style={{ marginTop: 21 }}>
                     <div>
                       <h3 style={{
                         fontFamily: "var(--font-slab)",
@@ -141,7 +141,7 @@ function GalleryContent() {
                     onClick={() => {
                       actions.open(pup);
                     }}
-                    style={{ marginTop: 13 }}
+                    style={{ marginTop: 21 }}
                   >
                     Reserve {pup.name}
                   </button>
