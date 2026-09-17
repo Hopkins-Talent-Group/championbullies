@@ -59,7 +59,7 @@ export class GHLClient {
     amount: number;
     contactId: string;
     stageId?: string;
-    customFields?: Record<string, any>;
+    customFields?: Record<string, unknown>;
   }): Promise<{ dealId: string; error?: string }> {
     const body = {
       deal: {
@@ -120,9 +120,6 @@ export function mapReservationToGHL(reservation: ReservationWithGHL) {
     spayNeuterAck,
     depositPaid,
     paymentMethodId,
-    ghlIntegration,
-    ghlContactId,
-    ghlDealId,
   } = reservation;
 
   return {
