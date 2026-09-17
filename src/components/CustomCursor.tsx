@@ -61,7 +61,7 @@ export function CustomCursor() {
       window.removeEventListener("mouseup", handleMouseUp);
       cancelAnimationFrame(animationFrame);
     };
-  }, []);
+  }, [isActive]);
 
   if (!isVisible) return null;
 

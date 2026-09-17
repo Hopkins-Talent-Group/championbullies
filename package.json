@@ -5,10 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "lint": "eslint .",
     "start": "next start",
-    "lint": "eslint"
+    "graphify:build": "node graphify/build.mjs",
+    "graphify:query": "node graphify/query.mjs"
   },
   "dependencies": {
+    "@hookform/resolvers": "^5.9.1",
     "@types/three": "^0.186.0",
     "framer-motion": "^13.3.0",
     "gsap": "^3.15.0",
@@ -16,7 +19,9 @@
     "next": "16.3.5",
     "react": "19.2.8",
     "react-dom": "19.2.8",
-    "three": "^0.186.0"
+    "react-hook-form": "^7.88.0",
+    "three": "^0.186.0",
+    "zod": "^4.6.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
