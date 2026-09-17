@@ -2,8 +2,6 @@
 
 An e-commerce style dog adoption platform with gallery, reservation modal, and knowledge graph generation.
 
-![championbullies](public/images/branding/logo-main.png)
-
 ## Features
 
 - **Dog Gallery** — Browse available dogs with images, details, and "Reserve Now" buttons
@@ -11,6 +9,9 @@ An e-commerce style dog adoption platform with gallery, reservation modal, and k
 - **Knowledge Graph** — Generate graphify knowledge graphs from codebase
 - **Multi-step Form** — Zod-validated forms with react-hook-form integration
 - **Context API** — Global reservation state management
+- **GHL (GoHighLevel) Integration** — Automatically create contacts and deals in GHL when reservations are submitted. Configure via `GHL_API_KEY` and `GHL_LOCATION_ID` environment variables.
+
+![championbullies](public/images/branding/logo-main.png)
 
 ## Getting Started
 
