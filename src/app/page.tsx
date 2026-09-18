@@ -2,6 +2,7 @@ import { Hero } from "@/components/Hero";
 import { Gallery } from "@/components/Gallery";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import Image from "next/image";
 
 export default function Home() {
   return (
@@ -26,17 +27,15 @@ export default function Home() {
           className="mx-auto flex items-center justify-between gap-[21px]"
           style={{ height: "var(--nav-h)", padding: "0 var(--pad)", maxWidth: "var(--max-w)" }}
         >
-          <a
-            href="#home"
-            style={{
-              fontFamily: "var(--font-slab)",
-              fontWeight: 600,
-              fontSize: 16,
-              letterSpacing: ".02em",
-            }}
-          >
-            ChampionBullies<span style={{ color: "var(--accent)" }}>.</span>
-          </a>
+            <a href="#home" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }}>
+              <Image
+                src="/images/branding/logo/horizontal-logo.png"
+                alt="ChampionBullies logo"
+                width={150}
+                height={40}
+                priority
+              /> 
+            </a>
           <nav
             aria-label="Primary"
             className="flex items-center gap-[34px]"
