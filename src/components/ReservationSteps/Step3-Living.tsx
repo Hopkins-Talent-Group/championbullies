@@ -8,9 +8,9 @@ import { livingFormSchema, type LivingFormValues } from "@/lib/validation";
 import { describedBy, Field, FieldGroup, RadioOption, TextInput } from "./Field";
 
 const HOME_OPTIONS = [
-  { value: "house", label: "House", description: "Owned or rented, with or without a yard" },
-  { value: "apartment", label: "Apartment", description: "Includes condos and townhouses" },
-  { value: "other", label: "Something else", description: "Mobile home, shared home, farm" },
+  { value: "house", label: "House" },
+  { value: "apartment", label: "Apartment or condo" },
+  { value: "other", label: "Something else" },
 ] as const;
 
 export function Step3() {
@@ -51,20 +51,35 @@ export function Step3() {
         which puppy fits your home.
       </p>
 
-      <FieldGroup legend="Where will the puppy live?" error={errors.homeType?.message}>
-        {HOME_OPTIONS.map((option) => (
-          <RadioOption
-            key={option.value}
-            value={option.value}
-            label={option.label}
-            description={option.description}
-            input={register("homeType", {
-              required: "Choose where the puppy will live",
-            })}
-          />
-        ))}
-      </FieldGroup>
+      {/* Where will the puppy live? — dropdown */}
+      <Field
+        id="rs-home"
+        label="Where will the puppy live?"
+        error={errors.homeType?.message}
+      >
+        <select
+          id="rs-home"
+          className="rs-input rs-select"
+          aria-invalid={Boolean(errors.homeType)}
+          aria-describedby={describedBy("rs-home", {
+            error: errors.homeType?.message,
+          })}
+          {...register("homeType", {
+            required: "Choose where the puppy will live",
+          })}
+        >
+          <option value="" disabled>
+            Select one
+          </option>
+          {HOME_OPTIONS.map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+      </Field>
 
+      {/* Does the home have a yard? */}
       <FieldGroup
         legend="Does the home have a yard?"
         columns
@@ -82,6 +97,7 @@ export function Step3() {
         />
       </FieldGroup>
 
+      {/* Other pets */}
       <Field
         id="rs-pets"
         label="Other pets in the home"
@@ -100,42 +116,47 @@ export function Step3() {
         />
       </Field>
 
-      <Field
-        id="rs-children"
-        label="Children in the home"
-        help="Ages are enough. Leave empty if there are none."
-        error={errors.childrenAges?.message}
-      >
-        <TextInput
+      {/* Children's ages | Hours alone */}
+      <div className="rs-field-grid-2">
+        <Field
           id="rs-children"
-          placeholder="7, 10"
-          invalid={Boolean(errors.childrenAges)}
-          aria-describedby={describedBy("rs-children", {
-            help: "Ages are enough. Leave empty if there are none.",
-            error: errors.childrenAges?.message,
-          })}
-          {...register("childrenAges")}
-        />
-      </Field>
+          label="Children in the home"
+          help="Ages are enough. Leave empty if there are none."
+          error={errors.childrenAges?.message}
+        >
+          <TextInput
+            id="rs-children"
+            placeholder="7, 10"
+            invalid={Boolean(errors.childrenAges)}
+            aria-describedby={describedBy("rs-children", {
+              help: "Ages are enough. Leave empty if there are none.",
+              error: errors.childrenAges?.message,
+            })}
+            {...register("childrenAges")}
+          />
+        </Field>
 
-      <Field
-        id="rs-hours"
-        label="Hours the puppy would be alone on a normal day"
-        help="A puppy needs someone home for most of the first months."
-        error={errors.hoursAlone?.message}
-      >
-        <TextInput
+        <Field
           id="rs-hours"
-          inputMode="numeric"
-          placeholder="6"
-          invalid={Boolean(errors.hoursAlone)}
-          aria-describedby={describedBy("rs-hours", {
-            help: "A puppy needs someone home for most of the first months.",
-            error: errors.hoursAlone?.message,
-          })}
-          {...register("hoursAlone", { required: "Enter how many hours the puppy is alone" })}
-        />
-      </Field>
+          label="Hours the puppy would be alone"
+          help="On a normal day."
+          error={errors.hoursAlone?.message}
+        >
+          <TextInput
+            id="rs-hours"
+            inputMode="numeric"
+            placeholder="6"
+            invalid={Boolean(errors.hoursAlone)}
+            aria-describedby={describedBy("rs-hours", {
+              help: "On a normal day.",
+              error: errors.hoursAlone?.message,
+            })}
+            {...register("hoursAlone", {
+              required: "Enter how many hours the puppy is alone",
+            })}
+          />
+        </Field>
+      </div>
     </form>
   );
 }

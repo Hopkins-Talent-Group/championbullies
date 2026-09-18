@@ -12,9 +12,9 @@
     "semantic_hash": ""
   },
   "package.json": {
-    "mtime": 1789667607.3612702,
-    "seen": 1789668637.5990033,
-    "ast_hash": "ba033d7586ee766fbe62d050260bfa17",
+    "mtime": 1789723623.380059,
+    "seen": 1789729042.8381376,
+    "ast_hash": "2d47b3ba611943e1a1a2944b359ac0ea",
     "semantic_hash": ""
   },
   "postcss.config.mjs": {
@@ -24,15 +24,15 @@
     "semantic_hash": ""
   },
   "src/app/layout.tsx": {
-    "mtime": 1789667281.1604056,
-    "seen": 1789668637.5990033,
+    "mtime": 1789711498.1278236,
+    "seen": 1789729042.8381376,
     "ast_hash": "7089793f680ab6a6cd727e238714c551",
     "semantic_hash": ""
   },
   "src/app/page.tsx": {
-    "mtime": 1789642647.963867,
-    "seen": 1789643273.452893,
-    "ast_hash": "567f9be0aa5eb984b6b223e82c0fb7a9",
+    "mtime": 1789715351.2801783,
+    "seen": 1789729042.8381376,
+    "ast_hash": "eba5635438125fea8f5f77696cf842a8",
     "semantic_hash": ""
   },
   "src/components/Canvas.tsx": {
@@ -42,9 +42,9 @@
     "semantic_hash": ""
   },
   "src/components/Contact.tsx": {
-    "mtime": 1789668403.07565,
-    "seen": 1789668637.5990033,
-    "ast_hash": "98fbcb8a37861a3c9bd9d053bee638b0",
+    "mtime": 1789716881.3877192,
+    "seen": 1789729042.8381376,
+    "ast_hash": "6b01095eb2dfb4ad05a02b1f5c8b4af3",
     "semantic_hash": ""
   },
   "src/components/CustomCursor.tsx": {
@@ -54,15 +54,15 @@
     "semantic_hash": ""
   },
   "src/components/Footer.tsx": {
-    "mtime": 1789657581.9791467,
-    "seen": 1789657801.6922565,
-    "ast_hash": "23534fa084cdd2127848421e7eb87059",
+    "mtime": 1789715323.1099684,
+    "seen": 1789729042.8381376,
+    "ast_hash": "64498f605ee65c0ebf6711696c4e1a31",
     "semantic_hash": ""
   },
   "src/components/Gallery.tsx": {
-    "mtime": 1789672445.9880135,
-    "seen": 1789672463.7920668,
-    "ast_hash": "f9055176103a57c89a5d8e7f2c2a3ded",
+    "mtime": 1789715323.1109662,
+    "seen": 1789729042.8381376,
+    "ast_hash": "a07774be5dfbedb10890afc4cfd371d7",
     "semantic_hash": ""
   },
   "src/components/Grain.tsx": {
@@ -72,9 +72,9 @@
     "semantic_hash": ""
   },
   "src/components/Hero.tsx": {
-    "mtime": 1789657494.3704097,
-    "seen": 1789657801.6922565,
-    "ast_hash": "0ab49297d04dbaf2f84d2d41693237d7",
+    "mtime": 1789716781.0883589,
+    "seen": 1789729042.8381376,
+    "ast_hash": "03c9f359521fd5dc6e4cb058616ed37c",
     "semantic_hash": ""
   },
   "src/components/Navigation.tsx": {
@@ -102,8 +102,8 @@
     "semantic_hash": ""
   },
   "README.md": {
-    "mtime": 1789668537.132661,
-    "seen": 1789668637.5990033,
+    "mtime": 1789711498.093914,
+    "seen": 1789729042.8381376,
     "ast_hash": "2f34b69694649cbf2b5b8cefeeff9aa0",
     "semantic_hash": ""
   },
@@ -126,9 +126,9 @@
     "semantic_hash": ""
   },
   "public/images/dogs/blue-angel.jpg": {
-    "mtime": 1789556189.9806795,
-    "seen": 1789558346.932619,
-    "ast_hash": "2bcf9181aa2b2ed41f4b05a98a69e23a",
+    "mtime": 1789531993.9034033,
+    "seen": 1789729042.8391356,
+    "ast_hash": "365170264c78cf1de514c6ef08cd5595",
     "semantic_hash": ""
   },
   "public/images/dogs/daphne.jpg": {
@@ -144,9 +144,9 @@
     "semantic_hash": ""
   },
   "public/images/dogs/hero.jpg": {
-    "mtime": 1789556189.5893395,
-    "seen": 1789558346.932619,
-    "ast_hash": "9fe462e11e957fd64560f8d6eb201797",
+    "mtime": 1789711498.124831,
+    "seen": 1789729042.8391356,
+    "ast_hash": "4ccce8291422b604e021abe4bf5000a5",
     "semantic_hash": ""
   },
   "public/images/dogs/margo.jpg": {
@@ -246,9 +246,9 @@
     "semantic_hash": ""
   },
   "src/app/api/reservations/route.ts": {
-    "mtime": 1789656128.4549084,
-    "seen": 1789656632.0148256,
-    "ast_hash": "8d8bf8a5f0cb1c4accbab96220b3233f",
+    "mtime": 1789737858.521516,
+    "seen": 1789737976.478476,
+    "ast_hash": "4968253960db72af3c90d1cc2fdebae5",
     "semantic_hash": ""
   },
   "src/components/Gallery_new.tsx": {
@@ -258,9 +258,9 @@
     "semantic_hash": ""
   },
   "src/components/ReservationModal.tsx": {
-    "mtime": 1789667448.0453598,
-    "seen": 1789668637.5990033,
-    "ast_hash": "530da193cc4f5f495a87b0fa1cee4393",
+    "mtime": 1789730868.6763418,
+    "seen": 1789737976.478476,
+    "ast_hash": "889f1bc0b55843b861aec5adababc168",
     "semantic_hash": ""
   },
   "src/components/ReservationSteps/Field.tsx": {
@@ -270,39 +270,39 @@
     "semantic_hash": ""
   },
   "src/components/ReservationSteps/ResultPanel.tsx": {
-    "mtime": 1789639611.7636821,
-    "seen": 1789643273.452893,
-    "ast_hash": "9bbe799b7c5c4014f62facb6ba091726",
+    "mtime": 1789734419.6771116,
+    "seen": 1789737976.478476,
+    "ast_hash": "a94794f6ce449f417c37aebf082393c2",
     "semantic_hash": ""
   },
   "src/components/ReservationSteps/Step1-Puppy.tsx": {
-    "mtime": 1789643168.4800603,
-    "seen": 1789643273.452893,
-    "ast_hash": "53e4a1ca378a47c7564f99023f8c5b0d",
+    "mtime": 1789733151.6849418,
+    "seen": 1789737976.478476,
+    "ast_hash": "6e6282f4da9983db455e6ff3b6c393e0",
     "semantic_hash": ""
   },
   "src/components/ReservationSteps/Step2-Contact.tsx": {
-    "mtime": 1789639201.982261,
-    "seen": 1789643273.452893,
-    "ast_hash": "bae27421d6bca490a70790ae068337c6",
+    "mtime": 1789734887.6836095,
+    "seen": 1789737976.478476,
+    "ast_hash": "48c7e85a899dffec3bf133f066417db3",
     "semantic_hash": ""
   },
   "src/components/ReservationSteps/Step3-Living.tsx": {
-    "mtime": 1789639249.689597,
-    "seen": 1789643273.452893,
-    "ast_hash": "ab7bd9352cca3c5dc01b7e22608e28ff",
+    "mtime": 1789733965.70152,
+    "seen": 1789737976.478476,
+    "ast_hash": "b8466be2d0e6b411cc272ef751f229c7",
     "semantic_hash": ""
   },
   "src/components/ReservationSteps/Step4-Agreement.tsx": {
-    "mtime": 1789639276.6874876,
-    "seen": 1789643273.452893,
-    "ast_hash": "5b1195c2be3a612f93f8fbbabe880129",
+    "mtime": 1789736086.6773012,
+    "seen": 1789737976.478476,
+    "ast_hash": "5e835faf8d282ec7251d90eaf2114edf",
     "semantic_hash": ""
   },
   "src/context/ReservationContext.tsx": {
-    "mtime": 1789639605.2344341,
-    "seen": 1789643273.452893,
-    "ast_hash": "75c8a4643e87838191058d5a0c60437d",
+    "mtime": 1789737839.1827996,
+    "seen": 1789737976.478476,
+    "ast_hash": "57f29763bea850642d872652cb076718",
     "semantic_hash": ""
   },
   "src/lib/reservationFlow.ts": {
@@ -312,9 +312,9 @@
     "semantic_hash": ""
   },
   "src/lib/reservationSummary.ts": {
-    "mtime": 1789639057.9406497,
-    "seen": 1789643273.452893,
-    "ast_hash": "dbfa9b86abb9a79e9605e04d454ba1ed",
+    "mtime": 1789737853.003065,
+    "seen": 1789737976.478476,
+    "ast_hash": "cf633a6734faf0128d26f147d7a38e6a",
     "semantic_hash": ""
   },
   "src/lib/reservations.ts": {
@@ -324,15 +324,15 @@
     "semantic_hash": ""
   },
   "src/lib/site.ts": {
-    "mtime": 1789672439.9949977,
-    "seen": 1789672463.7920668,
-    "ast_hash": "f2160df54e125df56555a01cbc3a7df0",
+    "mtime": 1789716006.675143,
+    "seen": 1789729042.8381376,
+    "ast_hash": "20e778f46f3be4f400fd0b2dce2bf4aa",
     "semantic_hash": ""
   },
   "src/lib/validation.ts": {
-    "mtime": 1789668365.8889544,
-    "seen": 1789668637.5990033,
-    "ast_hash": "ac5616c5e499fe3811baf6223978a356",
+    "mtime": 1789737861.0198286,
+    "seen": 1789737976.478476,
+    "ast_hash": "854f4cbd50f4ee27940370718ab89462",
     "semantic_hash": ""
   },
   "tmp/fix.py": {
@@ -372,9 +372,9 @@
     "semantic_hash": ""
   },
   "public/images/branding/logo/horizontal-logo.png": {
-    "mtime": 1789569753.8049247,
-    "seen": 1789643273.452893,
-    "ast_hash": "d4abb19bd1a66b24ba8f683fa542076c",
+    "mtime": 1789715323.1019912,
+    "seen": 1789729042.8391356,
+    "ast_hash": "2a6bdedc258b6185fb301c10d1463067",
     "semantic_hash": ""
   },
   "public/images/branding/logo/horizontal-main.png": {
@@ -432,129 +432,189 @@
     "semantic_hash": ""
   },
   "src/lib/ghl.ts": {
-    "mtime": 1789656535.155557,
-    "seen": 1789656632.0148256,
-    "ast_hash": "60398b87f46378ae430c5dd81ecd9a86",
+    "mtime": 1789737855.901523,
+    "seen": 1789737976.478476,
+    "ast_hash": "d6a718938270c6ddd63beb239d0c6d97",
     "semantic_hash": ""
   },
   "src/app/api/contact/route.ts": {
-    "mtime": 1789668345.8629527,
-    "seen": 1789668637.5990033,
-    "ast_hash": "70a4f2a4df3ca447199e19c968c2b987",
+    "mtime": 1789728877.088994,
+    "seen": 1789729042.8381376,
+    "ast_hash": "28dba55a430ea91ac5a0c2f4c4e05ea2",
     "semantic_hash": ""
   },
   "src/app/robots.ts": {
-    "mtime": 1789662738.2961605,
-    "seen": 1789668637.5990033,
+    "mtime": 1789711498.1288202,
+    "seen": 1789729042.8381376,
     "ast_hash": "24eb300d0a7a3d122c9c47896364892b",
     "semantic_hash": ""
   },
   "src/app/sitemap.ts": {
-    "mtime": 1789662747.9400632,
-    "seen": 1789668637.5990033,
+    "mtime": 1789711498.1298172,
+    "seen": 1789729042.8381376,
     "ast_hash": "456d5396d7bd5a1176d039284a65bb1e",
     "semantic_hash": ""
   },
   "tests/contact-api.mjs": {
-    "mtime": 1789668513.8889637,
-    "seen": 1789668637.5990033,
+    "mtime": 1789711498.1432967,
+    "seen": 1789729042.8381376,
     "ast_hash": "2230ce7c3f4246cbe2cf56c3ad9d0cc1",
     "semantic_hash": ""
   },
   "V3.2_PLAN_for_oc.md": {
-    "mtime": 1789668285.2564478,
-    "seen": 1789668637.5990033,
+    "mtime": 1789715323.0920165,
+    "seen": 1789729042.8381376,
     "ast_hash": "e45876ae8d963ed9a6edf9c561b8ccf1",
     "semantic_hash": ""
   },
   "log.txt": {
-    "mtime": 1789666086.105397,
-    "seen": 1789668637.5990033,
+    "mtime": 1789715323.0920165,
+    "seen": 1789729042.8381376,
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": ""
   },
   "tsc.txt": {
-    "mtime": 1789667012.0603442,
-    "seen": 1789668637.5990033,
+    "mtime": 1789715323.3585114,
+    "seen": 1789729042.8381376,
     "ast_hash": "d41d8cd98f00b204e9800998ecf8427e",
     "semantic_hash": ""
   },
   "src/lib/puppies.ts": {
-    "mtime": 1789668710.4485538,
-    "seen": 1789671010.8047128,
-    "ast_hash": "618c24d4d156ac8d311ad761f66a269f",
+    "mtime": 1789715971.6509037,
+    "seen": 1789729042.8381376,
+    "ast_hash": "35a7a8672e9c64006929a78c713ed41c",
     "semantic_hash": ""
   },
   "tmp/gallery-review/after.json": {
-    "mtime": 1789671006.687893,
-    "seen": 1789671010.8057039,
+    "mtime": 1789715323.1877842,
+    "seen": 1789729042.8381376,
     "ast_hash": "9839fa050c15c0f1f81de0f9f12ebb3b",
     "semantic_hash": ""
   },
   "tmp/gallery-review/baseline.json": {
-    "mtime": 1789670936.5333574,
-    "seen": 1789671010.8057039,
+    "mtime": 1789715323.2002633,
+    "seen": 1789729042.8381376,
     "ast_hash": "bb4e1ea4219232ebd2686755e6d0d589",
     "semantic_hash": ""
   },
   "tmp/gallery-review/after-1440.png": {
-    "mtime": 1789671004.3262503,
-    "seen": 1789671010.8057039,
+    "mtime": 1789715323.1408856,
+    "seen": 1789729042.8391356,
     "ast_hash": "84b016db9836bf9fb97b042a5d15be7a",
     "semantic_hash": ""
   },
   "tmp/gallery-review/after-375.png": {
-    "mtime": 1789670992.966492,
-    "seen": 1789671010.8057039,
+    "mtime": 1789715323.1628282,
+    "seen": 1789729042.8391356,
     "ast_hash": "8570c385b5993d05f49eb189ce741edc",
     "semantic_hash": ""
   },
   "tmp/gallery-review/after-768.png": {
-    "mtime": 1789670998.5192692,
-    "seen": 1789671010.8057039,
+    "mtime": 1789715323.1868088,
+    "seen": 1789729042.8391356,
     "ast_hash": "8c7857944df3a5c51ca1a5325a3a1b92",
     "semantic_hash": ""
   },
   "tmp/gallery-review/baseline-1440.png": {
-    "mtime": 1789670927.0617847,
-    "seen": 1789671010.8057039,
+    "mtime": 1789715323.1912875,
+    "seen": 1789729042.8391356,
     "ast_hash": "4dec29b47e7cf6c23a095b3cb2aeedde",
     "semantic_hash": ""
   },
   "tmp/gallery-review/baseline-375.png": {
-    "mtime": 1789670901.414797,
-    "seen": 1789671010.8057039,
+    "mtime": 1789715323.1952791,
+    "seen": 1789729042.8391356,
     "ast_hash": "072b4967d9a92b550fbf39876584d6b5",
     "semantic_hash": ""
   },
   "tmp/gallery-review/baseline-768.png": {
-    "mtime": 1789670914.6426346,
-    "seen": 1789671010.8057039,
+    "mtime": 1789715323.1982684,
+    "seen": 1789729042.8391356,
     "ast_hash": "6086f17a3e70d727e56dbf863fac5baa",
     "semantic_hash": ""
   },
   "tmp/gallery-review/v34.json": {
-    "mtime": 1789672208.4370587,
-    "seen": 1789672463.7920668,
+    "mtime": 1789715323.3585114,
+    "seen": 1789729042.8381376,
     "ast_hash": "e143a8be3fb7c4444740b6be60749ca0",
     "semantic_hash": ""
   },
   "tmp/gallery-review/v34-1440.png": {
-    "mtime": 1789672205.6784973,
-    "seen": 1789672463.7920668,
+    "mtime": 1789715323.3071134,
+    "seen": 1789729042.8391356,
     "ast_hash": "39db19e520e3377bbf1fb79f7cf234c5",
     "semantic_hash": ""
   },
   "tmp/gallery-review/v34-375.png": {
-    "mtime": 1789672193.5763676,
-    "seen": 1789672463.7920668,
+    "mtime": 1789715323.3290534,
+    "seen": 1789729042.8391356,
     "ast_hash": "f8b3748b2c0cb36d2f07904b6daf1c9d",
     "semantic_hash": ""
   },
   "tmp/gallery-review/v34-768.png": {
-    "mtime": 1789672200.0570345,
-    "seen": 1789672463.7920668,
+    "mtime": 1789715323.356517,
+    "seen": 1789729042.8391356,
     "ast_hash": "872d9c61ea2680e61ab0fddef3d7967b",
+    "semantic_hash": ""
+  },
+  "test-ghl.ts": {
+    "mtime": 1789729433.4990869,
+    "seen": 1789729531.5707533,
+    "ast_hash": "87ed4aeab0792bc574939fd6aac4f05f",
+    "semantic_hash": ""
+  },
+  "tmp/gallery-review/final-v34.json": {
+    "mtime": 1789715323.2831767,
+    "seen": 1789729042.8381376,
+    "ast_hash": "1aa292597126d8a1cf330e5736f49ed5",
+    "semantic_hash": ""
+  },
+  "public/images/branding/logo/horizontal-logo-v1.png": {
+    "mtime": 1789715323.0979998,
+    "seen": 1789729042.8391356,
+    "ast_hash": "d4abb19bd1a66b24ba8f683fa542076c",
+    "semantic_hash": ""
+  },
+  "public/images/branding/logo/horizontal-logo-v2.png": {
+    "mtime": 1789715323.0989974,
+    "seen": 1789729042.8391356,
+    "ast_hash": "e891d1cad7632d9b35b4e6c854518d09",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/blue-angel-v1.jpg": {
+    "mtime": 1789556189.9806795,
+    "seen": 1789729042.8391356,
+    "ast_hash": "2bcf9181aa2b2ed41f4b05a98a69e23a",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/hero-v1.jpg": {
+    "mtime": 1789715323.106979,
+    "seen": 1789729042.8391356,
+    "ast_hash": "9fe462e11e957fd64560f8d6eb201797",
+    "semantic_hash": ""
+  },
+  "public/images/dogs/lolita.jpg": {
+    "mtime": 1789532002.240709,
+    "seen": 1789729042.8391356,
+    "ast_hash": "5002714b26e8938b4805cb758d007de0",
+    "semantic_hash": ""
+  },
+  "tmp/gallery-review/final-v34-1440.png": {
+    "mtime": 1789715323.2291863,
+    "seen": 1789729042.8391356,
+    "ast_hash": "66c3169a1652d1dce5b14a8e534ed3a2",
+    "semantic_hash": ""
+  },
+  "tmp/gallery-review/final-v34-375.png": {
+    "mtime": 1789715323.2631836,
+    "seen": 1789729042.8391356,
+    "ast_hash": "5f9596fcdd09066f65317666bda336f2",
+    "semantic_hash": ""
+  },
+  "tmp/gallery-review/final-v34-768.png": {
+    "mtime": 1789715323.2811823,
+    "seen": 1789729042.8391356,
+    "ast_hash": "98a55c91f413b783b71e2e5ed79c6b1e",
     "semantic_hash": ""
   }
 }

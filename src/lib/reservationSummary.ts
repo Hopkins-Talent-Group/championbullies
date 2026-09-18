@@ -11,7 +11,7 @@ export function buildSummaryLines(submission: ReservationSubmission): string[] {
     `Price: ${puppy.price}`,
     `Puppy key: ${puppy.key}`,
     "",
-    `Name: ${contact.name}`,
+    `Name: ${contact.firstName} ${contact.lastName}`,
     `Email: ${contact.email}`,
     `Phone: ${contact.phone}`,
     "",

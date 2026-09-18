@@ -36,7 +36,8 @@ export function Step4() {
   const rows: Array<[string, string]> = [
     ["Puppy", data.puppy ? `${data.puppy.name}, ${data.puppy.breed}` : "not chosen"],
     ["Price", data.puppy?.price ?? "not chosen"],
-    ["Name", data.name || "not given"],
+    ["First name", data.firstName || "not given"],
+    ["Last name", data.lastName || "not given"],
     ["Email", data.email || "not given"],
     ["Phone", data.phone || "not given"],
     ["Home", HOME_LABELS[data.homeType]],
