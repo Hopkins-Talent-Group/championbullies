@@ -35,7 +35,7 @@ export default function Home() {
         <div
           className="mx-auto flex items-center justify-between"
           style={{
-            height: "64px",
+            height: "72px",
             padding: "0 var(--pad)",
             maxWidth: "var(--max-w)",
             gap: `${GAP_MD}px`,
