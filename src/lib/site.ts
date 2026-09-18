@@ -18,8 +18,8 @@ export const PUPPY_CATALOG: PuppyCatalogEntry[] = [
   { key: "scrappy", name: "Scrappy", image: "/images/dogs/scrappy.jpg", gender: "Male", status: "reserved", breed: "English Bulldog", year: 2026, price: "..." },
   { key: "shaggy", name: "Shaggy", image: "/images/dogs/shaggy.jpg", gender: "Male", status: "available", breed: "English Bulldog", year: 2026, price: "..." },
   { key: "velma", name: "Velma", image: "/images/dogs/velma.jpg", gender: "Female", status: "available", breed: "English Bulldog", year: 2026, price: "..." },
-  { key: "blue-angel", name: "Blue Angel", image: "/images/dogs/blue-angel.jpg", gender: "Male", status: "available", breed: "French Bulldog", year: 2025, price: "..." },
-  { key: "lolita", name: "Lolita", image: "/images/dogs/lolita.jpg", gender: "Female", status: "available", breed: "French Bulldog", year: 2024, price: "..." },
+  { key: "blue-angel", name: "Blue Angel", image: "/images/dogs/blue-angel.jpg", gender: "Male", status: "available", breed: "English Bulldog", year: 2025, price: "..." },
+  { key: "lolita", name: "Lolita", image: "/images/dogs/lolita.jpg", gender: "Female", status: "available", breed: "English Bulldog", year: 2024, price: "..." },
 ];
 
 export function interestLabel(puppy: PuppyCatalogEntry): string {
