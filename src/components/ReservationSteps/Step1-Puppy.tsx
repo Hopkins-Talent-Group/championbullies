@@ -54,7 +54,7 @@ export function Step1() {
             </div>
             <div>
               <dt>Price</dt>
-              <dd className="rs-facts-price">{puppy.price}</dd>
+              <dd className="rs-facts-price">...</dd>
             </div>
           </dl>
         </div>

@@ -138,7 +138,7 @@ export function Hero() {
             className="caption flex items-center justify-between"
             style={{ marginTop: 13 }}
           >
-            <span>Raised in our kitchen — 2024</span>
+            <span>Raised in our home — 2024</span>
             <span style={{ color: "var(--accent)" }}>ChampionBullies</span>
           </figcaption>
         </figure>

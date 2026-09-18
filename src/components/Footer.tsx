@@ -1,3 +1,6 @@
+
+import Image from "next/image";
+
 export function Footer() {
   const linkStyle = { fontSize: 13, color: "var(--body)" };
 
@@ -13,16 +16,22 @@ export function Footer() {
       <div className="mx-auto" style={{ maxWidth: "var(--max-w)" }}>
         <div className="grid grid-cols-1 gap-x-[34px] gap-y-[34px] md:grid-cols-[1.618fr_1fr_1fr]">
           <div>
-            <p style={{ fontFamily: "var(--font-slab)", fontWeight: 600, fontSize: 16, margin: 0 }}>
-              ChampionBullies<span style={{ color: "var(--accent)" }}>.</span>
-            </p>
+              <a href="#home" style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }}>
+                <Image
+                  src="/images/branding/logo/horizontal-logo-v1.png"
+                  alt="ChampionBullies logo"
+                  width={250}
+                  height={67}
+                  priority
+                /> 
+              </a>
             <p
               style={{
                 marginTop: 21,
                 fontSize: 13,
                 lineHeight: 1.618,
                 color: "var(--muted)",
-                maxWidth: "34ch",
+                maxWidth: "44ch",
               }}
             >
               AKC registered English &amp; French bulldogs from champion bloodlines —
