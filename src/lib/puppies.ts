@@ -17,5 +17,5 @@ export const PUPPY_DATA: Puppy[] = [
   { key: "shaggy", name: "Shaggy", breed: "English Bulldog", gender: "male", status: "available", year: 2026, price: "...", image: "/images/dogs/shaggy.jpg" },
   { key: "velma", name: "Velma", breed: "English Bulldog", gender: "female", status: "available", year: 2026, price: "...", image: "/images/dogs/velma.jpg" },
   { key: "blue-angel", name: "Blue Angel", breed: "French Bulldog", gender: "male", status: "available", year: 2026, price: "...", image: "/images/dogs/blue-angel.jpg" },
-  { key: "margo", name: "Margo", breed: "French Bulldog", gender: "female", status: "available", year: 2026, price: "...", image: "/images/dogs/margo.jpg" },
+  { key: "lolita", name: "Lolita", breed: "French Bulldog", gender: "female", status: "available", year: 2026, price: "...", image: "/images/dogs/lolita.jpg" },
 ];
