@@ -9,7 +9,8 @@ An e-commerce style dog adoption platform with gallery, reservation modal, and k
 - **Knowledge Graph** — Generate graphify knowledge graphs from codebase
 - **Multi-step Form** — Zod-validated forms with react-hook-form integration
 - **Context API** — Global reservation state management
-- **GHL (GoHighLevel) Integration** — Automatically create contacts and deals in GHL when reservations are submitted. Configure via `GHL_API_KEY` and `GHL_LOCATION_ID` environment variables.
+- **Contact Form** — `/api/contact` validates submissions with Zod and logs accepted inquiries on the server. No environment variables or paid service are required. Success means server acceptance, not email delivery or durable storage; server logs contain submitted contact details and must have restricted access and an appropriate retention policy.
+- **Reservation Delivery** — `/api/reservations` sends validated submissions to `RESERVATION_WEBHOOK_URL` and/or Resend (`RESEND_API_KEY`, `RESERVATION_NOTIFY_EMAIL`, `RESERVATION_FROM_EMAIL`)
 
 ![championbullies](public/images/branding/logo-main.png)
 

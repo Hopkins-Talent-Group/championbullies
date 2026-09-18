@@ -2,7 +2,7 @@
   "0": "devDependencies",
   "1": "dependencies",
   "2": "compilerOptions",
-  "3": "page.tsx",
+  "3": "Gallery.tsx",
   "4": "ReservationModal.tsx",
   "5": "reservations.ts",
   "6": "layout.tsx",
@@ -27,5 +27,10 @@
   "25": "championbullies / graphify",
   "26": "Gallery_new.tsx",
   "27": "fix.py",
-  "28": "GHLClient"
+  "28": "validation.ts",
+  "29": "SCOPE — YOUR LANE",
+  "30": "robots.ts",
+  "31": "sitemap.ts",
+  "32": "contact-api.mjs",
+  "33": "puppies.ts"
 }
