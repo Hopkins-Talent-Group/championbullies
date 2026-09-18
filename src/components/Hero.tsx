@@ -29,6 +29,12 @@ export function Hero() {
       id="home"
       className="relative overflow-hidden"
       aria-labelledby="hero-heading"
+      style={{
+        backgroundColor: "var(--paper)",
+        backgroundImage: "radial-gradient(rgba(0,0,0,0.0809) 1px, transparent 1px)",
+        backgroundSize: "10px 10px",
+        backgroundPosition: "0 0",
+      }}
     >
       <div
         className="mx-auto grid grid-cols-1 items-center gap-x-[89px] gap-y-[55px] lg:grid-cols-[1.618fr_1fr]"
@@ -102,13 +108,24 @@ export function Hero() {
           <ul
             className="flex flex-wrap gap-x-[34px] gap-y-[13px]"
             data-rv="up"
-            style={{ margin: 0, padding: 0, listStyle: "none", marginTop: 89, transitionDelay: "360ms" }}
+            style={{
+              margin: 0,
+              padding: 0,
+              listStyle: "none",
+              marginTop: 89,
+              transitionDelay: "360ms",
+            }}
           >
             {["AKC Registered", "Champion Bloodlines", "Home-Raised"].map((item) => (
               <li key={item} className="caption flex items-center gap-2.5">
                 <span
                   aria-hidden="true"
-                  style={{ width: 4, height: 4, borderRadius: "50%", background: "var(--accent)" }}
+                  style={{
+                    width: 4,
+                    height: 4,
+                    borderRadius: "50%",
+                    background: "var(--accent)",
+                  }}
                 />
                 {item}
               </li>
@@ -123,7 +140,11 @@ export function Hero() {
         >
           <div
             className="relative overflow-hidden"
-            style={{ aspectRatio: "4 / 5", outline: "1px solid var(--line)", outlineOffset: "-1px" }}
+            style={{
+              aspectRatio: "4 / 5",
+              outline: "1px solid var(--line)",
+              outlineOffset: "-1px",
+            }}
           >
             <Image
               src="/images/dogs/hero.jpg"
