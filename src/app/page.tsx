@@ -1,4 +1,5 @@
 import { Hero } from "@/components/Hero";
+import { TopBar } from "@/components/TopBar";
 import { TrustStrip } from "@/components/TrustStrip";
 import { Announcement } from "@/components/Announcement";
 import { WhyUs } from "@/components/WhyUs";
@@ -29,6 +30,7 @@ export default function Home() {
         Skip to content
       </a>
 
+      <TopBar />
       <header
         className="sticky top-0 z-40 border-b"
         style={{
