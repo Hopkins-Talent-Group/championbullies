@@ -17,11 +17,13 @@ const robotoSlab = Roboto_Slab({
 export const metadata: Metadata = {
   metadataBase: new URL("https://championbullies.vercel.app"),
   title: {
-    default: "Champion Bullies — Quality Pocket Bully Puppies",
+    default: "Champion Bullies — AKC English & French Bulldog Breeder in Florida",
     template: "%s | Champion Bullies",
   },
+  // Was describing Pocket Bullies in South Carolina, which is not this
+  // breeder and not this state. Matches the page's own copy now.
   description:
-    "Champion Bullies breeds top-tier Pocket Bully puppies in South Carolina. Reserve your puppy today.",
+    "AKC registered English and French Bulldogs from champion bloodlines, raised inside our Florida home. Two to three planned litters a year — reserve a puppy or ask us anything.",
   openGraph: {
     type: "website",
     siteName: "Champion Bullies",

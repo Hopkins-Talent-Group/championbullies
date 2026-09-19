@@ -1,5 +1,11 @@
 import { Hero } from "@/components/Hero";
+import { TrustStrip } from "@/components/TrustStrip";
+import { Announcement } from "@/components/Announcement";
+import { WhyUs } from "@/components/WhyUs";
 import { Gallery } from "@/components/Gallery";
+import { About } from "@/components/About";
+import { Guarantee } from "@/components/Guarantee";
+import { Faq } from "@/components/Faq";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
 import Image from "next/image";
@@ -69,8 +75,14 @@ export default function Home() {
             <a href="#home" className="hidden sm:inline transition-opacity hover:opacity-60">
               Home
             </a>
+            <a href="#about" className="hidden md:inline transition-opacity hover:opacity-60">
+              About
+            </a>
             <a href="#gallery" className="hidden sm:inline transition-opacity hover:opacity-60">
               Puppies
+            </a>
+            <a href="#faq" className="hidden md:inline transition-opacity hover:opacity-60">
+              FAQ
             </a>
             <a
               href="#contact"
@@ -85,7 +97,13 @@ export default function Home() {
 
       <main>
         <Hero />
+        <TrustStrip />
+        <Announcement />
+        <WhyUs />
         <Gallery />
+        <About />
+        <Guarantee />
+        <Faq />
         <Contact />
       </main>
       <Footer />
