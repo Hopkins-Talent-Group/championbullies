@@ -4,9 +4,16 @@ import { useEffect, useRef, useState } from "react";
 
 const chapters = [
   { id: "home", label: "Home", number: "01" },
-  { id: "gallery", label: "Puppies", number: "02" },
-  { id: "contact", label: "Reserve", number: "03" },
+  { id: "why-us", label: "Why us", number: "02" },
+  { id: "gallery", label: "Puppies", number: "03" },
+  { id: "about", label: "About", number: "04" },
+  { id: "contact", label: "Reserve", number: "05" },
 ];
+
+// Derived from the list above so a new chapter is watched for automatically.
+// The old hand-written array silently stopped highlighting whenever a section
+// was added to the page — this is that drift, closed.
+const SECTION_IDS = chapters.map((chapter) => chapter.id);
 
 export function Navigation() {
   const [isStuck, setIsStuck] = useState(false);
@@ -19,8 +26,7 @@ export function Navigation() {
       const scrollY = window.scrollY;
       setIsStuck(scrollY > 100);
 
-      const sections = ["home", "gallery", "contact"];
-      sections.forEach((id, index) => {
+      SECTION_IDS.forEach((id, index) => {
         const el = document.getElementById(id);
         if (el) {
           const rect = el.getBoundingClientRect();
