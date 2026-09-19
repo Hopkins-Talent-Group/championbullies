@@ -2,6 +2,16 @@ import { Hero } from "@/components/Hero";
 import { Gallery } from "@/components/Gallery";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
+import Image from "next/image";
+
+// Golden ratio scale — base unit 13px
+// φ¹ = 21px  → container gap
+// φ² = 34px  → nav item gap
+// φ³ = 55px  → section breathing room
+const PHI = 1.618;
+const BASE = 13;
+const GAP_MD = Math.round(BASE * PHI);        // 21
+const GAP_LG = Math.round(BASE * PHI * PHI);  // 34
 
 export default function Home() {
   return (
@@ -23,24 +33,33 @@ export default function Home() {
         }}
       >
         <div
-          className="mx-auto flex items-center justify-between gap-[21px]"
-          style={{ height: "var(--nav-h)", padding: "0 var(--pad)", maxWidth: "var(--max-w)" }}
+          className="mx-auto flex items-center justify-between"
+          style={{
+            height: "72px",
+            padding: "0 var(--pad)",
+            maxWidth: "var(--max-w)",
+            gap: `${GAP_MD}px`,
+          }}
         >
           <a
             href="#home"
-            style={{
-              fontFamily: "var(--font-slab)",
-              fontWeight: 600,
-              fontSize: 16,
-              letterSpacing: ".02em",
-            }}
+            style={{ display: "inline-flex", alignItems: "center", textDecoration: "none" }}
           >
-            ChampionBullies<span style={{ color: "var(--accent)" }}>.</span>
+            <Image
+              src="/images/branding/logo/horizontal-logo-v2.png"
+              alt="ChampionBullies logo"
+              width={200}
+              height={53}
+              priority
+              style={{ width: 200, height: "auto" }}
+            />
           </a>
+
           <nav
             aria-label="Primary"
-            className="flex items-center gap-[34px]"
+            className="flex items-center"
             style={{
+              gap: `${GAP_LG}px`,
               fontSize: 10,
               fontWeight: 600,
               letterSpacing: ".22em",

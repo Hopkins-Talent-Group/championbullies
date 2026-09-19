@@ -15,9 +15,28 @@ const robotoSlab = Roboto_Slab({
 });
 
 export const metadata: Metadata = {
-  title: "ChampionBullies | AKC English & French Bulldogs, Florida",
+  metadataBase: new URL("https://championbullies.vercel.app"),
+  title: {
+    default: "Champion Bullies — Quality Pocket Bully Puppies",
+    template: "%s | Champion Bullies",
+  },
   description:
-    "AKC registered English and French bulldogs from champion bloodlines — home-raised, health-tested, and handled daily by our family in Florida.",
+    "Champion Bullies breeds top-tier Pocket Bully puppies in South Carolina. Reserve your puppy today.",
+  openGraph: {
+    type: "website",
+    siteName: "Champion Bullies",
+    locale: "en_US",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "Champion Bullies",
+      },
+    ],
+  },
+  twitter: { card: "summary_large_image" },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {

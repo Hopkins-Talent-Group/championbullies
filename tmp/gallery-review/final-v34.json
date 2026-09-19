@@ -1,0 +1,350 @@
+[
+  {
+    "width": 375,
+    "anchor": "gallery",
+    "overflow": false,
+    "groups": [
+      [
+        "Fred",
+        "Shaggy",
+        "Blue Angel"
+      ],
+      [
+        "Daphne",
+        "Velma",
+        "Margo"
+      ],
+      [
+        "Scooby",
+        "Scrappy"
+      ]
+    ],
+    "images": [
+      {
+        "alt": "Fred, English Bulldog puppy",
+        "loaded": true,
+        "width": 333,
+        "height": 416.25
+      },
+      {
+        "alt": "Shaggy, English Bulldog puppy",
+        "loaded": true,
+        "width": 333,
+        "height": 416.25
+      },
+      {
+        "alt": "Blue Angel, French Bulldog puppy",
+        "loaded": true,
+        "width": 333,
+        "height": 416.25
+      },
+      {
+        "alt": "Daphne, English Bulldog puppy",
+        "loaded": true,
+        "width": 333,
+        "height": 416.25
+      },
+      {
+        "alt": "Velma, English Bulldog puppy",
+        "loaded": true,
+        "width": 333,
+        "height": 416.25
+      },
+      {
+        "alt": "Margo, French Bulldog puppy",
+        "loaded": true,
+        "width": 333,
+        "height": 416.25
+      },
+      {
+        "alt": "Scooby, English Bulldog puppy (reserved)",
+        "loaded": true,
+        "width": 333,
+        "height": 416.25
+      },
+      {
+        "alt": "Scrappy, English Bulldog puppy (reserved)",
+        "loaded": true,
+        "width": 333,
+        "height": 416.25
+      }
+    ],
+    "headings": [
+      "Meet the Litter",
+      "Available Males",
+      "Available Females",
+      "Reserved"
+    ],
+    "reservations": [
+      {
+        "name": "Reserve Fred",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Shaggy",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Blue Angel",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Daphne",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Velma",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Margo",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 768,
+    "anchor": "gallery",
+    "overflow": false,
+    "groups": [
+      [
+        "Fred",
+        "Shaggy",
+        "Blue Angel"
+      ],
+      [
+        "Daphne",
+        "Velma",
+        "Margo"
+      ],
+      [
+        "Scooby",
+        "Scrappy"
+      ]
+    ],
+    "images": [
+      {
+        "alt": "Fred, English Bulldog puppy",
+        "loaded": true,
+        "width": 332.453125,
+        "height": 415.5625
+      },
+      {
+        "alt": "Shaggy, English Bulldog puppy",
+        "loaded": true,
+        "width": 332.453125,
+        "height": 415.5625
+      },
+      {
+        "alt": "Blue Angel, French Bulldog puppy",
+        "loaded": true,
+        "width": 332.453125,
+        "height": 415.5625
+      },
+      {
+        "alt": "Daphne, English Bulldog puppy",
+        "loaded": true,
+        "width": 332.453125,
+        "height": 415.5625
+      },
+      {
+        "alt": "Velma, English Bulldog puppy",
+        "loaded": true,
+        "width": 332.453125,
+        "height": 415.5625
+      },
+      {
+        "alt": "Margo, French Bulldog puppy",
+        "loaded": true,
+        "width": 332.453125,
+        "height": 415.5625
+      },
+      {
+        "alt": "Scooby, English Bulldog puppy (reserved)",
+        "loaded": true,
+        "width": 332.453125,
+        "height": 415.5625
+      },
+      {
+        "alt": "Scrappy, English Bulldog puppy (reserved)",
+        "loaded": true,
+        "width": 332.453125,
+        "height": 415.5625
+      }
+    ],
+    "headings": [
+      "Meet the Litter",
+      "Available Males",
+      "Available Females",
+      "Reserved"
+    ],
+    "reservations": [
+      {
+        "name": "Reserve Fred",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Shaggy",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Blue Angel",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Daphne",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Velma",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Margo",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      }
+    ],
+    "errors": []
+  },
+  {
+    "width": 1440,
+    "anchor": "gallery",
+    "overflow": false,
+    "groups": [
+      [
+        "Fred",
+        "Shaggy",
+        "Blue Angel"
+      ],
+      [
+        "Daphne",
+        "Velma",
+        "Margo"
+      ],
+      [
+        "Scooby",
+        "Scrappy"
+      ]
+    ],
+    "images": [
+      {
+        "alt": "Fred, English Bulldog puppy",
+        "loaded": true,
+        "width": 376.984375,
+        "height": 471.21875
+      },
+      {
+        "alt": "Shaggy, English Bulldog puppy",
+        "loaded": true,
+        "width": 376.984375,
+        "height": 471.21875
+      },
+      {
+        "alt": "Blue Angel, French Bulldog puppy",
+        "loaded": true,
+        "width": 376.984375,
+        "height": 471.21875
+      },
+      {
+        "alt": "Daphne, English Bulldog puppy",
+        "loaded": true,
+        "width": 376.984375,
+        "height": 471.21875
+      },
+      {
+        "alt": "Velma, English Bulldog puppy",
+        "loaded": true,
+        "width": 376.984375,
+        "height": 471.21875
+      },
+      {
+        "alt": "Margo, French Bulldog puppy",
+        "loaded": true,
+        "width": 376.984375,
+        "height": 471.21875
+      },
+      {
+        "alt": "Scooby, English Bulldog puppy (reserved)",
+        "loaded": true,
+        "width": 376.984375,
+        "height": 471.21875
+      },
+      {
+        "alt": "Scrappy, English Bulldog puppy (reserved)",
+        "loaded": true,
+        "width": 376.984375,
+        "height": 471.21875
+      }
+    ],
+    "headings": [
+      "Meet the Litter",
+      "Available Males",
+      "Available Females",
+      "Reserved"
+    ],
+    "reservations": [
+      {
+        "name": "Reserve Fred",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Shaggy",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Blue Angel",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Daphne",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Velma",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      },
+      {
+        "name": "Reserve Margo",
+        "opened": true,
+        "correctPuppy": true,
+        "focusRestored": true
+      }
+    ],
+    "errors": []
+  }
+]

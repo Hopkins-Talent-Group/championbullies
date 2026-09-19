@@ -25,10 +25,7 @@
 *.pem
 
 # ox
-/.ox
-
-# code graph analysis
-/graphify-out
+/.ox 
 
 # debug
 npm-debug.log*
