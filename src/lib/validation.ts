@@ -20,12 +20,18 @@ export const puppySchema = z.object({
   image: z.string().optional(),
 });
 
+// Step 2: contact details. Split name into first/last so GHL gets real fields.
 export const contactSchema = z.object({
-  name: z
+  firstName: z
     .string()
     .trim()
-    .min(2, "Enter the name we should ask for")
-    .max(80, "Keep this under 80 characters"),
+    .min(1, "Enter your first name")
+    .max(60, "Keep this under 60 characters"),
+  lastName: z
+    .string()
+    .trim()
+    .min(1, "Enter your last name")
+    .max(60, "Keep this under 60 characters"),
   email: z.string().trim().email("Enter an email address we can reply to"),
   phone: z
     .string()
@@ -34,9 +40,14 @@ export const contactSchema = z.object({
 });
 
 // A general inquiry or a question about one catalog puppy — the same interest
-// list the contact section renders.
+// list the contact section renders. Contact inquiries keep a single name field
+// since they go into a simpler GHL contact form.
 export const contactInquirySchema = z.object({
-  name: contactSchema.shape.name,
+  name: z
+    .string()
+    .trim()
+    .min(2, "Enter the name we should ask for")
+    .max(80, "Keep this under 80 characters"),
   email: contactSchema.shape.email,
   phone: z.string().trim().max(40),
   puppyKey: puppyKeySchema.or(z.literal("general")).default("general"),
@@ -102,16 +113,16 @@ export type ReservationFailureReason =
   | "invalid"
   | "invalid_json"
   | "unconfigured"
-  | "delivery_failed";
+  | "delivery_failed"
+  | "network";
 
 export type ReservationResponse =
-  | { ok: true; reference: string; channel: "webhook" | "email" }
+  | { ok: true; reference: string; channel: "webhook" | "email" | "ghl" }
   | { ok: false; reason: ReservationFailureReason };
 
-// GHL (GoHighLevel) integration types, merged in from origin/dev (dc7f236).
-// The GHL-enabled API route variant lives in that commit; ghl.ts ships the
-// client so the integration can be wired into the current submission flow
-// later. The flat shape below is what ghl.ts's mapReservationToGHL consumes.
+// GHL (GoHighLevel) integration types.
+// ghl.ts's mapReservationToGHL consumes the nested ReservationSubmission shape;
+// the flat ReservationWithGHL shape is kept for the origin/dev route variant.
 export type GHLIntegration = {
   enabled: boolean;
   apiKey: string;
@@ -121,7 +132,8 @@ export type GHLIntegration = {
 };
 
 export type ReservationWithGHL = {
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   homeType: string;
@@ -135,7 +147,7 @@ export type ReservationWithGHL = {
   paymentMethodId?: string;
   puppyName?: string;
   breed?: string;
-  ghlIntegration: GHLIntegration;
+  ghlIntegration?: GHLIntegration;
   ghlContactId?: string;
   ghlDealId?: string;
 };

@@ -38,6 +38,11 @@
   --fs-h1: 68px;
   /* 1597 is a Fibonacci number: the page cap honours the sequence. */
   --max-w: 1597px;
+
+  /* Golden ratio for the reservation dialog */
+  --phi: 1.618;
+  --rs-panel-w: 610px;
+  --rs-body-w: 568px;   /* panel − 2 × 21px padding */
 }
 
 @theme inline {
@@ -138,9 +143,9 @@ body {
   }
 }
 
-/* ---------- reservation dialog ---------- */
-/* Purpose: one elevated surface above a dimmed page. The backdrop blur is dosed
-   to this single element, and the panel is the only thing carrying a shadow. */
+/* ============================================================
+   Reservation dialog
+   ============================================================ */
 
 .rs-shell {
   position: fixed;
@@ -166,7 +171,7 @@ body {
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 610px;
+  max-width: var(--rs-panel-w);
   max-height: min(89vh, 987px);
   max-height: min(89dvh, 987px);
   background: var(--paper);
@@ -197,7 +202,6 @@ body {
   to { opacity: 0; transform: translateY(6px) scale(.99); }
 }
 
-/* Exit is faster than entry: closing should feel immediate. */
 .rs-scrim[data-state="closing"] {
   animation: rs-fade-out 120ms var(--ease) both;
 }
@@ -205,6 +209,8 @@ body {
 .rs-panel[data-state="closing"] {
   animation: rs-panel-out 140ms var(--ease) both;
 }
+
+/* ---------- header ---------- */
 
 .rs-head {
   display: flex;
@@ -245,70 +251,113 @@ body {
   transition: color 140ms var(--ease), background-color 140ms var(--ease);
 }
 
+/* ---------- stepper ---------- */
+
 .rs-stepper {
+  padding: 0 21px;
   border-top: 1px solid var(--line-soft);
   border-bottom: 1px solid var(--line-soft);
 }
 
 .rs-steps {
   display: flex;
-  gap: 2px;
+  align-items: stretch;
+  justify-content: space-between;
+  gap: 0;
   margin: 0;
-  padding: 0 13px;
+  padding: 0;
   list-style: none;
 }
 
-.rs-step {
+/* Each step claims an equal share of the row — this is the fix that
+   stops all four from bunching on the left. */
+.rs-steps li {
+  flex: 1 1 0;
+  min-width: 0;
   display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 0 8px;
-  background: transparent;
-  border: 0;
-  color: var(--muted);
-  cursor: pointer;
-  transition: color 140ms var(--ease);
+  align-items: stretch;
 }
 
-.rs-step[disabled] {
-  cursor: default;
+.rs-step {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 13px 8px;
+  background: none;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--ink);
+  font-family: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition:
+    opacity 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+  opacity: 0.4;
+}
+
+.rs-step:disabled {
+  cursor: not-allowed;
+}
+
+.rs-step:not(:disabled):hover {
+  opacity: 0.7;
 }
 
 .rs-step[data-state="done"] {
-  color: var(--body);
+  opacity: 0.75;
 }
 
 .rs-step[data-state="current"] {
-  color: var(--ink);
+  opacity: 1;
+  border-bottom-color: var(--accent);
 }
 
-/* The same 01/02 voice the page already uses for its chapters. */
 .rs-step-index {
+  display: block;
   font-family: var(--font-slab);
-  font-size: var(--fs-micro);
+  font-size: 11px;
   font-weight: 600;
-  letter-spacing: .08em;
+  letter-spacing: 0.22em;
+  line-height: 1;
+  color: currentColor;
 }
 
 .rs-step-title {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: .16em;
+  display: block;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
   text-transform: uppercase;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+
+.rs-step[data-state="current"] .rs-step-title {
+  font-weight: 700;
 }
 
 .rs-progress {
+  position: relative;
   height: 2px;
+  width: 100%;
   background: var(--line-soft);
+  overflow: hidden;
 }
 
 .rs-progress-fill {
-  height: 100%;
+  position: absolute;
+  inset: 0;
   background: var(--accent);
   transform-origin: left center;
-  transition: transform 240ms var(--ease-out);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
 }
+
+/* ---------- body ---------- */
 
 .rs-body {
   flex: 1;
@@ -321,11 +370,24 @@ body {
   scroll-padding-bottom: 89px;
 }
 
+/* Content column = panel width − 2 × 21px padding.
+   This is the golden-ratio-sized content area inside the panel. */
+.rs-body > * {
+  width: 100%;
+  max-width: var(--rs-body-w);
+  margin-inline: auto;
+}
+
+/* Step heading — treated as a section caption, not a title. */
 .rs-step-heading {
-  font-family: var(--font-slab);
-  font-size: clamp(13px, 2vw, 21px);
+  font-family: var(--font-sans);
+  font-size: var(--fs-micro);
   font-weight: 600;
-  color: var(--ink);
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-align: left;
+  margin: 0 0 21px;
 }
 
 .rs-lead {
@@ -336,7 +398,8 @@ body {
   color: var(--body);
 }
 
-/* Field groups sit on the panel without boxes; rhythm comes from the margins. */
+/* ---------- form fields ---------- */
+
 .rs-field {
   margin-top: 21px;
 }
@@ -396,6 +459,8 @@ body {
   color: var(--accent);
 }
 
+/* ---------- choices ---------- */
+
 .rs-choices {
   display: grid;
   gap: 13px;
@@ -417,8 +482,6 @@ body {
   transition: border-color 140ms var(--ease), background-color 140ms var(--ease);
 }
 
-/* The checked state is also carried by the native control, so nothing here
-   depends on the tint alone. */
 .rs-choice:has(input:checked) {
   border-color: var(--accent);
   background: rgba(216, 0, 39, .04);
@@ -485,56 +548,117 @@ body {
   border-top: 1px solid var(--line-soft);
 }
 
+/* ============================================================
+   Puppy summary card (Step 1)
+   Golden-ratio column split: photo : info = 1 : φ
+   ============================================================ */
+
 .rs-puppy {
   display: grid;
-  grid-template-columns: 144px 1fr;
+  grid-template-columns: 1fr 1.618fr;
   gap: 21px;
   align-items: start;
+  width: 100%;
+  max-width: var(--rs-body-w);
+  margin-inline: auto;
 }
 
 .rs-puppy-photo {
   position: relative;
-  width: 144px;
-  aspect-ratio: 4 / 5;
-  border-radius: var(--r-field);
+  width: 100%;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
+  border-radius: var(--r-field);
+  background: var(--line-soft);
   outline: 1px solid var(--line);
   outline-offset: -1px;
 }
 
+.rs-puppy-info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-width: 0;
+}
+
 .rs-puppy-name {
+  margin: 0;
   font-family: var(--font-slab);
-  font-size: 21px;
+  font-size: var(--fs-h3);
   font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
   color: var(--ink);
 }
 
+.rs-puppy-breed {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
 .rs-facts {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 13px 21px;
+  display: flex;
+  gap: 21px;
   margin: 13px 0 0;
+  padding: 0;
+}
+
+.rs-facts > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
 }
 
 .rs-facts dt {
-  font-size: 10px;
+  font-size: var(--fs-micro);
   font-weight: 600;
-  letter-spacing: .16em;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
   color: var(--muted);
 }
 
 .rs-facts dd {
-  margin-top: 3px;
-  font-size: 13px;
+  margin: 0;
+  font-size: var(--fs-body);
+  font-weight: 500;
   color: var(--ink);
 }
 
-.rs-facts-price {
-  font-family: var(--font-slab);
+.rs-puppy-price-row {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 21px;
+  margin-top: 21px;
+  padding-top: 13px;
+  border-top: 1px solid var(--line-soft);
+}
+
+.rs-puppy-price-label {
+  font-size: var(--fs-micro);
   font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rs-puppy-price-value {
+  font-family: var(--font-slab);
+  font-size: var(--fs-h3);
+  font-weight: 600;
+  letter-spacing: -0.01em;
   color: var(--accent);
 }
+
+.rs-puppy + .rs-lead {
+  margin-top: var(--sp-4);
+  max-width: var(--rs-body-w);
+  margin-inline: auto;
+}
+
+/* ---------- review ---------- */
 
 .rs-review {
   display: grid;
@@ -562,40 +686,103 @@ body {
   text-align: right;
 }
 
+/* ============================================================
+   Result panel — success / error
+   ============================================================ */
+
 .rs-result {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 13px;
+  padding: 13px 0;
+}
+
+/* The circular mark above the eyebrow */
+.rs-result-mark {
+  display: grid;
+  place-items: center;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  margin-bottom: 5px;
+}
+
+.rs-result-success .rs-result-mark {
+  background: rgba(216, 0, 39, 0.08);
+  color: var(--accent);
+}
+
+.rs-result-error .rs-result-mark {
+  background: rgba(180, 60, 20, 0.08);
+  color: #b43c14;
+}
+
+.rs-result .rs-eyebrow {
+  margin: 0;
 }
 
 .rs-result-title {
   font-family: var(--font-slab);
   font-size: clamp(21px, 2.2vw, var(--fs-h3));
   font-weight: 600;
+  line-height: 1.15;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* Reference chip — inline, centered, small */
+.rs-reference {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 8px;
+  padding: 6px 13px;
+  background: var(--line-soft);
+  border-radius: var(--r-pill);
+  font-size: 13px;
+}
+
+.rs-reference-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.rs-reference-value {
+  font-family: var(--font-slab);
+  font-weight: 600;
+  letter-spacing: 0.04em;
   color: var(--ink);
 }
 
+/* Body copy — centered inside the block */
+.rs-result .rs-lead {
+  text-align: center;
+  max-width: 42ch;
+  margin: 0;
+}
+
+/* Actions column — stacked, full width, not wrapping pills */
 .rs-result-actions {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   gap: 8px;
-  margin-top: 5px;
+  width: 100%;
+  max-width: 320px;
+  margin-top: 13px;
 }
 
-.rs-reference {
-  justify-self: start;
-  padding: 5px 8px;
-  border: 1px solid var(--line-strong);
-  border-radius: var(--r-chip);
-  font-family: var(--font-slab);
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .04em;
-  color: var(--ink);
+.rs-result-actions .rs-btn {
+  width: 100%;
 }
+
+/* ---------- footer ---------- */
 
 .rs-foot {
   display: flex;
-  /* Never compresses: the action row stays fully visible above the scroll. */
   flex-shrink: 0;
   gap: 13px;
   padding: 13px 21px calc(13px + env(safe-area-inset-bottom));
@@ -607,6 +794,8 @@ body {
 .rs-foot .rs-btn-primary {
   flex: 1;
 }
+
+/* ---------- buttons ---------- */
 
 .rs-btn {
   display: inline-flex;
@@ -637,7 +826,6 @@ body {
   color: #ffffff;
 }
 
-/* An ink outline, because an accent outline is invisible on an accent fill. */
 .rs-btn-primary:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
@@ -649,10 +837,6 @@ body {
   color: var(--ink);
 }
 
-/* The gallery card action keeps the colours it had on the v3.3.5 tag: an
-   outline at rest that fills with the accent red under a real pointer. The
-   resting border is --line-strong rather than the tag's --line so the button
-   boundary clears the 3:1 non-text contrast bar. */
 .rs-btn-outline {
   background: transparent;
   border: 1px solid var(--line-strong);
@@ -673,7 +857,8 @@ body {
   cursor: not-allowed;
 }
 
-/* Hover only where a real pointer exists: no sticky states on touch. */
+/* ---------- hover (real pointer only) ---------- */
+
 @media (hover: hover) and (pointer: fine) {
   .rs-close:hover {
     color: var(--ink);
@@ -708,7 +893,85 @@ body {
   }
 }
 
-/* Phone widths get a sheet anchored to the bottom, not a shrunk dialog. */
+/* ---------- field grids ---------- */
+
+/* Two-column base for email + phone */
+.rs-field-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 21px;
+  margin-top: 21px;
+  align-items: start;
+}
+
+/* Full-width row for the name field */
+.rs-field-grid-full {
+  grid-column: 1 / -1;
+}
+
+/* Reset the vertical stacking margins inside the grid */
+.rs-field-grid .rs-field,
+.rs-field-grid .rs-field + .rs-field,
+.rs-field-grid-full .rs-field,
+.rs-field-grid-full .rs-field + .rs-field {
+  margin-top: 0;
+}
+
+/* Two-column grid for paired field groups */
+.rs-field-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 21px;
+  margin-top: 21px;
+  align-items: start;
+}
+
+/* Second grid gets more separation from the one above it */
+.rs-field-grid-2 + .rs-field-full + .rs-field-grid-2,
+.rs-field-grid-2 + .rs-field-grid-2 {
+  margin-top: 34px;
+}
+
+/* Full-width standalone field */
+.rs-field-full {
+  margin-top: 34px;
+}
+
+/* Neutralize vertical stacking margins inside the grids */
+.rs-field-grid-2 > *,
+.rs-field-grid-2 .rs-field,
+.rs-field-grid-2 .rs-field + .rs-field {
+  margin-top: 0;
+}
+
+/* Native select — matches .rs-input, with custom arrow */
+.rs-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 13px center;
+  padding-right: 34px;
+  cursor: pointer;
+}
+
+.rs-select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.rs-select:invalid {
+  color: var(--muted);
+}
+
+/* ---------- responsive ---------- */
+
+@media (max-width: 900px) {
+  .rs-field-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
 @media (max-width: 640px) {
   .rs-shell {
     align-items: flex-end;
@@ -731,6 +994,10 @@ body {
     padding: 21px;
   }
 
+  .rs-body > * {
+    max-width: none;
+  }
+
   .rs-foot {
     gap: 8px;
     padding: 13px 13px calc(13px + env(safe-area-inset-bottom));
@@ -740,8 +1007,6 @@ body {
     flex: 1 1 0;
     width: auto;
     min-width: 0;
-    /* Narrow sheets keep both labels on one line; truncation with a title is
-       the fallback if a label ever outgrows its half. */
     padding: 0 13px;
     white-space: nowrap;
     overflow: hidden;
@@ -751,27 +1016,83 @@ body {
   .rs-step-title {
     display: none;
   }
+
+  .rs-field-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .rs-field-grid-full {
+    grid-column: auto;
+  }
+
+  .rs-field-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 21px;
+  }
+
+  .rs-field-full {
+    margin-top: 21px;
+  }
 }
 
 @media (max-width: 480px) {
+  .rs-stepper {
+    padding: 0 13px;
+  }
+
+  .rs-step {
+    padding: 13px 5px;
+    gap: 5px;
+  }
+
+  .rs-step-index,
+  .rs-step-title {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+  }
+
   .rs-choices-row {
     grid-template-columns: 1fr;
   }
 
   .rs-puppy {
-    grid-template-columns: 89px 1fr;
+    grid-template-columns: 1fr 1.618fr;
     gap: 13px;
   }
 
   .rs-puppy-photo {
-    width: 89px;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .rs-puppy-name {
+    font-size: 20px;
+  }
+
+  .rs-puppy-price-value {
+    font-size: 20px;
   }
 
   .rs-facts {
-    grid-template-columns: 1fr;
-    gap: 10px;
+    gap: 13px;
+  }
+
+  .rs-facts dd {
+    font-size: 14px;
+  }
+
+  .rs-result-mark {
+    width: 55px;
+    height: 55px;
+  }
+
+  .rs-result-actions {
+    max-width: 100%;
   }
 }
+
+/* ---------- reduced motion ---------- */
 
 @media (prefers-reduced-motion: reduce) {
   .rs-scrim,

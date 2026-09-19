@@ -87,7 +87,19 @@ export function Contact() {
   const fieldStyle = { border: "1px solid var(--line)", background: "#ffffff" };
 
   return (
-    <section ref={sectionRef} id="contact" aria-labelledby="contact-heading" style={{ borderTop: "1px solid var(--line-soft)", padding: "clamp(89px,12vh,144px) var(--pad)" }}>
+    <section
+      ref={sectionRef}
+      id="contact"
+      aria-labelledby="contact-heading"
+      style={{
+        borderTop: "1px solid var(--line-soft)",
+        padding: "clamp(89px,12vh,144px) var(--pad)",
+        backgroundColor: "var(--paper)",
+        backgroundImage: "radial-gradient(rgba(0,0,0,0.0809) 1px, transparent 1px)",
+        backgroundSize: "10px 10px",
+        backgroundPosition: "0 0",
+      }}
+    >
       <div className="mx-auto grid grid-cols-1 gap-x-[89px] gap-y-[55px] lg:grid-cols-[1fr_1.618fr]" style={{ maxWidth: "var(--max-w)" }}>
         <div data-rv="up">
           <p className="eyebrow">Reserve a Puppy</p>

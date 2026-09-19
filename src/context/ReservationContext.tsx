@@ -28,7 +28,8 @@ export type FailureReason = "invalid" | "unconfigured" | "delivery_failed" | "ne
 
 export type FormData = {
   puppy: PuppyData | null;
-  name: string;
+  firstName: string;
+  lastName: string;
   email: string;
   phone: string;
   homeType: HomeType | "";
@@ -65,7 +66,8 @@ export type ReservationActions = {
 
 const EMPTY_DATA: FormData = {
   puppy: null,
-  name: "",
+  firstName: "",
+  lastName: "",
   email: "",
   phone: "",
   homeType: "",
@@ -154,7 +156,12 @@ const ReservationContext = createContext<{
 function buildCandidate(data: FormData) {
   return {
     puppy: data.puppy,
-    contact: { name: data.name, email: data.email, phone: data.phone },
+    contact: {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      email: data.email,
+      phone: data.phone,
+    },
     living: {
       homeType: data.homeType,
       hasYard: data.hasYard,

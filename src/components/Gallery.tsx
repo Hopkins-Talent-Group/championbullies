@@ -73,7 +73,7 @@ function PuppyCard({ puppy }: { puppy: PuppyCatalogEntry }) {
           <h4 style={{ fontFamily: "var(--font-slab)", fontWeight: 600, fontSize: 21, color: reserved ? "var(--muted)" : "var(--ink)" }}>{puppy.name}</h4>
           <p className="caption" style={{ marginTop: 8 }}>{gender} &bull; {puppy.year}</p>
         </div>
-        <span style={{ fontFamily: "var(--font-slab)", fontWeight: 600, fontSize: 21, color: reserved ? "var(--muted)" : "var(--accent)" }}>{puppy.price}</span>
+        <span style={{ fontFamily: "var(--font-slab)", fontWeight: 600, fontSize: 21, color: reserved ? "var(--muted)" : "var(--accent)" }}>...</span>
       </div>
       <button type="button" className="rs-btn rs-btn-outline w-full" disabled={reserved} onClick={() => { if (!reserved) actions.open({ ...puppy, gender }); }} style={{ marginTop: 34 }}>
         {reserved ? "Reserved" : `Reserve ${puppy.name}`}

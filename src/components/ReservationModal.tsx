@@ -27,6 +27,7 @@ export function ReservationModal() {
   const { state, actions } = useReservation();
   const [closing, setClosing] = useState(false);
   const panelRef = useRef<HTMLDivElement>(null);
+  const headingRef = useRef<HTMLHeadingElement>(null);
   const restoreFocusRef = useRef<HTMLElement | null>(null);
   const closeTimerRef = useRef<number | null>(null);
 
@@ -34,26 +35,34 @@ export function ReservationModal() {
   const isResult = state.status === "success" || state.status === "error";
   const stepIndex = RESERVATION_STEPS.indexOf(state.step);
   const submitting = state.status === "submitting";
-  const title = state.data.puppy ? `Reserve ${state.data.puppy.name}` : "Reserve a puppy";
+  const title = state.data.puppy
+    ? `Reserve ${state.data.puppy.name}`
+    : "Reserve a puppy";
 
   // Closing plays the exit animation first, then lets the context unmount the
   // panel: no effect has to mirror context state back into local state.
   const requestClose = useCallback(() => {
     if (closeTimerRef.current !== null) return;
+    if (submitting) return;
 
     setClosing(true);
     closeTimerRef.current = window.setTimeout(() => {
       closeTimerRef.current = null;
       setClosing(false);
       actions.close();
-      restoreFocusRef.current?.focus();
+
+      // Restore focus only if the original element is still in the DOM.
+      const el = restoreFocusRef.current;
+      if (el && document.contains(el)) el.focus();
       restoreFocusRef.current = null;
     }, EXIT_MS);
-  }, [actions]);
+  }, [actions, submitting]);
 
   useEffect(
     () => () => {
-      if (closeTimerRef.current !== null) window.clearTimeout(closeTimerRef.current);
+      if (closeTimerRef.current !== null) {
+        window.clearTimeout(closeTimerRef.current);
+      }
     },
     []
   );
@@ -66,12 +75,14 @@ export function ReservationModal() {
     panelRef.current?.focus();
   }, [open]);
 
-  // Each step change and each result moves focus to its heading, which is how a
-  // screen reader hears where the flow landed.
+  // Each step change moves focus to its heading, which is how a screen reader
+  // hears where the flow landed. rAF ensures the new step's DOM has mounted
+  // before focusing. Result state is handled by ResultPanel itself.
   useEffect(() => {
-    if (!open) return;
-    document.getElementById("rs-step-heading")?.focus();
-  }, [open, state.step, state.status]);
+    if (!open || isResult) return;
+    const id = requestAnimationFrame(() => headingRef.current?.focus());
+    return () => cancelAnimationFrame(id);
+  }, [open, state.step, isResult]);
 
   useEffect(() => {
     if (!open) return;
@@ -96,6 +107,9 @@ export function ReservationModal() {
     const handleKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         event.preventDefault();
+        // Block closing while a submission is in flight, otherwise the
+        // result panel would never be shown.
+        if (submitting) return;
         requestClose();
         return;
       }
@@ -105,9 +119,9 @@ export function ReservationModal() {
       const panel = panelRef.current;
       if (!panel) return;
 
-      const focusable = Array.from(panel.querySelectorAll<HTMLElement>(FOCUSABLE)).filter(
-        (node) => node.getClientRects().length > 0
-      );
+      const focusable = Array.from(
+        panel.querySelectorAll<HTMLElement>(FOCUSABLE)
+      ).filter((node) => node.getClientRects().length > 0);
 
       if (focusable.length === 0) {
         event.preventDefault();
@@ -139,7 +153,7 @@ export function ReservationModal() {
 
     document.addEventListener("keydown", handleKeyDown, true);
     return () => document.removeEventListener("keydown", handleKeyDown, true);
-  }, [open, requestClose]);
+  }, [open, requestClose, submitting]);
 
   if (!open || typeof document === "undefined") return null;
 
@@ -152,7 +166,7 @@ export function ReservationModal() {
         className="rs-scrim"
         data-state={stateAttr}
         aria-hidden="true"
-        onClick={requestClose}
+        onClick={submitting ? undefined : requestClose}
       />
       <div
         className="rs-panel"
@@ -160,6 +174,7 @@ export function ReservationModal() {
         role="dialog"
         aria-modal="true"
         aria-labelledby="rs-dialog-title"
+        aria-describedby={!isResult ? "rs-step-heading" : undefined}
         aria-busy={submitting || undefined}
         tabIndex={-1}
         ref={panelRef}
@@ -179,9 +194,16 @@ export function ReservationModal() {
             type="button"
             className="rs-close"
             onClick={requestClose}
+            disabled={submitting}
             aria-label="Close the reservation dialog"
           >
-            <svg width="13" height="13" viewBox="0 0 14 14" aria-hidden="true" focusable="false">
+            <svg
+              width="13"
+              height="13"
+              viewBox="0 0 14 14"
+              aria-hidden="true"
+              focusable="false"
+            >
               <path
                 d="M1 1l12 12M13 1L1 13"
                 stroke="currentColor"
@@ -212,7 +234,9 @@ export function ReservationModal() {
                         aria-current={isCurrent ? "step" : undefined}
                         aria-label={`Step ${index + 1} of ${RESERVATION_STEPS.length}, ${STEP_TITLES[step]}${isCurrent ? ", current step" : ""}`}
                         disabled={index > stepIndex}
-                        onClick={() => actions.goto(step)}
+                        onClick={() => {
+                          if (index < stepIndex) actions.goto(step);
+                        }}
                       >
                         <span className="rs-step-index" aria-hidden="true">
                           {`0${index + 1}`}
@@ -247,7 +271,12 @@ export function ReservationModal() {
                 }
               }}
             >
-              <h3 className="rs-step-heading" id="rs-step-heading" tabIndex={-1}>
+              <h3
+                ref={headingRef}
+                className="rs-step-heading"
+                id="rs-step-heading"
+                tabIndex={-1}
+              >
                 {STEP_HEADINGS[state.step]}
               </h3>
               {state.step === "puppy" && <Step1 />}
@@ -262,11 +291,17 @@ export function ReservationModal() {
                   type="button"
                   className="rs-btn rs-btn-secondary"
                   onClick={requestClose}
+                  disabled={submitting}
                 >
                   Cancel
                 </button>
               ) : (
-                <button type="button" className="rs-btn rs-btn-secondary" onClick={actions.back}>
+                <button
+                  type="button"
+                  className="rs-btn rs-btn-secondary"
+                  onClick={actions.back}
+                  disabled={submitting}
+                >
                   Back
                 </button>
               )}
@@ -276,7 +311,9 @@ export function ReservationModal() {
                 className="rs-btn rs-btn-primary"
                 disabled={submitting}
               >
-                {submitting ? "Sending your request" : STEP_ACTION_LABELS[state.step]}
+                {submitting
+                  ? "Sending your request"
+                  : STEP_ACTION_LABELS[state.step]}
               </button>
             </footer>
           </>

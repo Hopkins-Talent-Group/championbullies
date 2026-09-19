@@ -1,2 +1,4 @@
 allowBuilds:
   unrs-resolver: false
+minimumReleaseAgeExclude:
+  - dotenv@18.0.0

@@ -16,7 +16,8 @@ export function Step2() {
   } = useForm<ContactDetails>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
-      name: state.data.name,
+      firstName: state.data.firstName,
+      lastName: state.data.lastName,
       email: state.data.email,
       phone: state.data.phone,
     },
@@ -33,17 +34,36 @@ export function Step2() {
     >
       <p className="rs-lead">We reply from this address, so use one you check.</p>
 
-      <Field id="rs-name" label="Full name" error={errors.name?.message}>
-        <TextInput
-          id="rs-name"
-          autoComplete="name"
-          placeholder="First and last name"
-          invalid={Boolean(errors.name)}
-          aria-describedby={describedBy("rs-name", { error: errors.name?.message })}
-          {...register("name")}
-        />
-      </Field>
+      {/* Row 1 — First name + Last name */}
+      <div className="rs-field-grid">
+        <Field id="rs-first-name" label="First name" error={errors.firstName?.message}>
+          <TextInput
+            id="rs-first-name"
+            autoComplete="given-name"
+            placeholder="First name"
+            invalid={Boolean(errors.firstName)}
+            aria-describedby={describedBy("rs-first-name", {
+              error: errors.firstName?.message,
+            })}
+            {...register("firstName")}
+          />
+        </Field>
 
+        <Field id="rs-last-name" label="Last name" error={errors.lastName?.message}>
+          <TextInput
+            id="rs-last-name"
+            autoComplete="family-name"
+            placeholder="Last name"
+            invalid={Boolean(errors.lastName)}
+            aria-describedby={describedBy("rs-last-name", {
+              error: errors.lastName?.message,
+            })}
+            {...register("lastName")}
+          />
+        </Field>
+      </div>
+
+      {/* Row 2 — Email (full width) */}
       <Field id="rs-email" label="Email" error={errors.email?.message}>
         <TextInput
           id="rs-email"
@@ -52,11 +72,14 @@ export function Step2() {
           autoComplete="email"
           placeholder="you@example.com"
           invalid={Boolean(errors.email)}
-          aria-describedby={describedBy("rs-email", { error: errors.email?.message })}
+          aria-describedby={describedBy("rs-email", {
+            error: errors.email?.message,
+          })}
           {...register("email")}
         />
       </Field>
 
+      {/* Row 3 — Phone (full width) */}
       <Field
         id="rs-phone"
         label="Phone"
