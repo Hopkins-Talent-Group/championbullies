@@ -36,3 +36,25 @@ export const CONTACT = {
 } as const;
 
 export const DEPOSIT_AMOUNT = "$500";
+
+/**
+ * The three social icons the WordPress header carried. Its markup still has
+ * them, but every one of the six anchors on that page is a dead placeholder —
+ * the header's have no href attribute at all and the footer's are href="#".
+ *
+ * So there was no profile URL to copy across, and guessing one would put a
+ * link to somebody else's account in the header. Fill in `href` and the icon
+ * becomes a real link; while it is null the icon renders as decoration rather
+ * than as a control that goes nowhere.
+ */
+export type SocialLink = {
+  key: "facebook" | "twitter" | "instagram";
+  label: string;
+  href: string | null;
+};
+
+export const SOCIAL_LINKS: readonly SocialLink[] = [
+  { key: "facebook", label: "Facebook", href: null },
+  { key: "twitter", label: "Twitter", href: null },
+  { key: "instagram", label: "Instagram", href: null },
+];
